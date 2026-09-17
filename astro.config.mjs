@@ -55,7 +55,7 @@ function youtubeEmbed(id, short = false) {
         type: "element",
         tagName: "iframe",
         properties: {
-          src: `https://www.youtube-nocookie.com/embed/${id}`,
+          src: `https://www.youtube-nocookie.com/embed/${id}?enablejsapi=1`,
           title: "YouTube video",
           loading: "lazy",
           allow:
@@ -163,7 +163,7 @@ export default defineConfig({
   redirects: withSlashVariants(googleSitesRedirects),
   markdown: {
     // Rehype plugins run at markdown compile time; restart `astro dev` after editing them.
-    // cache-bust: quotes + cumulative media (2026-09-17j)
+    // cache-bust: carousels for work/projects + Illinois resources (2026-09-17m)
     rehypePlugins: [rehypeYoutubeEmbeds, rehypeMatchTocIds, rehypeVerseQuotes, rehypeEntryCards],
   },
   vite: {

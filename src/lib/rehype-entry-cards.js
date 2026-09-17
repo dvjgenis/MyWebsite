@@ -130,6 +130,136 @@ function isAiToolEntry(title) {
   return /duckduckgo ai chat|asta\.ai|gemini notebook|notebooklm/i.test(title);
 }
 
+const CAROUSEL_PAGES = new Set(["initiatives/projects", "initiatives/work"]);
+
+function pageSlugFromFile(file) {
+  const fromMatter = file?.data?.astro?.frontmatter?.slug;
+  if (fromMatter) return String(fromMatter);
+  const raw = String(file?.path || file?.history?.[0] || "");
+  const match = raw.replace(/\\/g, "/").match(/\/content\/pages\/(.+?)\/index\.md$/i);
+  return match ? match[1] : "";
+}
+
+function isWeekdayFoodTitle(title) {
+  return /^(monday|tuesday|wednesday|thursday|friday)$/i.test(title);
+}
+
+function enableYoutubeApi(node) {
+  const walk = (n) => {
+    if (isElement(n, "iframe") && n.properties?.src) {
+      const src = String(n.properties.src);
+      if (/youtube/.test(src) && !src.includes("enablejsapi=1")) {
+        n.properties.src = src.includes("?") ? `${src}&enablejsapi=1` : `${src}?enablejsapi=1`;
+      }
+    }
+    (n.children || []).forEach(walk);
+  };
+  walk(node);
+  return node;
+}
+
+function carouselButton(dir) {
+  return el(
+    "button",
+    {
+      type: "button",
+      className: ["site-carousel-btn", `site-carousel-btn--${dir}`],
+      "aria-label": dir === "prev" ? "Previous" : "Next",
+    },
+    [],
+  );
+}
+
+function wrapCarousel(kind, slides, label) {
+  const count = slides.length;
+  slides.forEach((slide, i) => {
+    slide.properties ||= {};
+    slide.properties.className = [...new Set([...classList(slide), "site-carousel-slide"])];
+    slide.properties["aria-hidden"] = i === 0 ? "false" : "true";
+    slide.properties["data-index"] = String(i);
+  });
+
+  const navKids = [];
+  if (count <= 8) {
+    navKids.push(
+      el(
+        "div",
+        { className: ["site-carousel-dots"], role: "tablist", "aria-label": label },
+        slides.map((_, i) =>
+          el(
+            "button",
+            {
+              type: "button",
+              className: i === 0 ? ["site-carousel-dot", "is-active"] : ["site-carousel-dot"],
+              "aria-label": `${label} ${i + 1}`,
+              ...(i === 0 ? { "aria-current": "true" } : {}),
+            },
+            [],
+          ),
+        ),
+      ),
+    );
+  }
+  navKids.push(
+    el("p", { className: ["site-carousel-count"], "aria-live": "polite" }, [{ type: "text", value: `1 / ${count}` }]),
+  );
+
+  return el(
+    "div",
+    {
+      className: ["site-carousel", `site-carousel--${kind}`],
+      "data-kind": kind,
+      role: "region",
+      "aria-roledescription": "carousel",
+      "aria-label": label,
+      tabIndex: 0,
+    },
+    [
+      el("div", { className: ["site-carousel-frame"] }, [
+        carouselButton("prev"),
+        el("div", { className: ["site-carousel-track"] }, slides),
+        carouselButton("next"),
+      ]),
+      el("div", { className: ["site-carousel-nav"] }, navKids),
+    ],
+  );
+}
+
+function carouselEl(kind, nodes) {
+  const slides = flattenMedia(nodes).map((node) => el("div", {}, [enableYoutubeApi(node)]));
+  return wrapCarousel(kind, slides, kind === "video" ? "Videos" : "Photos");
+}
+
+function wrapResourceCarousel(cards) {
+  const slides = cards.map((card) => el("div", {}, [card]));
+  return wrapCarousel("resource", slides, "Illinois campus resources");
+}
+
+function maybeCarousel(kind, nodes) {
+  if (!nodes.length) return [];
+  if (nodes.length <= 3) return flattenMedia(nodes);
+  return [carouselEl(kind, nodes)];
+}
+
+function packLooseMedia(nodes) {
+  if (nodes.length <= 1) return nodes;
+  if (nodes.some((n) => classList(n).includes("site-carousel"))) return nodes;
+  return [el("div", { className: ["entry-media-row"] }, nodes)];
+}
+
+function mediaRail(videos, images, originalMedia, useCarousel) {
+  if (!useCarousel || (videos.length <= 3 && images.length <= 3)) {
+    return flattenMedia(originalMedia.length ? originalMedia : [...videos, ...images]);
+  }
+  return [...packLooseMedia(maybeCarousel("video", videos)), ...packLooseMedia(maybeCarousel("image", images))];
+}
+
+function nodeHasCarousel(nodes) {
+  return (nodes || []).some(
+    (n) => classList(n).includes("site-carousel") || (n.children || []).some((c) => classList(c).includes("site-carousel")),
+  );
+}
+
 function isPersonHeading(title) {
   if (isAiToolEntry(title)) return false;
   if (/^(dr\.|prof\.)\s+[A-Z]/i.test(title)) return true;
@@ -578,7 +708,7 @@ function personCard(section) {
   );
 }
 
-function sectionCard(section, people) {
+function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {}) {
   const title = section.title;
   const { heading, extras } = splitHeading(title);
   const meaningful = section.body.filter((n) => !isBlank(n));
@@ -629,7 +759,7 @@ function sectionCard(section, people) {
     blocks = wrapH3Blocks(rest);
     layout = solo ? "solo" : "compact";
   } else if (blocked && images.length + videos.length >= 2) {
-    rail = flattenMedia(media);
+    rail = mediaRail(videos, images, media, useCarousel);
     blocks = wrapH3Blocks(rest);
     layout = "gallery";
   } else if (blocked && images.length + videos.length > 0) {
@@ -651,7 +781,11 @@ function sectionCard(section, people) {
       !costaRica &&
       (merged.videos.filter((n) => classList(n).includes("youtube-embed--short")).length >= 2 ||
         (merged.videos.length >= 3 && merged.images.length >= 2));
-    if (costaRica) {
+    if (useCarousel && (merged.images.length > 3 || merged.videos.length > 3)) {
+      rail = mediaRail(merged.videos, merged.images, [], true);
+      blocks = wrapH3Blocks(prose);
+      layout = "gallery";
+    } else if (costaRica) {
       if (merged.videos.length) {
         feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];
       }
@@ -667,18 +801,18 @@ function sectionCard(section, people) {
     }
   } else if (images.length + videos.length >= 2 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
-    rail = flattenMedia(media);
+    rail = mediaRail(videos, images, media, useCarousel);
     blocks = wrapH3Blocks(parts.prose);
     extra = parts.extra;
     layout = "gallery";
   } else if (images.length + videos.length > 0 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
-    rail = flattenMedia(media);
+    rail = mediaRail(videos, images, media, useCarousel);
     blocks = wrapH3Blocks(parts.prose);
     extra = parts.extra;
     layout = "split";
   } else {
-    rail = flattenMedia(media);
+    rail = mediaRail(videos, images, media, useCarousel);
     blocks = wrapH3Blocks(rest);
   }
 
@@ -715,9 +849,19 @@ function sectionCard(section, people) {
   if (layout === "essay") classes.push("entry-card--essay");
   if (layout === "gallery") classes.push("entry-card--gallery");
   if (layout === "showcase") classes.push("entry-card--showcase");
+  if (nodeHasCarousel(rail) || nodeHasCarousel(feature)) classes.push("entry-card--carousel");
+
+  const illinoisResource =
+    pageSlug === "about/resources" &&
+    !peopleHost &&
+    compact &&
+    !photoOnly &&
+    !aiToolEntry &&
+    !isWeekdayFoodTitle(title);
 
   return {
-    mosaic: photoOnly || (compact && !solo),
+    mosaic: (photoOnly || (compact && !solo)) && !illinoisResource,
+    illinoisCarousel: illinoisResource,
     card: el(
       "article",
       {
@@ -736,7 +880,9 @@ function sectionCard(section, people) {
  * and compact mosaics for short photo/person entries.
  */
 export function rehypeEntryCards() {
-  return (tree) => {
+  return (tree, file) => {
+    const pageSlug = pageSlugFromFile(file);
+    const useCarousel = CAROUSEL_PAGES.has(pageSlug);
     const nodes = tree.children || [];
     if (!nodes.some((n) => isElement(n, "h2"))) return;
 
@@ -786,12 +932,26 @@ export function rehypeEntryCards() {
       mosaic = null;
     };
 
+    let illinoisCards = [];
+    const flushIllinois = () => {
+      if (!illinoisCards.length) return;
+      closeMosaic();
+      if (illinoisCards.length <= 3) {
+        mosaic = el("div", { className: ["entry-mosaic"] }, illinoisCards);
+        closeMosaic();
+      } else {
+        out.push(wrapResourceCarousel(illinoisCards));
+      }
+      illinoisCards = [];
+    };
+
     let index = 0;
     while (index < sections.length) {
       const section = sections[index];
       const id = section.heading.properties?.id || slugify(section.title);
 
       if (/^table of contents$/i.test(section.title)) {
+        flushIllinois();
         closeMosaic();
         out.push(
           el("nav", { className: ["entry-toc"], id, hidden: true, "aria-hidden": "true" }, [
@@ -804,6 +964,7 @@ export function rehypeEntryCards() {
       }
 
       if (section.empty && !section.person) {
+        flushIllinois();
         closeMosaic();
         section.heading.properties ||= {};
         section.heading.properties.className = [...classList(section.heading), "entry-group-label"];
@@ -819,6 +980,7 @@ export function rehypeEntryCards() {
           if (sections[index].person) people.push(sections[index]);
           index += 1;
         }
+        flushIllinois();
         closeMosaic();
         if (people.length) out.push(el("div", { className: ["entry-people"] }, people.map(personCard)));
         continue;
@@ -840,7 +1002,16 @@ export function rehypeEntryCards() {
         break;
       }
 
-      const { card, mosaic: inMosaic } = sectionCard(section, people);
+      const { card, mosaic: inMosaic, illinoisCarousel } = sectionCard(section, people, {
+        useCarousel,
+        pageSlug,
+      });
+      if (illinoisCarousel) {
+        closeMosaic();
+        illinoisCards.push(card);
+        continue;
+      }
+      flushIllinois();
       if (inMosaic) {
         if (!mosaic) mosaic = el("div", { className: ["entry-mosaic"] }, []);
         mosaic.children.push(card);
@@ -850,6 +1021,7 @@ export function rehypeEntryCards() {
       }
     }
 
+    flushIllinois();
     closeMosaic();
     tree.children = out;
   };

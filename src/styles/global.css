@@ -1407,6 +1407,413 @@
     max-height: 10rem;
   }
 
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media:has(.site-carousel) .youtube-embed {
+    max-height: none;
+  }
+
+  .entry-card--gallery .entry-media:has(.site-carousel) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .entry-card--gallery .entry-media:has(.site-carousel) > .youtube-embed {
+    width: min(100%, 40rem);
+    max-height: none;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  .entry-media-row {
+    display: grid;
+    gap: 0.55rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .entry-media-row:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .entry-media-row:has(> :only-child) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .entry-media-row img,
+  .entry-card--gallery .entry-media-row img {
+    width: 100%;
+    height: 12rem;
+    max-height: 12rem;
+    object-fit: cover;
+    margin: 0;
+  }
+
+  .site-carousel {
+    min-width: 0;
+    width: 100%;
+    outline: none;
+  }
+
+  .site-carousel:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 4px;
+    border-radius: 1rem;
+  }
+
+  .site-carousel-frame {
+    position: relative;
+    border-radius: 0.95rem;
+    overflow: hidden;
+    background: var(--color-paper-dark);
+    border: 1px solid var(--color-border);
+  }
+
+  .site-carousel-track {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    overflow-anchor: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .site-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: grid;
+    place-items: center;
+    background: var(--color-paper-dark);
+    overflow-anchor: none;
+  }
+
+  .site-carousel-slide > p,
+  .site-carousel-slide > .youtube-embed,
+  .site-carousel-slide > .entry-card {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .site-carousel--image .site-carousel-slide {
+    height: min(24rem, 58vw);
+    min-height: 15.5rem;
+  }
+
+  .site-carousel--image .site-carousel-slide img,
+  .entry-card--gallery .entry-media .site-carousel--image img,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
+    margin: 0;
+    background: var(--color-paper-dark);
+  }
+
+  .site-carousel--video .site-carousel-slide {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    background: #141210;
+  }
+
+  .site-carousel--video .youtube-embed,
+  .entry-card--gallery .entry-media .site-carousel--video .youtube-embed,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--video .youtube-embed {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+
+  .site-carousel--video:has(.youtube-embed--short) .site-carousel-frame {
+    background: #141210;
+  }
+
+  .site-carousel--video:has(.youtube-embed--short) .site-carousel-track {
+    gap: 0.85rem;
+    padding-inline: calc((100% - min(17.75rem, 62%)) / 2);
+    scroll-padding-inline: calc((100% - min(17.75rem, 62%)) / 2);
+  }
+
+  .site-carousel--video:has(.youtube-embed--short) .site-carousel-slide {
+    flex: 0 0 min(17.75rem, 62%);
+    aspect-ratio: 9 / 16;
+    height: auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    scroll-snap-align: center;
+  }
+
+  .site-carousel-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(250, 247, 242, 0.94);
+    color: var(--color-ink);
+    box-shadow: 0 8px 22px rgba(45, 42, 38, 0.16);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transform: translateY(-50%);
+  }
+
+  .site-carousel-btn::before {
+    content: "";
+    width: 0.46rem;
+    height: 0.46rem;
+    border-right: 1.6px solid currentColor;
+    border-bottom: 1.6px solid currentColor;
+  }
+
+  .site-carousel-btn--prev {
+    left: 0.7rem;
+  }
+
+  .site-carousel-btn--prev::before {
+    transform: rotate(135deg);
+    margin-left: 0.14rem;
+  }
+
+  .site-carousel-btn--next {
+    right: 0.7rem;
+  }
+
+  .site-carousel-btn--next::before {
+    transform: rotate(-45deg);
+    margin-right: 0.14rem;
+  }
+
+  .site-carousel-btn:hover {
+    background: #fff;
+  }
+
+  .site-carousel-btn:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .site-carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    min-height: 1.4rem;
+    margin-top: 0.7rem;
+  }
+
+  .site-carousel-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.32rem;
+  }
+
+  .site-carousel-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(45, 42, 38, 0.2);
+    cursor: pointer;
+  }
+
+  .site-carousel-dot.is-active {
+    width: 1.05rem;
+    background: var(--color-accent);
+  }
+
+  .site-carousel-count {
+    margin: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .site-carousel--resource {
+    margin: 0.15rem 0 1.55rem;
+  }
+
+  .site-carousel--resource .site-carousel-frame {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+  }
+
+  .site-carousel--resource .site-carousel-track {
+    gap: 1rem;
+    padding: 0.15rem 11% 0.35rem;
+    scroll-padding-inline: 11%;
+  }
+
+  .site-carousel--resource .site-carousel-slide {
+    flex: 0 0 min(42rem, 78%);
+    height: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 1.05rem;
+    box-shadow: var(--shadow-card);
+    scroll-snap-align: center;
+    place-items: stretch;
+    overflow: hidden;
+  }
+
+  .site-carousel--resource .entry-card,
+  .site-carousel--resource .entry-card--solo,
+  .site-carousel--resource .entry-card--compact {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0.95rem 1rem 1.05rem;
+    gap: 0.55rem;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .site-carousel--resource .entry-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .site-carousel--resource .entry-media,
+  .site-carousel--resource .entry-card--compact .entry-media,
+  .site-carousel--resource .entry-card--solo .entry-media {
+    order: -1;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: none;
+    height: auto;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--color-paper-dark);
+  }
+
+  .site-carousel--resource .entry-media img,
+  .site-carousel--resource .entry-card--compact .entry-media img,
+  .site-carousel--resource .entry-card--solo .entry-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .site-carousel--resource .entry-head {
+    padding: 0.15rem 0.15rem 0;
+  }
+
+  .prose-site .site-carousel--resource .entry-card h2 {
+    @apply text-xl md:text-[1.35rem] mt-0 mb-0;
+  }
+
+  .site-carousel--resource .entry-body {
+    padding: 0 0.15rem 0.1rem;
+  }
+
+  .site-carousel--resource .entry-body p {
+    @apply text-[0.95rem] mb-0;
+    color: var(--color-ink-muted);
+    line-height: 1.55;
+  }
+
+  .site-carousel--resource .site-carousel-btn {
+    top: calc(min(42vw, 13.5rem) + 0.95rem);
+  }
+
+  @media (min-width: 760px) {
+    .site-carousel--resource .entry-card,
+    .site-carousel--resource .entry-card--solo,
+    .site-carousel--resource .entry-card--compact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.9fr);
+      grid-template-areas:
+        "media head"
+        "media body";
+      gap: 0.2rem 1.35rem;
+      align-items: center;
+      min-height: 16.5rem;
+      padding: 1.05rem 1.15rem;
+    }
+
+    .site-carousel--resource .entry-media,
+    .site-carousel--resource .entry-card--compact .entry-media,
+    .site-carousel--resource .entry-card--solo .entry-media {
+      grid-area: media;
+      order: 0;
+      aspect-ratio: 4 / 3;
+      height: 100%;
+      min-height: 15.5rem;
+    }
+
+    .site-carousel--resource .entry-head {
+      grid-area: head;
+      align-self: end;
+      padding: 0.4rem 0.1rem 0.15rem;
+    }
+
+    .site-carousel--resource .entry-body {
+      grid-area: body;
+      align-self: start;
+    }
+
+    .site-carousel--resource .site-carousel-btn {
+      top: 50%;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .site-carousel--resource .site-carousel-track {
+      padding-inline: 0.15rem;
+      scroll-padding-inline: 0.15rem;
+      gap: 0.75rem;
+    }
+
+    .site-carousel--resource .site-carousel-slide {
+      flex-basis: 100%;
+    }
+
+    .site-carousel-btn {
+      width: 2.1rem;
+      height: 2.1rem;
+    }
+
+    .site-carousel--image .site-carousel-slide {
+      height: min(18.5rem, 62vw);
+      min-height: 12.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-carousel-track {
+      scroll-behavior: auto;
+    }
+  }
+
   .entry-body--blocks {
     display: grid;
     gap: 0.75rem;
@@ -1839,6 +2246,23 @@
     .entry-card--solo .entry-body p {
       margin-bottom: 0;
     }
+  }
+
+  .site-carousel--resource .entry-card--solo .entry-media,
+  .site-carousel--resource .entry-card--compact .entry-media {
+    overflow: hidden;
+    display: grid;
+    background: var(--color-paper-dark);
+  }
+
+  .site-carousel--resource .entry-card--solo .entry-media img,
+  .site-carousel--resource .entry-card--compact .entry-media img {
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    padding: 0;
+    background: none;
+    border-radius: 0;
   }
 
   .entry-card.entry-card--photo,

@@ -118,7 +118,7 @@ const hasHero = Boolean(heroImage);
         links.append(a);
         continue;
       }
-      if (child.classList.contains("entry-mosaic")) {
+      if (child.classList.contains("entry-mosaic") || child.classList.contains("site-carousel--resource")) {
         const mosaicCards = [
           ...child.querySelectorAll(".entry-card:not(.entry-card--person):not(.entry-card--photo)"),
         ];
@@ -169,7 +169,7 @@ const hasHero = Boolean(heroImage);
   function markMediaFrames() {
     document
       .querySelectorAll(
-        ".entry-media img, .entry-stills img, .spread-row img, .essay-figure img, .page-hero-media img",
+        ".entry-media img, .entry-stills img, .spread-row img, .essay-figure img, .page-hero-media img, .site-carousel img",
       )
       .forEach((node) => {
         const img = node;
@@ -180,6 +180,111 @@ const hasHero = Boolean(heroImage);
 
   document.addEventListener("astro:page-load", initPageIndex);
   document.addEventListener("astro:page-load", markMediaFrames);
+  document.addEventListener("astro:page-load", initCarousels);
   initPageIndex();
   markMediaFrames();
+  initCarousels();
+
+  function pauseSlideMedia(slide) {
+    slide?.querySelectorAll("iframe").forEach((iframe) => {
+      iframe.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: [] }), "*");
+    });
+  }
+
+  function initCarousels() {
+    document.querySelectorAll(".site-carousel").forEach(enhanceCarousel);
+  }
+
+  function enhanceCarousel(root) {
+    if (root.dataset.enhanced === "true") return;
+    const track = root.querySelector(".site-carousel-track");
+    const slides = [...root.querySelectorAll(":scope .site-carousel-slide")];
+    if (!track || slides.length < 2) return;
+    root.dataset.enhanced = "true";
+
+    const prev = root.querySelector(".site-carousel-btn--prev");
+    const next = root.querySelector(".site-carousel-btn--next");
+    const dots = [...root.querySelectorAll(".site-carousel-dot")];
+    const count = root.querySelector(".site-carousel-count");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let active = 0;
+
+    const slideLeft = (index) => {
+      const slide = slides[index];
+      if (!slide) return 0;
+      const trackBox = track.getBoundingClientRect();
+      const slideBox = slide.getBoundingClientRect();
+      return track.scrollLeft + (slideBox.left - trackBox.left) - (trackBox.width - slideBox.width) / 2;
+    };
+
+    const setActive = (index, scroll = false) => {
+      const nextIndex = (index + slides.length) % slides.length;
+      if (nextIndex !== active) pauseSlideMedia(slides[active]);
+      active = nextIndex;
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === active ? "false" : "true");
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === active);
+        if (i === active) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+      if (count) count.textContent = `${active + 1} / ${slides.length}`;
+      slides[active]?.querySelectorAll("iframe").forEach((iframe) => {
+        if (!iframe.getAttribute("src") && iframe.dataset.src) iframe.src = iframe.dataset.src;
+      });
+      if (scroll) {
+        track.scrollTo({ left: slideLeft(active), behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    };
+
+    prev?.addEventListener("click", () => setActive(active - 1, true));
+    next?.addEventListener("click", () => setActive(active + 1, true));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => setActive(i, true)));
+
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActive(active - 1, true);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setActive(active + 1, true);
+      }
+    });
+
+    slides.forEach((slide, i) => {
+      slide.querySelectorAll("iframe").forEach((iframe) => {
+        const src = iframe.getAttribute("src");
+        if (!src) return;
+        iframe.dataset.src = src;
+        if (i !== 0) iframe.removeAttribute("src");
+      });
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const index = slides.indexOf(visible.target);
+        if (index >= 0) setActive(index);
+      },
+      { root: track, threshold: 0.55 },
+    );
+    slides.forEach((slide) => observer.observe(slide));
+
+    const slideIndexForId = (id) =>
+      id ? slides.findIndex((slide) => slide.querySelector(`#${CSS.escape(id)}`)) : -1;
+
+    const goToId = (id) => {
+      const idx = slideIndexForId(id);
+      if (idx >= 0) setActive(idx, true);
+    };
+
+    window.addEventListener("hashchange", () => goToId(location.hash.slice(1)));
+    const initial = slideIndexForId(location.hash.slice(1));
+    requestAnimationFrame(() => setActive(initial >= 0 ? initial : 0, true));
+  }
 </script>
