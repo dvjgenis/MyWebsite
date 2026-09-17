@@ -122,7 +122,16 @@ function setHeadingText(headingNode, text) {
   headingNode.children = [{ type: "text", value: text }];
 }
 
+function isSchoolQuadEntry(title) {
+  return /(?:high school|middle school|elementary school|christian academy)/i.test(title);
+}
+
+function isAiToolEntry(title) {
+  return /duckduckgo ai chat|asta\.ai|gemini notebook|notebooklm/i.test(title);
+}
+
 function isPersonHeading(title) {
+  if (isAiToolEntry(title)) return false;
   if (/^(dr\.|prof\.)\s+[A-Z]/i.test(title)) return true;
   if (/[|:—!&/?]/.test(title)) return false;
   if (/\d/.test(title)) return false;
@@ -132,7 +141,7 @@ function isPersonHeading(title) {
     .filter(Boolean);
   if (words.length < 2 || words.length > 4) return false;
   const stop =
-    /^(park|center|school|academy|program|award|awards|scholarship|workshop|biography|platforms|apps|websites|events|session|speech|tools|overview|highlights|classes|ministries|closet|pantry|library|chorus|recognition|institute|retreat|feature|presentation|conference|testimony|studio|armory|office|university|inclusion|research|abroad|education|accelerator|life|learning|piece|management|sustainability|definition|relationship|change|acknowledgment|booking|tips|deals|coming|innovation|imprint|episode|summer|bonus|spanish|food|weekly|career|civic|undergraduate|diversity|equity|teaching|writer|writers|ymca|habitat|humanity|restore|colegio|baptist|city|feed|starving|children|group|ventures|international|volunteerism|division|studies|entrepreneurship|chamber|community|resources|instructor|liaison|fellow|intern|consultant|representative|ambassador|scholar|scholars|leadership|certificate|coach)$/i;
+    /^(park|center|school|academy|program|award|awards|scholarship|workshop|biography|platforms|apps|websites|events|session|speech|tools|overview|highlights|classes|ministries|closet|pantry|library|chorus|recognition|institute|retreat|feature|presentation|conference|testimony|studio|armory|office|university|inclusion|research|abroad|education|accelerator|life|learning|piece|management|sustainability|definition|relationship|change|acknowledgment|booking|tips|deals|coming|innovation|imprint|episode|summer|bonus|spanish|food|weekly|career|civic|undergraduate|diversity|equity|teaching|writer|writers|ymca|habitat|humanity|restore|colegio|baptist|city|feed|starving|children|group|ventures|international|volunteerism|division|studies|entrepreneurship|chamber|community|resources|instructor|liaison|fellow|intern|consultant|representative|ambassador|scholar|scholars|leadership|certificate|coach|notebook|gemini)$/i;
   if (words.some((w) => stop.test(w))) return false;
   if (
     /^(singing|visiting|meeting|paying|partying|commencing|camel|monkeys|last|my|some|filter|mapping|building|teaching|quantifying|responsible|student|exploratory|assistant|coordinator|the|an|also|best|travel|transportation|accommodation|money|spring|all|special|what|how)$/i.test(
@@ -180,14 +189,6 @@ function textParagraphCount(nodes) {
   return nodes.filter(
     (n) => isElement(n, "p") && !isMediaNode(n) && nodeText(n).trim().length > 90,
   ).length;
-}
-
-function isSchoolQuadEntry(title) {
-  return /(?:high school|middle school|elementary school|christian academy)/i.test(title);
-}
-
-function isAiToolEntry(title) {
-  return /duckduckgo ai chat|asta\.ai|gemini notebook|notebooklm/i.test(title);
 }
 
 function isCompact(heading, body, media, isHost) {
@@ -756,11 +757,12 @@ export function rehypeEntryCards() {
         i += 1;
       }
       const title = nodeText(heading).trim();
+      const linked = (heading.children || []).some((n) => isElement(n, "a"));
       sections.push({
         heading,
         body,
         title,
-        person: isPersonHeading(title),
+        person: !linked && isPersonHeading(title),
         empty: body.every(isBlank),
       });
     }
