@@ -244,7 +244,31 @@
   }
 
   .prose-site blockquote {
-    @apply border-l-4 border-accent/40 pl-5 italic text-ink/80 my-6;
+    clear: both;
+    margin: 1.5rem 0 1.65rem;
+    padding: 0.15rem 0 0.2rem 1.15rem;
+    border-left: 3px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+    max-width: 42rem;
+  }
+
+  .prose-site blockquote > p {
+    @apply font-display italic text-ink leading-snug mb-0;
+    font-size: clamp(1.05rem, 0.4vw + 1rem, 1.28rem);
+    text-wrap: pretty;
+  }
+
+  .prose-site blockquote > p + p,
+  .prose-site blockquote > footer {
+    @apply font-body not-italic text-ink-muted mt-3 mb-0;
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+    line-height: 1.45;
+  }
+
+  .prose-site .entry-card--essay .entry-body > blockquote,
+  .prose-site .entry-card--host .entry-body > blockquote,
+  .prose-site .entry-card--person .entry-body > blockquote {
+    margin-left: 0;
   }
 
   .prose-site img {
@@ -262,7 +286,7 @@
   .page-shell {
     margin-inline: auto;
     max-width: 72rem;
-    padding: 2.5rem 1rem 3.5rem;
+    padding: 2.5rem max(1rem, env(safe-area-inset-right)) 3.5rem max(1rem, env(safe-area-inset-left));
   }
 
   @media (min-width: 768px) {
@@ -331,29 +355,29 @@
     width: 100%;
     max-width: 72rem;
     margin-inline: auto;
-    padding: 5.25rem 1.25rem 2.5rem;
+    padding: 5.25rem max(1.25rem, env(safe-area-inset-right)) 2.5rem max(1.25rem, env(safe-area-inset-left));
   }
 
   @media (min-width: 768px) {
     .page-hero-copy {
-      padding: 6.75rem 1.5rem 3rem;
+      padding: 6.75rem max(1.5rem, env(safe-area-inset-right)) 3rem max(1.5rem, env(safe-area-inset-left));
     }
   }
 
   .page-hero-title {
     @apply font-display;
-    font-size: clamp(1.8rem, 2.4vw + 1rem, 3.05rem);
-    line-height: 1.18;
+    font-size: clamp(1.75rem, 2.2vw + 1rem, 3.05rem);
+    line-height: 1.16;
     letter-spacing: -0.028em;
     font-weight: 500;
-    max-width: 16.5rem;
+    max-width: min(100%, 22rem);
     text-wrap: balance;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px rgba(0, 0, 0, 0.28);
   }
 
   @media (min-width: 768px) {
     .page-hero-title {
-      max-width: 22rem;
+      max-width: min(100%, 32rem);
     }
   }
 
@@ -636,6 +660,11 @@
     gap: 0.55rem;
     min-width: 0;
     align-content: start;
+  }
+
+  .entry-media a {
+    display: block;
+    min-width: 0;
   }
 
   .entry-media p,
@@ -1493,6 +1522,11 @@
     .page-article[data-slug="about/resources"] .entry-mosaic {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+
+    .page-article[data-slug="about/resources"] .entry-mosaic:has(> :nth-child(3):last-child) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: stretch;
+    }
   }
 
   @media (min-width: 1080px) {
@@ -1720,6 +1754,26 @@
   }
 
   .entry-mosaic--quad .entry-card--compact .entry-body p {
+    @apply text-[0.88rem] mb-0;
+    line-height: 1.5;
+  }
+
+  .page-article[data-slug="about/resources"] .entry-mosaic:has(> :nth-child(3):last-child) .entry-card--compact {
+    height: 100%;
+  }
+
+  .page-article[data-slug="about/resources"] .entry-mosaic:has(> :nth-child(3):last-child) .entry-card--compact .entry-media {
+    max-height: 12.5rem;
+  }
+
+  .page-article[data-slug="about/resources"] .entry-mosaic:has(> :nth-child(3):last-child) .entry-card--compact .entry-media img {
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+    background: rgba(45, 42, 38, 0.04);
+  }
+
+  .page-article[data-slug="about/resources"] .entry-mosaic:has(> :nth-child(3):last-child) .entry-card--compact .entry-body p {
     @apply text-[0.88rem] mb-0;
     line-height: 1.5;
   }

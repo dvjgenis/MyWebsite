@@ -166,18 +166,4 @@ export const leadershipTiles: ColorTileData[] = [
     tone: "initiatives",
     bg: "#7a3416",
   },
-  {
-    title: "Community Development Liaison",
-    href: "/initiatives/leadership/community-development-liaison/",
-    description: "Campus and community partnership work in the role.",
-    tone: "initiatives",
-    bg: "#c45c26",
-  },
-  {
-    title: "Technology Commercialization",
-    href: "/initiatives/leadership/technology-commercialization/",
-    description: "Turning research and ideas into viable ventures.",
-    tone: "initiatives",
-    bg: "#a34b1d",
-  },
 ];

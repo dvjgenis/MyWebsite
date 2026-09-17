@@ -21,7 +21,7 @@ In my perspective, having the will to do something is more remarkable than havin
 
 Therefore, when I practice leadership, my primary focus lies in understanding the individuals I work with, seeking ways to serve their needs, understanding their aspirations and objectives, and channeling their ambitions towards a shared goal. This approach fosters a more meaningful and impactful collaborative effort within the team.
 
-Click on each image to display Competencies
+Click through each competency to see the goals I set at the start of the certificate.
 
 ## Self-Management
 

@@ -23,10 +23,9 @@ const legacyHtml = {
   "Team Experiences.html": "/initiatives/leadership/team-experiences/",
   "Leadership Coursework.html": "/initiatives/leadership/coursework/",
   "Leadership Certificate Coach.html": "/initiatives/leadership/certificate-coach/",
-  "Community Development Liaison.html": "/initiatives/leadership/community-development-liaison/",
+  "Community Development Liaison.html": "/initiatives/leadership/",
   "Cumulative Reflection.html": "/initiatives/leadership/cumulative-reflection/",
-  "Technology Commercialization Certification.html":
-    "/initiatives/leadership/technology-commercialization/",
+  "Technology Commercialization Certification.html": "/initiatives/leadership/",
   "Study Abroad.html": "/initiatives/abroad/",
   "Abroad Resources.html": "/initiatives/abroad/resources/",
   "Scholarships  Awards.html": "/initiatives/awards/",

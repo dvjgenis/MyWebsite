@@ -207,7 +207,9 @@ To my friends in Granada and beyond, this is not a goodbye, but a hasta luego. T
 
 The true souvenir of my time here is not something I can hold in my hands but the love for a language, a city, and its people. I am staying committed to fostering the connections I made and continuing to engage with diverse cultures, promote understanding, and care for all cultures as I return home. I will carry the lessons learned in Granada into my future endeavors, ensuring that the experience shapes how I engage with the world and approach the complexities of cultural exchange.
 
-" Graná, tierra soñada por mí, " I will carry your spirit with me always. Un cachito de Graná estará siempre en mi.
+> “Graná, tierra soñada por mí.”
+
+I will carry your spirit with me always. Un cachito de Graná estará siempre en mí.
 
 ## Bonus Piece!
 

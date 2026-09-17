@@ -12,7 +12,7 @@ const explore = navigation.filter((item) => item.href !== "/contact/");
 ---
 
 <footer class:list={["site-footer border-t border-border bg-paper-dark/40", className]}>
-  <div class:list={["mx-auto max-w-6xl px-4", compact ? "py-8" : "py-10 md:py-12"]}>
+  <div class:list={["mx-auto max-w-6xl pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]", compact ? "py-8" : "py-10 md:py-12"]}>
     <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
       <div>
         <p class="font-display text-lg text-ink mb-2">{site.name}</p>

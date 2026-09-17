@@ -60,8 +60,6 @@ export const navigation: NavItem[] = [
           { label: "Leadership Coursework", href: "/initiatives/leadership/coursework/" },
           { label: "Leadership Certificate Coach", href: "/initiatives/leadership/certificate-coach/" },
           { label: "Cumulative Reflection", href: "/initiatives/leadership/cumulative-reflection/" },
-          { label: "Community Development Liaison", href: "/initiatives/leadership/community-development-liaison/" },
-          { label: "Technology Commercialization", href: "/initiatives/leadership/technology-commercialization/" },
         ],
       },
       {
@@ -139,8 +137,6 @@ export const leadershipHubCards = [
   { slug: "initiatives/leadership/coursework", title: "Leadership Coursework" },
   { slug: "initiatives/leadership/certificate-coach", title: "Leadership Certificate Coach" },
   { slug: "initiatives/leadership/cumulative-reflection", title: "Cumulative Reflection" },
-  { slug: "initiatives/leadership/community-development-liaison", title: "Community Development Liaison" },
-  { slug: "initiatives/leadership/technology-commercialization", title: "Technology Commercialization" },
 ];
 
 type SiblingItem = { slug: string; title: string };
@@ -210,16 +206,6 @@ export const allRoutes: { title: string; href: string; section?: string }[] = [
     href: "/initiatives/leadership/cumulative-reflection/",
     section: "Leadership",
   },
-  {
-    title: "Community Development Liaison",
-    href: "/initiatives/leadership/community-development-liaison/",
-    section: "Leadership",
-  },
-  {
-    title: "Technology Commercialization Certification",
-    href: "/initiatives/leadership/technology-commercialization/",
-    section: "Leadership",
-  },
   { title: "Study Abroad", href: "/initiatives/abroad/", section: "Initiatives" },
   { title: "Abroad Resources", href: "/initiatives/abroad/resources/", section: "Study Abroad" },
   { title: "Scholarships & Awards", href: "/initiatives/awards/", section: "Initiatives" },
@@ -252,6 +238,11 @@ export const googleSitesRedirects: Record<string, string> = {
     "/initiatives/leadership/certificate-coach/",
   "/initiatives/leadership-certification/cumulative-reflection":
     "/initiatives/leadership/cumulative-reflection/",
+  "/initiatives/leadership/community-development-liaison": "/initiatives/leadership/",
+  "/initiatives/leadership/technology-commercialization": "/initiatives/leadership/",
+  "/initiatives/leadership-certification/community-development-liaison": "/initiatives/leadership/",
+  "/initiatives/leadership-certification/technology-commercialization-certification":
+    "/initiatives/leadership/",
   "/initiatives/study-abroad": "/initiatives/abroad/",
   "/initiatives/study-abroad/abroad-resources": "/initiatives/abroad/resources/",
   "/initiatives/scholarships-awards": "/initiatives/awards/",

@@ -102,6 +102,59 @@ function rehypeYoutubeEmbeds() {
   };
 }
 
+/** Turn a quoted paragraph + short attribution into a proper blockquote. */
+function rehypeVerseQuotes() {
+  return (tree) => {
+    const walk = (node) => {
+      const kids = node?.children;
+      if (!Array.isArray(kids) || !kids.length) return;
+      const out = [];
+      for (let i = 0; i < kids.length; i += 1) {
+        const cur = kids[i];
+        const next = kids[i + 1];
+        const text = nodeText(cur).trim();
+        const quoted =
+          cur?.type === "element" &&
+          cur.tagName === "p" &&
+          /^[“"]/.test(text) &&
+          /[”"]$/.test(text) &&
+          text.length > 20 &&
+          text.length < 900;
+        const nextText = next ? nodeText(next).trim() : "";
+        const nextIsList = next?.type === "element" && next.tagName === "ul";
+        const nextIsDashP = next?.type === "element" && next.tagName === "p" && /^[–—-]\s+\S/.test(nextText);
+        const cite =
+          next &&
+          nextText.length > 2 &&
+          nextText.length < 100 &&
+          ((nextIsList && (next.children || []).filter((n) => n.type === "element").length === 1) || nextIsDashP);
+        if (quoted && cite) {
+          out.push({
+            type: "element",
+            tagName: "blockquote",
+            properties: { className: ["pull-quote"] },
+            children: [
+              cur,
+              {
+                type: "element",
+                tagName: "footer",
+                properties: {},
+                children: [{ type: "text", value: nextText.replace(/^[–—-]\s*/, "") }],
+              },
+            ],
+          });
+          i += 1;
+          continue;
+        }
+        out.push(cur);
+      }
+      node.children = out;
+      out.forEach(walk);
+    };
+    walk(tree);
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://dulfvincent.com",
@@ -110,8 +163,8 @@ export default defineConfig({
   redirects: withSlashVariants(googleSitesRedirects),
   markdown: {
     // Rehype plugins run at markdown compile time; restart `astro dev` after editing them.
-    // cache-bust: work media pairs (2026-09-17i)
-    rehypePlugins: [rehypeYoutubeEmbeds, rehypeMatchTocIds, rehypeEntryCards],
+    // cache-bust: quotes + cumulative media (2026-09-17j)
+    rehypePlugins: [rehypeYoutubeEmbeds, rehypeMatchTocIds, rehypeVerseQuotes, rehypeEntryCards],
   },
   vite: {
     plugins: [tailwindcss()],

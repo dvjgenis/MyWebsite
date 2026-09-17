@@ -116,7 +116,25 @@ The University of Illinois is abundant with resources and hidden gems, and I've 
 
 **Connections:** [Dr. Carolyn Wisniewski](mailto:cwisnie@illinois.edu) (cwisnie@illinois.edu)
 
-## Best AI Tools! (Coming Soon!)
+## My favorite AI tools
+
+## [DuckDuckGo AI Chat](https://duck.ai)
+
+[![DuckDuckGo AI Chat](/images/about/resources/duck-ai.jpg)](https://duck.ai)
+
+Best for quick rewrites, drafts, and summaries. It is a favorite because it offers 100% anonymity, zero tracking, and no account login, using lightweight Small Language Models (SLMs) that provide safe everyday drafting while cutting energy use by 60–70%.
+
+## [Asta.ai (by Ai2)](https://asta.allen.ai)
+
+[![Asta.ai](/images/about/resources/asta-ai.jpg)](https://asta.allen.ai)
+
+Best for research statistics and evidence gathering. It stands out because it acts as a scholarly research assistant indexing over 108 million abstracts and 12 million full-text papers, ensuring that reports and proposals are backed by 100% grounded academic data.
+
+## [NotebookLM](https://notebooklm.google.com)
+
+[![NotebookLM](/images/about/resources/notebooklm.jpg)](https://notebooklm.google.com)
+
+Best for internal manuals, templates, and documents. It is favored because it functions as a grounded document container that answers strictly from uploaded sources with zero web hallucination, effectively resolving positional bias and privacy concerns.
 
 ## Also, free and affordable weekly food deals!
 

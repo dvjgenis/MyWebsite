@@ -33,14 +33,20 @@ function isYoutube(node) {
   return isElement(node, "div") && classList(node).includes("youtube-embed");
 }
 
+function isLinkedImage(node) {
+  if (!isElement(node, "a")) return false;
+  const kids = (node.children || []).filter((c) => !isBlank(c));
+  return kids.length === 1 && isElement(kids[0], "img");
+}
+
 function isMediaNode(node) {
   if (!isElement(node)) return false;
   if (isYoutube(node) || classList(node).includes("youtube-stack")) return true;
   if (node.tagName === "p") {
     const kids = (node.children || []).filter((c) => !isBlank(c));
-    return kids.length > 0 && kids.every((c) => isElement(c, "img"));
+    return kids.length > 0 && kids.every((c) => isElement(c, "img") || isLinkedImage(c));
   }
-  if (node.tagName === "img") return true;
+  if (node.tagName === "img" || isLinkedImage(node)) return true;
   return false;
 }
 
@@ -180,6 +186,10 @@ function isSchoolQuadEntry(title) {
   return /(?:high school|middle school|elementary school|christian academy)/i.test(title);
 }
 
+function isAiToolEntry(title) {
+  return /duckduckgo ai chat|asta\.ai|notebooklm/i.test(title);
+}
+
 function isCompact(heading, body, media, isHost) {
   if (isHost) return false;
   if (countYoutube(media) || body.some((n) => isElement(n, "h3"))) return false;
@@ -201,10 +211,10 @@ function flattenMedia(nodes) {
     }
     if (isElement(node, "p")) {
       const kids = (node.children || []).filter((c) => !isBlank(c));
-      const imgs = kids.filter((c) => isElement(c, "img"));
-      if (imgs.length && imgs.length === kids.length) {
-        for (const img of imgs) {
-          out.push(el("p", { className: classList(node) }, [img]));
+      const mediaKids = kids.filter((c) => isElement(c, "img") || isLinkedImage(c));
+      if (mediaKids.length && mediaKids.length === kids.length) {
+        for (const kid of mediaKids) {
+          out.push(el("p", { className: classList(node) }, [kid]));
         }
         continue;
       }
@@ -594,7 +604,10 @@ function sectionCard(section, people) {
   const compact = !captionGallery && !peopleHost && isCompact(title, rest, media, peopleHost);
   const schoolQuadEntry =
     !peopleHost && compact && !photoOnly && isSchoolQuadEntry(title) && images.length === 1 && videos.length === 0;
-  const solo = compact && !photoOnly && images.length === 1 && videos.length === 0 && !schoolQuadEntry;
+  const aiToolEntry =
+    !peopleHost && compact && !photoOnly && isAiToolEntry(title) && images.length === 1 && videos.length === 0;
+  const solo =
+    compact && !photoOnly && images.length === 1 && videos.length === 0 && !schoolQuadEntry && !aiToolEntry;
   const blocked = rest.filter((n) => isElement(n, "h3")).length >= 2;
   const longEssay = textParagraphCount(rest) >= 3 || measureText(rest).length > 1600;
 

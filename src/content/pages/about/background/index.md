@@ -214,9 +214,9 @@ Stepping away from the podium after sharing these reflections was a moment of de
 
 ## The Quiet Resurrection (07.08.25)
 
-“After the fire came a gentle whisper…”
-
-- 1 Kings 19:12
+> “After the fire came a gentle whisper…”
+>
+> — 1 Kings 19:12
 
 It is strange how true healing can feel more like a death than a step forward. For months, the fog in my life was dense. Waking up took all the energy I had; my body struggled while my mind was trapped in anxious loops. But through the darkness, I was led back to a profound truth my heart had forgotten. I learned that to find lasting peace, we must completely let go of our claim to our right to ourselves. We fight so hard to control our own lives, but true peace only begins with an absolute, irrevocable surrender of our will.
 
@@ -284,9 +284,9 @@ How immigration has impacted my identity and worldview revolves around my capaci
 
 I developed a deep interest in history during my late freshman year of high school, particularly after enrolling in Advanced Placement World History. Before high school, I hadn't really developed a keen interest in social studies or history, viewing them as subjects tied solely to the past and, consequently, irrelevant to the present and future. However, a period of excessive burnout prompted a shift in my approach to learning. Instead of pursuing grades or GPA, I embraced a more application-based method. History became the first subject I actively incorporated into my daily life. Viewing the broader historical narrative and closely analyzing its nuances and stories revealed that history is not confined to the past—it surrounds us. The seemingly old and outdated stories persist in the present; same story, different time. This idea brings to mind a Bible verse from the book of Ecclesiastes:
 
-"The thing that hath been, it is that which shall be; and that which is done is that which shall be done: and there is no new thing under the sun."
-
-- Ecclesiastes 1:9
+> “The thing that hath been, it is that which shall be; and that which is done is that which shall be done: and there is no new thing under the sun.”
+>
+> — Ecclesiastes 1:9
 
 As I delved into connecting historical dots and discerning various patterns and plays throughout history, not only did I gain a better understanding of how we arrived at this point and develop the ability to detect nuances in the present day, but I also deepened my comprehension of the people around me. From a social perspective, whenever I engage in conversations with individuals discussing their background, nationality, and/or ethnicity, I promptly grasp their history, establishing a baseline understanding of who they are and where they're coming from—both literally and figuratively. The most gratifying aspect of this process is witnessing their reactions to my knowledge of their history, fostering a personal bond rooted in our shared appreciation of backgrounds and histories. The fact that I possess this baseline knowledge about almost everyone I encounter explains why I can cultivate diverse friendships and connections that transcend backgrounds, politics, race, gender, nationality, and more.
 
