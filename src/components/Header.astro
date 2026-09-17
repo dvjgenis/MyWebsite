@@ -1,0 +1,238 @@
+---
+import { navigation, site } from "../data/navigation";
+
+const path = Astro.url.pathname;
+---
+
+<div transition:persist="site-header">
+<header class="glass-header sticky top-0 z-50">
+  <div data-header-bar class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 md:py-3.5">
+    <a href="/" class="group shrink-0 min-w-0">
+      <span class="font-display text-[1.05rem] sm:text-lg md:text-xl tracking-tight text-ink group-hover:text-accent transition-colors truncate block">
+        {site.name}
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-0.5" aria-label="Main">
+      {
+        navigation.map((item) => {
+          const active = item.href === "/" ? path === "/" : path === item.href || path.startsWith(item.href);
+          if (item.children) {
+            return (
+              <div class="relative group/nav">
+                <a
+                  href={item.href}
+                  data-nav-href={item.href}
+                  class:list={[
+                    "nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1",
+                    active && "is-active",
+                  ]}
+                  aria-current={active ? "page" : undefined}
+                  aria-haspopup="true"
+                >
+                  {item.label}
+                  <svg class="nav-chevron w-3.5 h-3.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+                <div class="nav-flyout absolute left-0 top-full z-50 pt-1 opacity-0 invisible translate-y-1 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto group-focus-within/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:pointer-events-auto">
+                  <div class="min-w-[17rem] max-h-[70vh] overflow-y-auto rounded-xl border border-border bg-surface/95 backdrop-blur-xl shadow-lg py-1.5">
+                    {
+                      item.children.map((child) => (
+                        <div>
+                          <a
+                            href={child.href}
+                            class="block px-4 py-2 text-sm text-ink/85 hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                          >
+                            {child.label}
+                          </a>
+                          {child.children?.map((gc) => (
+                            <a
+                              href={gc.href}
+                              class="block pl-8 pr-4 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                            >
+                              {gc.label}
+                            </a>
+                          ))}
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+            );
+          }
+          return (
+            <a
+              href={item.href}
+              data-nav-href={item.href}
+              class:list={["nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors", active && "is-active"]}
+              aria-current={active ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      <button
+        type="button"
+        id="search-trigger"
+        class="ml-2 px-3 py-2 text-sm text-ink-muted hover:text-ink hover:bg-ink/5 border border-border rounded-lg flex items-center gap-2 transition-colors"
+        aria-label="Search site"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <span class="hidden lg:inline">Search</span>
+        <kbd data-search-hotkey class="hidden lg:inline font-sans text-[0.65rem] tracking-wide text-ink-muted bg-paper-dark px-1.5 py-0.5 rounded border border-border/80">Cmd K</kbd>
+      </button>
+    </nav>
+
+    <div class="flex items-center gap-1.5 md:hidden">
+      <button
+        type="button"
+        id="search-trigger-mobile"
+        class="p-2 rounded-lg border border-border text-ink hover:bg-ink/5 transition-colors"
+        aria-label="Search site"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="p-2 rounded-lg border border-border hover:bg-ink/5 transition-colors"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg id="icon-menu" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto overscroll-contain border-t border-border bg-paper/97 backdrop-blur-xl"
+  >
+    <nav class="mx-auto max-w-6xl px-4 py-4 flex flex-col gap-0.5 pb-[max(1.5rem,env(safe-area-inset-bottom))]" aria-label="Mobile">
+      {
+        navigation.map((item) => (
+          <div>
+            <a href={item.href} data-nav-href={item.href} class="nav-link block py-2.5 px-2 -mx-2 rounded-lg font-medium text-ink">
+              {item.label}
+            </a>
+            {
+              item.children && (
+                <div class="pl-3 pb-2 flex flex-col border-l border-border ml-1">
+                  {item.children.map((child) => (
+                    <div>
+                      <a href={child.href} data-nav-href={child.href} class="nav-link block py-1.5 px-2 rounded-md text-sm text-ink-muted hover:text-ink">
+                        {child.label}
+                      </a>
+                      {child.children?.map((gc) => (
+                        <a href={gc.href} data-nav-href={gc.href} class="nav-link block pl-4 py-1 px-2 rounded-md text-xs text-ink-muted/90 hover:text-ink">
+                          {gc.label}
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )
+            }
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+</div>
+
+<script>
+  function setHeaderHeight() {
+    const bar = document.querySelector("header [data-header-bar]");
+    if (bar) document.documentElement.style.setProperty("--header-h", `${bar.offsetHeight}px`);
+  }
+
+  function setHotkeys() {
+    const isMac = /Mac|iPhone|iPad/.test(navigator.platform) || navigator.userAgent.includes("Mac");
+    document.querySelectorAll("[data-search-hotkey]").forEach((el) => {
+      el.textContent = isMac ? "Cmd K" : "Ctrl K";
+    });
+  }
+
+  function setActiveNav() {
+    const path = window.location.pathname;
+    document.querySelectorAll("[data-nav-href]").forEach((el) => {
+      const href = el.getAttribute("data-nav-href") ?? "";
+      const active = href === "/" ? path === "/" : path === href || path.startsWith(href);
+      el.classList.toggle("is-active", active);
+      if (active) el.setAttribute("aria-current", "page");
+      else el.removeAttribute("aria-current");
+    });
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById("mobile-menu");
+    const btn = document.getElementById("mobile-menu-btn");
+    menu?.classList.add("hidden");
+    btn?.setAttribute("aria-expanded", "false");
+    btn?.setAttribute("aria-label", "Open menu");
+    document.body.classList.remove("nav-open");
+    document.getElementById("icon-menu")?.classList.remove("hidden");
+    document.getElementById("icon-close")?.classList.add("hidden");
+    setHeaderHeight();
+  }
+
+  function toggleMenu() {
+    const menu = document.getElementById("mobile-menu");
+    const btn = document.getElementById("mobile-menu-btn");
+    const willOpen = menu?.classList.contains("hidden");
+    menu?.classList.toggle("hidden");
+    const isOpen = Boolean(willOpen);
+    btn?.setAttribute("aria-expanded", String(isOpen));
+    btn?.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    document.body.classList.toggle("nav-open", isOpen);
+    document.getElementById("icon-menu")?.classList.toggle("hidden", isOpen);
+    document.getElementById("icon-close")?.classList.toggle("hidden", !isOpen);
+    setHeaderHeight();
+  }
+
+  function openSearch() {
+    closeMenu();
+    window.dispatchEvent(new CustomEvent("open-search"));
+  }
+
+  setHeaderHeight();
+  setHotkeys();
+  setActiveNav();
+
+  if (document.documentElement.dataset.headerBound !== "true") {
+    document.documentElement.dataset.headerBound = "true";
+    document.getElementById("mobile-menu-btn")?.addEventListener("click", toggleMenu);
+    document.getElementById("search-trigger")?.addEventListener("click", openSearch);
+    document.getElementById("search-trigger-mobile")?.addEventListener("click", openSearch);
+    document.getElementById("mobile-menu")?.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      setHeaderHeight();
+      if (window.matchMedia("(min-width: 768px)").matches) closeMenu();
+    });
+    document.addEventListener("astro:before-swap", closeMenu);
+    document.addEventListener("astro:after-swap", () => {
+      setHeaderHeight();
+      setHotkeys();
+      setActiveNav();
+    });
+  }
+</script>

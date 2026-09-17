@@ -1,0 +1,37 @@
+---
+import { tileTones, type TileTone } from "../data/tiles";
+
+interface Props {
+  title: string;
+  kicker?: string;
+  description?: string;
+  tone?: TileTone;
+  name?: string;
+}
+
+const { title, kicker, description, tone = "ink", name } = Astro.props;
+const colors = tileTones[tone];
+---
+
+<section
+  class="hub-hero px-4 py-12 md:py-16"
+  style={`background:${colors.bg};color:${colors.fg}`}
+  transition:name={name}
+>
+  <div class="mx-auto max-w-6xl">
+    {
+      kicker && kicker.trim().toLowerCase() !== title.trim().toLowerCase() && (
+        <p class="hub-hero-kicker text-xs md:text-sm uppercase tracking-[0.18em] opacity-75 mb-4">{kicker}</p>
+      )
+    }
+    <h1 class="hub-hero-title font-display text-[clamp(2.35rem,7vw,4.75rem)] tracking-tight leading-[1.04] text-wrap-balance">
+      {title}
+    </h1>
+    {
+      description && (
+        <p class="hub-hero-copy mt-5 max-w-2xl text-base md:text-lg leading-relaxed opacity-90">{description}</p>
+      )
+    }
+    <slot />
+  </div>
+</section>

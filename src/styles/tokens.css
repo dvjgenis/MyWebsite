@@ -1,0 +1,33 @@
+@theme {
+  --color-paper: #faf7f2;
+  --color-paper-dark: #efe8dd;
+  --color-ink: #2d2a26;
+  --color-ink-muted: #534d47;
+  --color-accent: #536338;
+  --color-accent-warm: #b87333;
+  --color-surface: #ffffff;
+  --color-border: rgba(45, 42, 38, 0.12);
+
+  --color-tile-about: #1f4d3a;
+  --color-tile-about-on: #e7f3ea;
+  --color-tile-initiatives: #c45c26;
+  --color-tile-initiatives-on: #fff3e8;
+  --color-tile-contact: #1c2740;
+  --color-tile-contact-on: #e7eef8;
+
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-ui: 200ms;
+}
+
+:root {
+  --header-h: 3.6rem;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --radius-card: 1.05rem;
+  --shadow-card: 0 1px 0 rgba(45, 42, 38, 0.04);
+  --shadow-lift: 0 12px 28px rgba(45, 42, 38, 0.08);
+}

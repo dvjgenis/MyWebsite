@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import HubHero from "../../components/HubHero.astro";
+import ColorTile from "../../components/ColorTile.astro";
+import Quote from "../../components/Quote.astro";
+import { getPageBySlug } from "../../lib/pages";
+import { site } from "../../data/navigation";
+
+const result = await getPageBySlug("contact");
+if (!result) throw new Error("Contact page missing");
+const { page } = result;
+
+const connectTiles = [
+  { title: "LinkedIn", href: site.social.linkedin, bg: "#2f4a73", fg: "#e7eef8", description: "Professional updates and messages." },
+  { title: "Instagram", href: site.social.instagram, bg: "#6b3a4a", fg: "#f8e7ee", description: "Photos and day-to-day notes." },
+  { title: "Blinq", href: site.social.blinq, bg: "#3d5a4a", fg: "#e7f3ea", description: "Digital business card." },
+  { title: "Resume", href: site.resume, bg: "#2d2a26", fg: "#faf7f2", description: "Experience, education, and skills." },
+];
+---
+
+<Base title="Contact" description={page.data.description} image={page.data.heroImage} flushFooter>
+  <HubHero
+    title="Contact"
+    description="The fastest way to reach me is LinkedIn. Resume and other profiles are below."
+    tone="contact"
+    name="hub-contact"
+  />
+
+  <div class="mx-auto max-w-6xl px-4 py-10 md:py-12">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start">
+      {
+        page.data.heroImage && (
+          <figure class="overflow-hidden rounded-2xl border border-border bg-paper-dark">
+            <img
+              src={page.data.heroImage}
+              alt="Dulf Vincent Genis wearing a Philippine flag sash"
+              class="w-full h-auto block object-contain"
+              loading="eager"
+            />
+          </figure>
+        )
+      }
+      {page.data.quote && <Quote quote={page.data.quote} author={page.data.quoteAuthor} />}
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3">
+    {
+      connectTiles.map((tile, i) => (
+        <ColorTile
+          title={tile.title}
+          href={tile.href}
+          description={tile.description}
+          bg={tile.bg}
+          fg={tile.fg}
+          delay={i * 50}
+          external
+        />
+      ))
+    }
+  </div>
+</Base>

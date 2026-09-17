@@ -1,0 +1,170 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Quote from "./Quote.astro";
+import PageNav from "./PageNav.astro";
+
+interface Crumb {
+  label: string;
+  href: string;
+}
+
+interface Sibling {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  page: CollectionEntry<"pages">;
+  Content: Astro.Component;
+  showDescription?: boolean;
+  parent?: Crumb;
+  prev?: Sibling;
+  next?: Sibling;
+}
+
+const { page, Content, showDescription = true, parent, prev, next } = Astro.props;
+const { title, quote, quoteAuthor, heroImage } = page.data;
+const kind = page.data.slug.split("/").pop() ?? "page";
+---
+
+<article class="page-article mx-auto max-w-6xl px-4 py-10 md:py-14" data-kind={kind}>
+  <header class="page-masthead stagger-in">
+    <h1 class="page-title">
+      {title}
+    </h1>
+    {
+      showDescription && page.data.description && (
+        <p class="page-dek">{page.data.description}</p>
+      )
+    }
+  </header>
+
+  {
+    (quote || heroImage) && (
+      <div
+        class:list={[
+          "page-band stagger-in",
+          quote && heroImage && "page-band--split",
+          !quote && heroImage && "page-band--photo",
+        ]}
+        style="animation-delay: 60ms"
+      >
+        {quote && <Quote quote={quote} author={quoteAuthor} />}
+        {heroImage && (
+          <figure class="page-band-photo">
+            <img src={heroImage} alt={`Photo for ${title}`} loading="eager" />
+          </figure>
+        )}
+      </div>
+    )
+  }
+
+  <slot name="after-intro" />
+
+  <div class="page-layout stagger-in" style="animation-delay: 120ms">
+    <nav class="page-index" data-page-index hidden>
+      <p class="page-index-kicker">On this page</p>
+      <div class="page-index-links"></div>
+    </nav>
+    <div class="prose-site page-entries" data-page-entries>
+      <Content />
+    </div>
+  </div>
+
+  <PageNav parent={parent} prev={prev} next={next} />
+</article>
+
+<script>
+  let observer;
+
+  function addLink(container, card, extraClass = "") {
+    const id = card.getAttribute("data-anchor");
+    const label = card.getAttribute("data-label") || id;
+    if (!id || !label) return;
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.className = extraClass ? `page-index-link ${extraClass}` : "page-index-link";
+    a.textContent = label;
+    a.dataset.target = id;
+    container.append(a);
+  }
+
+  function initPageIndex() {
+    observer?.disconnect();
+    const nav = document.querySelector("[data-page-index]");
+    const root = document.querySelector("[data-page-entries]");
+    if (!nav || !root) return;
+
+    const links = nav.querySelector(".page-index-links");
+    if (!links) return;
+    links.replaceChildren();
+
+    const cards = [...root.querySelectorAll(".entry-card")];
+    if (cards.length < 3) {
+      nav.hidden = true;
+      return;
+    }
+
+    nav.hidden = false;
+    for (const child of root.children) {
+      if (child.classList.contains("entry-group-label")) {
+        const a = document.createElement("a");
+        a.href = `#${child.id}`;
+        a.className = "page-index-link page-index-link--group";
+        a.textContent = child.textContent.trim();
+        a.dataset.target = child.id;
+        links.append(a);
+        continue;
+      }
+      if (child.classList.contains("entry-mosaic")) {
+        const mosaicCards = [
+          ...child.querySelectorAll(".entry-card:not(.entry-card--person):not(.entry-card--photo)"),
+        ];
+        mosaicCards.forEach((card) => addLink(links, card));
+        continue;
+      }
+      if (child.classList.contains("entry-card") && !child.classList.contains("entry-card--person")) {
+        addLink(links, child);
+      }
+    }
+
+    if (!links.children.length) {
+      nav.hidden = true;
+      return;
+    }
+
+    const targets = [...root.querySelectorAll(".entry-card h2[id], .entry-group-label[id]")];
+    observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        const id = visible[0]?.target?.id;
+        if (!id) return;
+        links.querySelectorAll(".page-index-link").forEach((link) => {
+          link.classList.toggle("is-active", link.dataset.target === id);
+        });
+      },
+      { rootMargin: "-22% 0px -62% 0px", threshold: 0 },
+    );
+    targets.forEach((el) => observer.observe(el));
+  }
+
+  function markMediaFrames() {
+    document.querySelectorAll(".entry-media img, .entry-stills img").forEach((node) => {
+      const img = node;
+      const apply = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        const ar = img.naturalWidth / img.naturalHeight;
+        img.classList.toggle("is-frame", ar > 0.82 && ar < 1.22);
+      };
+      if (img.complete) apply();
+      else img.addEventListener("load", apply, { once: true });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initPageIndex);
+  document.addEventListener("astro:page-load", markMediaFrames);
+  initPageIndex();
+  markMediaFrames();
+</script>

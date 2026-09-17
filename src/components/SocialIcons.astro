@@ -1,0 +1,48 @@
+---
+import { site } from "../data/navigation";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "justify-center" } = Astro.props;
+
+const icons = [
+  {
+    label: "Instagram",
+    href: site.social.instagram,
+    src: "https://ssl.gstatic.com/atari/images/sociallinks/instagram_black_44dp.png",
+  },
+  {
+    label: "LinkedIn",
+    href: site.social.linkedin,
+    src: "https://ssl.gstatic.com/atari/images/sociallinks/linkedin_black_44dp.png",
+  },
+  {
+    label: "Snapchat",
+    href: site.social.snapchat,
+    src: "https://ssl.gstatic.com/atari/images/sociallinks/snapchat_black_44dp.png",
+  },
+  {
+    label: "Blinq",
+    href: site.social.blinq,
+    src: "https://ssl.gstatic.com/atari/images/sociallinks/link_black_44dp.png",
+  },
+] as const;
+---
+
+<div class:list={["flex flex-wrap items-center gap-2 md:gap-3", className]}>
+  {
+    icons.map(({ label, href, src }) => (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface border border-border pressable hover:border-accent/40 transition-colors"
+        aria-label={label}
+      >
+        <img src={src} alt="" width="44" height="44" class="w-11 h-11" loading="lazy" />
+      </a>
+    ))
+  }
+</div>

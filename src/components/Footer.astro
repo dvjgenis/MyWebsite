@@ -1,0 +1,75 @@
+---
+import { site, navigation } from "../data/navigation";
+
+interface Props {
+  class?: string;
+  compact?: boolean;
+}
+
+const { class: className, compact = false } = Astro.props;
+const year = new Date().getFullYear();
+const explore = navigation.filter((item) => item.href !== "/contact/");
+---
+
+<footer class:list={["site-footer border-t border-border bg-paper-dark/40", className]}>
+  <div class:list={["mx-auto max-w-6xl px-4", compact ? "py-8" : "py-10 md:py-12"]}>
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      <div>
+        <p class="font-display text-lg text-ink mb-2">{site.name}</p>
+        <p class="text-sm text-ink-muted leading-relaxed max-w-xs">{site.tagline}</p>
+      </div>
+      <div>
+        <p class="footer-kicker">Explore</p>
+        <ul class="space-y-2 text-sm">
+          {
+            explore.map((item) => (
+              <li>
+                <a href={item.href} class="footer-link">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <p class="footer-kicker">Connect</p>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="footer-link">
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" class="footer-link">
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href={site.social.snapchat} target="_blank" rel="noopener noreferrer" class="footer-link">
+              Snapchat
+            </a>
+          </li>
+          <li>
+            <a href={site.social.blinq} target="_blank" rel="noopener noreferrer" class="footer-link">
+              Blinq
+            </a>
+          </li>
+          <li>
+            <a href={site.resume} target="_blank" rel="noopener noreferrer" class="footer-link">
+              Resume
+            </a>
+          </li>
+          <li>
+            <a href="/contact/" class="footer-link">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-10 pt-6 border-t border-border text-xs text-ink-muted">
+      © {year} {site.name}
+    </p>
+  </div>
+</footer>

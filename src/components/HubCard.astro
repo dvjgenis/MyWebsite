@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  image?: string;
+  delay?: number;
+  showCta?: boolean;
+}
+
+const { title, description, href, image, delay = 0, showCta = true } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block rounded-2xl border border-border bg-surface overflow-hidden shadow-sm hover-lift pressable stagger-in"
+  style={`animation-delay: ${delay}ms`}
+>
+  {
+    image && (
+      <div class="aspect-[16/9] overflow-hidden bg-paper-dark">
+        <img
+          src={image}
+          alt=""
+          class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+  <div class="p-5 md:p-6">
+    <h2 class="font-display text-xl md:text-2xl tracking-tight text-ink group-hover:text-accent transition-colors">
+      {title}
+    </h2>
+    <p class="mt-2 text-sm md:text-base text-ink-muted leading-relaxed line-clamp-3">{description}</p>
+    {
+      showCta && (
+        <span class="mt-4 inline-flex items-center text-sm font-medium text-accent">
+          Explore
+          <svg class="ml-1 w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
+      )
+    }
+  </div>
+</a>

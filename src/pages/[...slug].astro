@@ -1,0 +1,180 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageContent from "../components/PageContent.astro";
+import ColorTile from "../components/ColorTile.astro";
+import { getPageBySlug, getPageData } from "../lib/pages";
+import { getSiblings } from "../data/navigation";
+import { leadershipTiles } from "../data/tiles";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+  const skip = new Set(["home", "about", "initiatives", "contact"]);
+
+  return pages
+    .filter((p) => !skip.has(p.data.slug))
+    .map((p) => ({
+      params: { slug: p.data.slug },
+      props: { pageSlug: p.data.slug },
+    }));
+}
+
+interface Props {
+  pageSlug: string;
+}
+
+const { pageSlug } = Astro.props;
+
+const parentMap: Record<string, { label: string; href: string; section: string }> = {
+  "about/background": { label: "About Me", href: "/about/", section: "Background" },
+  "about/education": { label: "About Me", href: "/about/", section: "Education" },
+  "about/hobbies": { label: "About Me", href: "/about/", section: "Hobbies & Involvements" },
+  "about/resources": { label: "About Me", href: "/about/", section: "Resources I Love" },
+  "initiatives/work": { label: "Initiatives", href: "/initiatives/", section: "Work Experience" },
+  "initiatives/projects": { label: "Initiatives", href: "/initiatives/", section: "Volunteerism & Projects" },
+  "initiatives/speaking": { label: "Initiatives", href: "/initiatives/", section: "Speaking Engagements" },
+  "initiatives/speaking/citl": {
+    label: "Speaking Engagements",
+    href: "/initiatives/speaking/",
+    section: "CITL Student Quick Takes series",
+  },
+  "initiatives/leadership": { label: "Initiatives", href: "/initiatives/", section: "Leadership Certification" },
+  "initiatives/leadership/personal-development-plan": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Personal Development Plan",
+  },
+  "initiatives/leadership/trainings": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Trainings & Workshops",
+  },
+  "initiatives/leadership/i-programs": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "I-Programs",
+  },
+  "initiatives/leadership/team-experiences": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Team Experiences",
+  },
+  "initiatives/leadership/coursework": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Leadership Coursework",
+  },
+  "initiatives/leadership/certificate-coach": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Leadership Certificate Coach",
+  },
+  "initiatives/leadership/community-development-liaison": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Community Development Liaison",
+  },
+  "initiatives/leadership/cumulative-reflection": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Cumulative Reflection",
+  },
+  "initiatives/leadership/technology-commercialization": {
+    label: "Leadership Certification",
+    href: "/initiatives/leadership/",
+    section: "Technology Commercialization Certification",
+  },
+  "initiatives/abroad": { label: "Initiatives", href: "/initiatives/", section: "Study Abroad" },
+  "initiatives/abroad/resources": { label: "Study Abroad", href: "/initiatives/abroad/", section: "Abroad Resources" },
+  "initiatives/awards": { label: "Initiatives", href: "/initiatives/", section: "Scholarships & Awards" },
+};
+
+const result = await getPageBySlug(pageSlug);
+if (!result) return Astro.redirect("/404");
+const { page, Content } = result;
+const crumb = parentMap[pageSlug];
+const siblings = getSiblings(pageSlug);
+const isLeadershipHub = pageSlug === "initiatives/leadership";
+const isSpeakingHub = pageSlug === "initiatives/speaking";
+const isAbroadHub = pageSlug === "initiatives/abroad";
+
+const leadershipCards = isLeadershipHub
+  ? await Promise.all(
+      leadershipTiles.map(async (tile) => ({
+        ...tile,
+        image: (await getPageData(tile.href.replace(/^\/|\/$/g, "")))?.heroImage,
+      })),
+    )
+  : [];
+
+const citlCard = isSpeakingHub
+  ? {
+      title: "CITL Student Quick Takes series",
+      description:
+        (await getPageData("initiatives/speaking/citl"))?.description?.slice(0, 140) ??
+        "Conversations with Illinois students about learning, courses, and careers.",
+      href: "/initiatives/speaking/citl/",
+      image: (await getPageData("initiatives/speaking/citl"))?.heroImage,
+      tone: "initiatives" as const,
+      bg: "#d97830",
+    }
+  : null;
+
+const abroadCard = isAbroadHub
+  ? {
+      title: "Abroad Resources",
+      description:
+        (await getPageData("initiatives/abroad/resources"))?.description?.slice(0, 140) ??
+        "Guides, tools, and notes from a semester abroad.",
+      href: "/initiatives/abroad/resources/",
+      image: (await getPageData("initiatives/abroad/resources"))?.heroImage,
+      tone: "initiatives" as const,
+      bg: "#b85a22",
+    }
+  : null;
+---
+
+<Base
+  title={page.data.title}
+  description={page.data.description}
+  section={crumb?.section}
+  parent={crumb ? { label: crumb.label, href: crumb.href } : undefined}
+  image={page.data.heroImage}
+>
+  <PageContent
+    page={page}
+    Content={Content}
+    parent={siblings.parent ?? (crumb ? { label: crumb.label, href: crumb.href } : undefined)}
+    prev={siblings.prev}
+    next={siblings.next}
+  >
+    {
+      isLeadershipHub && (
+        <section slot="after-intro" class="hub-continue" aria-label="Leadership program pages">
+          <p class="hub-continue-kicker">Program pages</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {leadershipCards.map((card, i) => (
+              <ColorTile {...card} delay={i * 40} dense />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      citlCard && (
+        <section slot="after-intro" class="hub-continue" aria-label="Related speaking page">
+          <p class="hub-continue-kicker">Featured series</p>
+          <ColorTile {...citlCard} dense />
+        </section>
+      )
+    }
+    {
+      abroadCard && (
+        <section slot="after-intro" class="hub-continue" aria-label="Study abroad resources">
+          <p class="hub-continue-kicker">Continue</p>
+          <ColorTile {...abroadCard} dense />
+        </section>
+      )
+    }
+  </PageContent>
+</Base>

@@ -1,0 +1,91 @@
+---
+import Base from "../layouts/Base.astro";
+import ColorTile from "../components/ColorTile.astro";
+import { getPageBySlug, getPageData } from "../lib/pages";
+import { homeTiles } from "../data/tiles";
+import { site } from "../data/navigation";
+
+const result = await getPageBySlug("home");
+if (!result) throw new Error("Home page content missing. Run npm run extract");
+const { page } = result;
+
+const about = await getPageData("about");
+const initiatives = await getPageData("initiatives");
+const contact = await getPageData("contact");
+
+const images: Record<string, string | undefined> = {
+  "/about/": about?.cardBackgroundImage ?? page.data.heroImage,
+  "/initiatives/": initiatives?.heroImage ?? page.data.featuredRightImage,
+  "/contact/": contact?.heroImage,
+};
+---
+
+<Base title="Home" description={site.tagline} image={page.data.heroImage} hideFooter>
+  <div class="lg:grid lg:grid-cols-[minmax(22rem,28rem)_minmax(0,1fr)] lg:min-h-[calc(100dvh-var(--header-h))]">
+    <aside class="flex flex-col justify-between px-4 py-12 md:py-16 lg:px-8 lg:py-16 border-b lg:border-b-0 lg:border-r border-border">
+      <div class="stagger-in">
+        <p class="font-display text-xl md:text-2xl text-ink">Hey there, I'm Dulf.</p>
+        <h1 class="mt-5 font-display text-[clamp(1.85rem,4vw,2.35rem)] tracking-tight text-ink leading-[1.2] text-wrap-balance hyphens-none">
+          {site.tagline}
+        </h1>
+        <p class="mt-6 text-base md:text-lg text-ink/85 leading-relaxed">
+          I bridge the gap between large-scale architecture and actionable stewardship.
+        </p>
+        <p class="mt-4 text-base text-ink-muted leading-relaxed">
+          This site is a map of my work — who I am, what I’ve built, and how to reach me.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={site.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            View resume
+          </a>
+          {
+            page.data.youtube?.[0] && (
+              <a
+                href={`https://www.youtube.com/watch?v=${page.data.youtube[0]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-ghost"
+              >
+                Watch the intro
+              </a>
+            )
+          }
+        </div>
+      </div>
+      <div class="stagger-in mt-10 lg:mt-12" style="animation-delay: 140ms">
+        <p class="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ink-muted mb-3">Connect</p>
+        <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="footer-link">
+            LinkedIn
+          </a>
+          <a href={site.resume} target="_blank" rel="noopener noreferrer" class="footer-link">
+            Resume
+          </a>
+          <a href="/contact/" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="grid grid-rows-3 gap-3 p-3 min-h-[38rem] lg:min-h-0">
+      {
+        homeTiles.map((tile, i) => (
+          <ColorTile
+            title={tile.title}
+            href={tile.href}
+            description={tile.description}
+            tone={tile.tone}
+            image={images[tile.href]}
+            name={`hub-${tile.tone}`}
+            delay={80 + i * 70}
+            featured
+          />
+        ))
+      }
+    </div>
+  </div>
+</Base>

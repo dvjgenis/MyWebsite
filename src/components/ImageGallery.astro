@@ -1,0 +1,25 @@
+---
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+const shown = images.slice(0, 6);
+---
+
+{
+  shown.length > 0 && (
+    <div class="my-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {shown.map((src, i) => (
+        <figure class="overflow-hidden rounded-xl border border-border bg-surface shadow-sm hover-lift">
+          <img
+            src={src}
+            alt=""
+            loading={i < 3 ? "eager" : "lazy"}
+            class="w-full h-full object-cover aspect-[4/3]"
+          />
+        </figure>
+      ))}
+    </div>
+  )
+}

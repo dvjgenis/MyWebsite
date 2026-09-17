@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  image: string;
+}
+
+const { title, href, image } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group flex items-center gap-4 py-4 pressable hover:bg-paper-dark/40 -mx-2 px-2 rounded-lg transition-colors"
+>
+  <div class="shrink-0 w-[72px] h-[72px] md:w-20 md:h-20 overflow-hidden rounded-sm border border-border bg-paper-dark">
+    <img
+      src={image}
+      alt=""
+      class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+      loading="lazy"
+    />
+  </div>
+  <span class="font-display text-lg md:text-xl tracking-tight text-ink group-hover:text-accent transition-colors">
+    {title}
+  </span>
+</a>

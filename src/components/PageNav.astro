@@ -1,0 +1,54 @@
+---
+interface Crumb {
+  label: string;
+  href: string;
+}
+
+interface Sibling {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  parent?: Crumb;
+  prev?: Sibling;
+  next?: Sibling;
+}
+
+const { parent, prev, next } = Astro.props;
+if (!parent && !prev && !next) return;
+---
+
+<nav class="page-siblings" aria-label="Nearby pages">
+  <div class="page-siblings-slot">
+    {
+      prev ? (
+        <a href={prev.href} class="page-siblings-link">
+          <span class="page-siblings-kicker">Previous</span>
+          <span class="page-siblings-title">{prev.title}</span>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+  </div>
+  {
+    parent && (
+      <a href={parent.href} class="page-siblings-parent">
+        All {parent.label}
+      </a>
+    )
+  }
+  <div class="page-siblings-slot page-siblings-slot--end">
+    {
+      next ? (
+        <a href={next.href} class="page-siblings-link page-siblings-link--next">
+          <span class="page-siblings-kicker">Next</span>
+          <span class="page-siblings-title">{next.title}</span>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+  </div>
+</nav>
