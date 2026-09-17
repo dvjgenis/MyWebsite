@@ -74,12 +74,15 @@ function isKicker(node) {
   if (!isElement(node, "p") || isMediaNode(node)) return false;
   const text = nodeText(node).trim();
   if (!text || text.length > 160) return false;
-  if (text.includes(". ") && text.length > 80) return false;
+  if (text.includes(". ") && text.length > 80 && !text.includes("|") && !text.includes("·")) return false;
   return (
     text.includes("|") ||
+    text.includes("·") ||
     text.includes("📍") ||
     /^\d{1,2}\.\d{2}\.\d{2,4}/.test(text) ||
-    /Area|Hybrid|In-Person|Part-time|Internship|Seasonal|Full-time|Granada/i.test(text)
+    /Area|Hybrid|In-Person|Part-time|Internship|Seasonal|Full-time|Granada|Assistant Director|Teaching Assistant|Instructor|Coordinator/i.test(
+      text,
+    )
   );
 }
 
@@ -757,7 +760,14 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     captions.length >= 2 &&
     measureText(nonCaptions).length < 40;
   const photoOnly = !peopleHost && images.length === 1 && videos.length === 0 && !measureText(rest);
-  const compact = !captionGallery && !peopleHost && isCompact(title, rest, media, peopleHost);
+  const featuredProfile =
+    !peopleHost &&
+    isPersonHeading(title) &&
+    images.length === 1 &&
+    videos.length === 0 &&
+    measureText(rest).length >= 80;
+  const compact =
+    !featuredProfile && !captionGallery && !peopleHost && isCompact(title, rest, media, peopleHost);
   const schoolQuadEntry =
     !peopleHost && compact && !photoOnly && isSchoolQuadEntry(title) && images.length === 1 && videos.length === 0;
   const aiToolEntry =
@@ -773,7 +783,11 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   let feature = [];
   let layout = "default";
 
-  if (photoOnly) {
+  if (featuredProfile) {
+    rail = images;
+    blocks = wrapH3Blocks(rest);
+    layout = "profile";
+  } else if (photoOnly) {
     rail = images;
     layout = "photo";
   } else if (captionGallery) {
@@ -802,14 +816,20 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     }
     const merged = splitMedia([...media, ...inlineMedia]);
     const costaRica = /costa rica/i.test(title);
+    const teamExperiences = pageSlug === "initiatives/leadership/team-experiences";
     const showcase =
       !costaRica &&
+      !teamExperiences &&
       (merged.videos.filter((n) => classList(n).includes("youtube-embed--short")).length >= 2 ||
         (merged.videos.length >= 3 && merged.images.length >= 2));
     if (useCarousel && (merged.images.length > 3 || merged.videos.length > 3)) {
       rail = mediaRail(merged.videos, merged.images, [], true);
       blocks = wrapH3Blocks(prose);
       layout = "gallery";
+    } else if (teamExperiences) {
+      rail = mediaRail(merged.videos, merged.images, [], false);
+      blocks = wrapH3Blocks(prose);
+      layout = merged.images.length + merged.videos.length >= 2 ? "gallery" : "split";
     } else if (costaRica) {
       if (merged.videos.length) {
         feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];
@@ -874,6 +894,7 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   if (layout === "essay") classes.push("entry-card--essay");
   if (layout === "gallery") classes.push("entry-card--gallery");
   if (layout === "showcase") classes.push("entry-card--showcase");
+  if (layout === "profile") classes.push("entry-card--profile");
   if (nodeHasCarousel(rail) || nodeHasCarousel(feature)) classes.push("entry-card--carousel");
 
   const illinoisResource =
@@ -1022,7 +1043,11 @@ export function rehypeEntryCards() {
         flushIllinois();
         flushFood();
         closeMosaic();
-        if (people.length) out.push(el("div", { className: ["entry-people"] }, people.map(personCard)));
+        if (people.length >= 2) {
+          out.push(el("div", { className: ["entry-people"] }, people.map(personCard)));
+        } else if (people.length === 1) {
+          out.push(sectionCard(people[0], [], { useCarousel, pageSlug }).card);
+        }
         continue;
       }
 
@@ -1042,10 +1067,16 @@ export function rehypeEntryCards() {
         break;
       }
 
-      const { card, mosaic: inMosaic, illinoisCarousel, foodCarousel } = sectionCard(section, people, {
-        useCarousel,
-        pageSlug,
-      });
+      const nestPeople = people.length >= 2;
+      const featuredPeople = nestPeople ? [] : people;
+      const { card, mosaic: inMosaic, illinoisCarousel, foodCarousel } = sectionCard(
+        section,
+        nestPeople ? people : [],
+        {
+          useCarousel,
+          pageSlug,
+        },
+      );
       if (illinoisCarousel) {
         flushFood();
         closeMosaic();
@@ -1066,6 +1097,12 @@ export function rehypeEntryCards() {
       } else {
         closeMosaic();
         out.push(card);
+      }
+      if (featuredPeople.length) {
+        closeMosaic();
+        for (const person of featuredPeople) {
+          out.push(sectionCard(person, [], { useCarousel, pageSlug }).card);
+        }
       }
     }
 

@@ -164,9 +164,9 @@ const hasHero = Boolean(heroImage);
     img.classList.toggle("is-landscape", ar >= 1.15 && ar <= 2.2);
     img.classList.toggle("is-portrait", ar < 0.85);
 
-    const person = img.closest(".entry-card--person");
+    const person = img.closest(".entry-card--person, .entry-card--profile");
     if (person) {
-      img.style.objectPosition = ar < 0.92 ? "center 34%" : "center 58%";
+      img.style.objectPosition = ar < 0.92 ? "center 28%" : "center 42%";
     }
   }
 

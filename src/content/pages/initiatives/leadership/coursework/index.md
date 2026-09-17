@@ -26,7 +26,7 @@ Explore the world of leadership theories and their practical application in this
 
 Teaching Assistant Professor · Coordinator, Minor in Leadership Studies · LEAD 260 Instructor
 
-Student review quotes:
+### Student reviews
 
 > “Dr. Smist is amazing, like LEAD140 and LEAD260. She has a very clear rubric for every assignment, which are diverse formats. All those activities, writings, and discussions are helpful for understanding and applying materials we learn in the modules.”
 >
@@ -36,14 +36,12 @@ Student review quotes:
 >
 > — LEAD 170, May 15, 2021
 
-About Dr. Jennifer Smist:
+### About Dr. Jennifer Smist
 
 Dr. Jennifer Smist is a Teaching Assistant Professor and the Coordinator of the Minor in Leadership Studies at the University of Illinois. Her passion for leadership education and personal and interpersonal development shines through in her teaching. With a Ph.D. in Education Organization and Leadership, Dr. Smist is well-equipped to guide students in their journey to address complex challenges and unlock their leadership potential.
 
-In addition to her teaching role, Dr. Smist is involved in coordinating the ALEC 393 course, where students earn academic credit for internships in agricultural leadership, education, and communications. Her dedication extends to undergraduate recruitment coordination, helping prospective students explore the ALEC program.
+In addition to her teaching role, Dr. Smist coordinates ALEC 393, where students earn academic credit for internships in agricultural leadership, education, and communications. She also helps with undergraduate recruitment, guiding prospective students as they explore the ALEC program.
 
-Dr. Smist has contributed to various publications and is an active member of the academic community. Her commitment to leadership education and development is evident through her work and the positive impact she has on her students.
+Dr. Smist has contributed to various publications and is an active member of the academic community. Her commitment to leadership education is evident in her teaching and in the impact she has on her students.
 
-For more information or to get in touch with Dr. Jennifer Smist, see the [Agricultural Leadership, Education & Communications directory](https://alec.illinois.edu/directory/jsmist).
-
-Sample Work from LEAD 260 - Exam 1
+For more information or to get in touch, see the [Agricultural Leadership, Education & Communications directory](https://alec.illinois.edu/directory/jsmist).

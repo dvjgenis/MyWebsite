@@ -12,7 +12,6 @@ images:
 
 ## The Digital Equity Education Roundtables (D.E.E.R.) Initiative
 
-![](/images/initiatives/leadership/team-experiences/919245207ad1d028b96c63bf3b14f2f6.jpg)
 ![](/images/initiatives/leadership/team-experiences/5b8aeeefc1e00b22bf76ffbda524e047.jpg)
 
 Digital Promise | Office of Education Technology at the U.S. Department of Education | Fall 2022 | 09.28.2022
@@ -21,7 +20,7 @@ I had the honor of being invited to the National Summit on Digital Equity in Was
 
 At the summit, I gained profound insights into the critical importance of digital equity and its far-reaching impact on education nationwide, networking with like-minded and accomplished figures about the topic. This often-overlooked issue highlights the growing necessity of technology in our rapidly evolving world. It underscores the urgency of addressing communities left behind regarding education, societal progress, and overall well-being due to their lack of access to essential digital resources.
 
-Many thanks to all the Digital Promise and Office of Education Technology fellows, notably Zohal Shah , for making this a reality.
+Many thanks to all the Digital Promise and Office of Education Technology fellows, notably Zohal Shah, for making this a reality.
 
 ## What did you learn about leadership from this team experience?
 

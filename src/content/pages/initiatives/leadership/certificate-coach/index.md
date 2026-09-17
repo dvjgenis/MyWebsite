@@ -10,20 +10,20 @@ images:
   - "/images/initiatives/leadership/certificate-coach/1dd538d00dcf3a3aec9f882e7f98bf05.jpg"
 ---
 
-## Certificate Coach
-
 Coaching and guidance through the Illinois Leadership Center certificate program.
 
 ## Joy Das
 
 ![](/images/initiatives/leadership/certificate-coach/a0f8ae88c5092434f0c7c153d8009426.jpg)
 
-Joy Das is an experienced professional in higher education, student leadership development, and project management. Her educational background includes a Bachelor of Arts in Political Science from Wellesley College and a Master of Public Administration (M.P.A.) from Cornell University.
+Assistant Director · Illinois Leadership Center
 
-At the University of Illinois Urbana-Champaign, she oversees leadership workshops, student groups, and student leadership awards. During her time at Cornell University, she managed community-engaged learning initiatives and leadership programs.
+Joy Das is an experienced professional in higher education, student leadership development, and project management. She holds a Bachelor of Arts in Political Science from Wellesley College and a Master of Public Administration from Cornell University.
 
-Joy's educational journey includes a focus on economic and financial policy during her M.P.A. program. She holds certifications in Psychological Safety , Infrastructure Project Management, and Finance.
+At the University of Illinois Urbana-Champaign, she oversees leadership workshops, student groups, and student leadership awards. During her time at Cornell, she managed community-engaged learning initiatives and leadership programs.
 
-Joy's skills and interests encompass leadership, research, and community engagement. She is endorsed for her expertise in these areas by colleagues. In her role, she continues to contribute to student leadership development and community engagement.
+Her M.P.A. work focused on economic and financial policy. She holds certifications in Psychological Safety, Infrastructure Project Management, and Finance.
 
-Joy Das's career demonstrates her dedication to empowering students and fostering community engagement. Thank you , Joy, for being my coach, guiding me with leadership inquiries, leading discussions on theories and life lessons, and your support throughout all my endeavors!
+Joy’s skills and interests include leadership, research, and community engagement—areas colleagues have endorsed. In her role, she continues to contribute to student leadership development and community engagement.
+
+Thank you, Joy, for being my coach: guiding me through leadership inquiries, leading discussions on theories and life lessons, and supporting me throughout my endeavors.

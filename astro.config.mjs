@@ -163,7 +163,7 @@ export default defineConfig({
   redirects: withSlashVariants(googleSitesRedirects),
   markdown: {
     // Rehype plugins run at markdown compile time; restart `astro dev` after editing them.
-    // cache-bust: one-video slides + food deals carousel (2026-09-17n)
+    // cache-bust: featured profiles + team-experiences photo (2026-09-17p)
     rehypePlugins: [rehypeYoutubeEmbeds, rehypeMatchTocIds, rehypeVerseQuotes, rehypeEntryCards],
   },
   vite: {
