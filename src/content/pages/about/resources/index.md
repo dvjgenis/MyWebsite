@@ -130,9 +130,9 @@ Best for quick rewrites, drafts, and summaries. It is a favorite because it offe
 
 Best for research statistics and evidence gathering. It stands out because it acts as a scholarly research assistant indexing over 108 million abstracts and 12 million full-text papers, ensuring that reports and proposals are backed by 100% grounded academic data.
 
-## [NotebookLM](https://notebooklm.google.com)
+## [Gemini Notebook](https://notebooklm.google.com)
 
-[![NotebookLM](/images/about/resources/notebooklm.jpg)](https://notebooklm.google.com)
+[![Gemini Notebook](/images/about/resources/notebooklm.jpg)](https://notebooklm.google.com)
 
 Best for internal manuals, templates, and documents. It is favored because it functions as a grounded document container that answers strictly from uploaded sources with zero web hallucination, effectively resolving positional bias and privacy concerns.
 

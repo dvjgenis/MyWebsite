@@ -187,7 +187,7 @@ function isSchoolQuadEntry(title) {
 }
 
 function isAiToolEntry(title) {
-  return /duckduckgo ai chat|asta\.ai|notebooklm/i.test(title);
+  return /duckduckgo ai chat|asta\.ai|gemini notebook|notebooklm/i.test(title);
 }
 
 function isCompact(heading, body, media, isHost) {
