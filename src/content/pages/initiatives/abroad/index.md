@@ -215,6 +215,6 @@ I will carry your spirit with me always. Un cachito de Graná estará siempre en
 
 youtube:10cS7xFHpaU
 
-When my parents came to visit Granada, I took my dad to Daly’s Pub for dinner and drinks. I was good friends with the owner, Steve, who already knew I was a musician. When I mentioned that my dad was visiting—and that I had inherited much of my musical talent from him—Steve urged us to perform a few songs for the crowd.
+When my parents came to visit Granada, I took my dad to [Daly’s Pub](https://dalysgranada.com/) for dinner and drinks. I was good friends with the owner, Steve, who already knew I was a musician. When I mentioned that my dad was visiting—and that I had inherited much of my musical talent from him—Steve urged us to perform a few songs for the crowd.
 
 Here is a video of my dad and me: I am singing "You" by the Carpenters , and he is singing "If" by Bread .

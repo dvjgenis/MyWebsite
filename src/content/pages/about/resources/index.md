@@ -165,7 +165,7 @@ Best for internal manuals, templates, and documents. It is favored because it fu
 ![](/images/about/resources/food-live-21.png)
 
 - Bruce D. Nesbitt African American Cultural Center ( FREE ) : Join us every Wednesday from 12-1pm at BNAACC for a lunch discussion on topics relevant to the African Diaspora and allies.
-- iCU Intercultural Dialogue Series ( FREE ) : Features stories by international and domestic students, fostering meaningful interactions between them, with events funded by the Student Cultural Programming Fee and held Wednesdays from 5:30–7:00 pm at the Asian American Cultural Center/International Education, 1210 West Nevada Street.
+- iCU Intercultural Dialogue Series ( FREE ) : Features stories by international and domestic students, fostering meaningful interactions between them, with events funded by the Student Cultural Programming Fee and held Wednesdays from 5:30–7:00 pm at the Asian American Cultural Center/[International Education](https://internationaled.illinois.edu/), 1210 West Nevada Street.
 
 ## Thursday
 
@@ -179,4 +179,4 @@ Best for internal manuals, templates, and documents. It is favored because it fu
 
 ![](/images/about/resources/food-live-24.png)
 
-- Friday Forum + Conversation Café ( FREE ) : A weekly forum at the University YMCA to discuss public issues over a free lunch, in partnership with Diversity & Social Justice Education since 2021.
+- Friday Forum + Conversation Café ( FREE ) : A weekly forum at the [University YMCA](https://www.universityymca.org/) to discuss public issues over a free lunch, in partnership with Diversity & Social Justice Education since 2021.

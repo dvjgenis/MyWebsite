@@ -30,7 +30,7 @@ youtube:
 
 ![](/images/initiatives/awards/cca1597bffac0afabe951c71096c711d.png)
 
-Dulf Genis was selected for the 2026 Exploratory Excellence Award by the Division of Exploratory Studies at the University of Illinois Urbana-Champaign for demonstrating exceptional curiosity, self-reflection, and initiative. As a recipient, Dulf will have his name added to the perpetual plaques in the EXP lobby and be recognized at an event on October 2, 2026. For more details on the division, visit the University of Illinois website .
+Dulf Genis was selected for the 2026 Exploratory Excellence Award by the Division of Exploratory Studies at the University of Illinois Urbana-Champaign for demonstrating exceptional curiosity, self-reflection, and initiative. As a recipient, Dulf will have his name added to the perpetual plaques in the EXP lobby and be recognized at an event on October 2, 2026. For more details on the division, visit the [University of Illinois website](https://explore.illinois.edu/awards/) .
 
 ## Illinois Global Institute (IGI) Photo Contest Recognition
 

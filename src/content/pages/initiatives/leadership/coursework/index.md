@@ -44,6 +44,6 @@ In addition to her teaching role, Dr. Smist is involved in coordinating the ALEC
 
 Dr. Smist has contributed to various publications and is an active member of the academic community. Her commitment to leadership education and development is evident through her work and the positive impact she has on her students.
 
-For more information or to get in touch with Dr. Jennifer Smist, see the [Agricultural Leadership, Education & Communications directory](https://alec.illinois.edu/about/contact-us).
+For more information or to get in touch with Dr. Jennifer Smist, see the [Agricultural Leadership, Education & Communications directory](https://alec.illinois.edu/directory/jsmist).
 
 Sample Work from LEAD 260 - Exam 1

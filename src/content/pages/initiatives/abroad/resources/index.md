@@ -147,25 +147,25 @@ Connect with locals for free accommodation.
 
 [![Chase Sapphire Preferred](/images/initiatives/abroad/resources/95eed7aebf08e7578e3e5f9546307f28.png)](https://www.referyourchasecard.com/19q/IH1VGMHATT)
 
-The Chase Sapphire Preferred® Card is a top-rated travel rewards card with an annual fee of $95. Earn 60,000 bonus points after meeting the initial spending requirement, which can be redeemed for travel, cashback, or gift cards. It's ideal for frequent travelers with excellent or good credit who want to maximize value through flexible rewards.
+The [Chase Sapphire Preferred® Card](https://www.referyourchasecard.com/19q/IH1VGMHATT) is a top-rated travel rewards card with an annual fee of $95. Earn 60,000 bonus points after meeting the initial spending requirement, which can be redeemed for travel, cashback, or gift cards. It's ideal for frequent travelers with excellent or good credit who want to maximize value through flexible rewards.
 
 ### [Bank of America® Travel Rewards Credit Card](https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/)
 
 [![Bank of America Travel Rewards](/images/initiatives/abroad/resources/a2ac83dcb8cc163f97b2ebe0cf365665.png)](https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/)
 
-The Bank of America® Travel Rewards Credit Card is a no-annual-fee option for travelers with good or excellent credit. After meeting the spending requirement, you earn 25,000 points, which you can redeem for travel expenses like flights and hotels. It’s a great card for those seeking simplicity and no foreign transaction fees.
+The [Bank of America® Travel Rewards Credit Card](https://www.bankofamerica.com/credit-cards/products/travel-rewards-credit-card/) is a no-annual-fee option for travelers with good or excellent credit. After meeting the spending requirement, you earn 25,000 points, which you can redeem for travel expenses like flights and hotels. It’s a great card for those seeking simplicity and no foreign transaction fees.
 
 ### [Capital One Venture Rewards Credit Card](https://www.capitalone.com/credit-cards/venture/)
 
 [![Capital One Venture](/images/initiatives/abroad/resources/e27667f6e24d13b6d60cf5569e9add71.png)](https://www.capitalone.com/credit-cards/venture/)
 
-The Capital One Venture Rewards Credit Card offers impressive travel perks for an annual fee of $95. After qualifying purchases, you'll earn 75,000 bonus miles, and you'll enjoy flexible redemption options, including travel credits and transfers to airline partners. It's perfect for frequent travelers with excellent or good credit.
+The [Capital One Venture Rewards Credit Card](https://www.capitalone.com/credit-cards/venture/) offers impressive travel perks for an annual fee of $95. After qualifying purchases, you'll earn 75,000 bonus miles, and you'll enjoy flexible redemption options, including travel credits and transfers to airline partners. It's perfect for frequent travelers with excellent or good credit.
 
 ### [Capital One VentureOne Rewards Credit Card](https://www.capitalone.com/credit-cards/ventureone/)
 
 [![Capital One VentureOne](/images/initiatives/abroad/resources/361bb349132dde313160a04d58d135c6.png)](https://www.capitalone.com/credit-cards/ventureone/)
 
-The Capital One VentureOne Rewards Credit Card provides travel rewards with no annual fee. After meeting the initial spend requirement, you can earn 20,000 bonus miles, making it a great choice for occasional travelers seeking straightforward rewards and no foreign transaction fees.
+The [Capital One VentureOne Rewards Credit Card](https://www.capitalone.com/credit-cards/ventureone/) provides travel rewards with no annual fee. After meeting the initial spend requirement, you can earn 20,000 bonus miles, making it a great choice for occasional travelers seeking straightforward rewards and no foreign transaction fees.
 
 ### [XE Currency](https://www.xe.com/)
 

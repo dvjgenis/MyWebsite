@@ -24,36 +24,36 @@ youtube:
   - "MrZmXS6HQ0M"
 ---
 
-## Teaching Strings Online — Static Site Modernization & Launch
+## [Teaching Strings Online](https://teachingstrings.online/) — Static Site Modernization & Launch
 
 
 ![](/images/initiatives/projects/9cde6403a5dca5a2a97d71a2f8bb5b87.jpg)
 
-With my skills in AI-assisted web development and my background as a violinist, I took on a side project to help Dr. Rebecca MacLeod refine the outdated companion site (2016) for Teaching Strings in Today’s Classroom — merging orchestra roots with software skills. I audited the legacy site, fixed launch-blocking content bugs, and rebuilt navigation and video/lesson players through a Python regeneration pipeline while preserving hand-tuned tutorial and hub layouts. I redesigned the UI/UX with scroll-reveal polish, accessibility and SEO updates, and a desktop music-note interaction, archived ~1.4 GB of unused media, pushed the codebase to GitHub, and deployed ~1.3 GB of static assets to Network Solutions via FileZilla.
+With my skills in AI-assisted web development and my background as a violinist, I took on a side project to help [Dr. Rebecca MacLeod](https://music.illinois.edu/people/profiles/rebecca-macleod/) refine the outdated companion site (2016) for Teaching Strings in Today’s Classroom — merging orchestra roots with software skills. I audited the legacy site, fixed launch-blocking content bugs, and rebuilt navigation and video/lesson players through a Python regeneration pipeline while preserving hand-tuned tutorial and hub layouts. I redesigned the UI/UX with scroll-reveal polish, accessibility and SEO updates, and a desktop music-note interaction, archived ~1.4 GB of unused media, pushed the codebase to GitHub, and deployed ~1.3 GB of static assets to Network Solutions via FileZilla.
 
-Interested in learning a string instrument? Explore the redesigned companion site to access interactive lessons, video tutorials, and core technique guides.
+Interested in learning a string instrument? Explore the redesigned [companion site](https://teachingstrings.online/) to access interactive lessons, video tutorials, and core technique guides.
 
 ## Filam — Church Website & Interactive Ministry Platform
 
 ![](/images/initiatives/projects/28a1b825bfd1bc8510b99b5547e6d92f.jpg)
 
-Filam is a custom church website I designed and built for Fil-American Baptist Church, a React SPA with real-time community features (Supabase Prayer Wall), an embedded Bible reader, an interactive missions map, and rich ministry photography — wrapped in smooth scrolling, GSAP animation, and accessible motion fallbacks. I made it as a gift to help my church and community, FABC, with their online presence and to showcase full-stack front-end craft in a real, mission-driven context.
+[Fabcchicago.org](https://fabcchicago.org) is a custom church website I designed and built for Fil-American Baptist Church, a React SPA with real-time community features (Supabase Prayer Wall), an embedded Bible reader, an interactive missions map, and rich ministry photography — wrapped in smooth scrolling, GSAP animation, and accessible motion fallbacks. I made it as a gift to help my church and community, FABC, with their online presence and to showcase full-stack front-end craft in a real, mission-driven context.
 
-## Dulf’s Plant Hydration Hub — Full-Stack IoT Plant Care & Analytics
+## [Dulf’s Plant Hydration Hub](https://github.com/dvjgenis/plant-monitor) — Full-Stack IoT Plant Care & Analytics
 
 
 ![](/images/initiatives/projects/3a4ad5928e68c05f48e141be997d6f5b.jpg)
 
 Per my interest in full-stack IoT engineering, I designed and deployed an end-to-end plant hydration monitoring system that measures real-time soil moisture and visualizes analytics across two tailored interfaces. I engineered an ESP32 microcontroller with a calibrated ADC probe to transmit authenticated Wi-Fi payloads every 30 minutes to a Raspberry Pi server running FastAPI and SQLite. For local home monitoring, I built an installable Progressive Web App (PWA) with live status badges and time-series charts, while creating an automated data sync pipeline to publish a public portfolio view on Streamlit Cloud.
 
-## HarmonyForge — Glass Box SATB Co-Creative System
+## [HarmonyForge](https://github.com/spatel54/harmonyforge) — Glass Box SATB Co-Creative System
 
 
 ![](/images/initiatives/projects/6fc392097ce50f35fc3b7e423aedc161.jpg)
 
 As the backend engineer, I developed a rule-based harmony generation and analysis engine for HarmonyForge, moving away from black-box models to provide a transparent, user-editable music system. My architecture parses files (MusicXML, MIDI, PDF), infers chords, and solves SATB voicings using explicit music theory rules, allowing users to inspect and edit notes interactively. I worked closely with my research partner, Shivam Patel, who engineered the frontend and the tactile RiffScore interface. This project was developed under the guidance of Dr. Yun Huang, Dr. Jeff Ginger, and research assistants Muawiz Khan and Yiren Liu.
 
-## Data Science & AI Prototyping: An Undergraduate Engineering Portfolio
+## Data Science & AI Prototyping: [An Undergraduate Engineering Portfolio](https://github.com/dvjgenis/Undergrad_Class_Projects)
 
 
 ![](/images/initiatives/projects/d57955815d033c5b4575d671a56c00d6.jpg)
@@ -93,7 +93,7 @@ Beyond the work itself, I was struck by our group’s diversity and dedication. 
 
 By the end of our time in Liberia, our team had successfully installed 142 water filters and connected with 210 people. We celebrated as 52 individuals made the decision to follow Christ, and had the profound joy of encouraging 141 fellow believers. This year’s journey revealed a completely different side of service—one that focuses heavily on equipping others and building sustainable, lasting relationships. I left feeling incredibly grateful for the experience, carrying home a fresh perspective on how practical tools, like a simple water filter, can create a ripple effect that transforms entire communities.
 
-## IlliniOverlap: Smart Academic Credential Discovery
+## [IlliniOverlap](https://github.com/dvjgenis/Illini_Overlap): Smart Academic Credential Discovery
 
 
 ![](/images/initiatives/projects/50f01b0fd819e06739f2813a50f88906.jpg)
@@ -107,11 +107,11 @@ youtube:MrZmXS6HQ0M
 
 ![](/images/initiatives/projects/c27a80f9c360c883707b92865989015c.jpg)
 
-On New Year’s 2025, I traveled to Denver for the Bridges International Vision Conference , a global gathering of students from over 75 nations focused on personal growth and spiritual discovery. Our time was split between exploring Colorado’s landmarks, like Garden of the gods, and attending insightful seminars on topics such as AI and Faith and Faith in Suffering. Between the nightly sessions with world-class speakers and multicultural worship, I spent my days in "Tracks," building deep connections with people from vastly different backgrounds while exploring the intersection of culture and faith.
+On New Year’s 2025, I traveled to Denver for the [Bridges International Vision Conference](https://www.visionconf.com/) , a global gathering of students from over 75 nations focused on personal growth and spiritual discovery. Our time was split between exploring Colorado’s landmarks, like Garden of the gods, and attending insightful seminars on topics such as AI and Faith and Faith in Suffering. Between the nightly sessions with world-class speakers and multicultural worship, I spent my days in "Tracks," building deep connections with people from vastly different backgrounds while exploring the intersection of culture and faith.
 
 A highlight of the week was the Global Showcase, where I had the opportunity to represent my heritage by singing "Ikaw Lang Ang Mamahalin" by Joey Albert, despite being sick and losing a lot of my voice. Performing that song for such a diverse audience was a surreal moment of connection, especially alongside the vibrant Culture Night, where we all wore our traditional attire. Capping off the year with a massive New Year’s Eve celebration, I left Colorado with a profound appreciation for the global community and a heart transformed by the simple power of presence and shared stories.
 
-## Building a Production-Grade Multi-Agent Research System with LLM-as-a-Judge Evaluation
+## Building a [Production-Grade Multi-Agent Research System](https://github.com/dvjgenis/multi-agent-systems-lab) with LLM-as-a-Judge Evaluation
 
 
 ![](/images/initiatives/projects/8fab19a8cc35da4a938b14babb5e23cd.jpg)
@@ -123,7 +123,7 @@ I built a production-style multi-agent research assistant designed to handle com
 
 ![](/images/initiatives/projects/c64ff122b44d8b604bf6938f5fdc3235.jpg)
 
-I built this interactive Tableau dashboard to showcase the academic and geographic diversity of GLOBE program students. Across two tabs, " Country and College " and " Demographics ," the visualization serves as a dynamic snapshot of our community. I integrated a home country map alongside a continent-by-year heatmap to highlight geographic origin across degree levels. Additionally, I structured charts to track alignment by college (such as ENG, LAS, and SIS) and view broad representation. Users can filter data across semesters—from FA15 through Fall 2025—allowing prospective participants to explore cohort mix, see how their goals align with peers, and understand the diverse cross-section of domestic and international students they will join.
+I built this interactive Tableau dashboard to showcase the academic and geographic diversity of GLOBE program students. Across two tabs, " [Country and College](https://internationaled.illinois.edu/programs/globe/data/country) " and " [Demographics](https://internationaled.illinois.edu/programs/globe/data/demographics) ," the visualization serves as a dynamic snapshot of our community. I integrated a home country map alongside a continent-by-year heatmap to highlight geographic origin across degree levels. Additionally, I structured charts to track alignment by college (such as ENG, LAS, and SIS) and view broad representation. Users can filter data across semesters—from FA15 through Fall 2025—allowing prospective participants to explore cohort mix, see how their goals align with peers, and understand the diverse cross-section of domestic and international students they will join.
 
 ## Filter of Hope: Cuba 2025
 
@@ -148,13 +148,13 @@ On our “fun day,” when we rested and enjoyed the beach, I found myself later
 
 By the end of the week, our team had installed 250 water filters, shared the Gospel with over 400 people, and witnessed 100 individuals choose to follow Jesus. We also prayed with 183 fellow believers. But beyond the numbers, this trip left me with a deep appreciation for community, the power of presence, and how much love and change can happen through simple acts of service. I'm incredibly thankful for the opportunity to serve and be transformed through this experience—and I carry its lessons with me still, as well as its implications on my current journey in life.
 
-## Chicago Air Quality: Investigating the Impact of Weather Dynamics on Nitrogen Dioxide Pollution
+## [Chicago Air Quality](https://github.com/dvjgenis/Pollutant_Analysis_IS477): Investigating the Impact of Weather Dynamics on Nitrogen Dioxide Pollution
 
 ![](/images/initiatives/projects/278b6c2d04a8da5f8a8259fe794fdbeb.jpg)
 
 I built an end-to-end data engineering and analysis pipeline to investigate how weather conditions like temperature, humidity, and wind speed impact nitrogen dioxide (NO2) pollution in Chicago. I engineered a reproducible workflow using Python and Snakemake to ingest and clean raw data from the City of Chicago and EPA AQS APIs, aligning them at a daily granularity. Through exploratory and statistical analysis, I uncovered key insights, such as an inverse relationship between humidity and NO2 concentrations and higher pollutant accumulation during lower wind speeds. The pipeline automatically outputs clean datasets, correlation matrices, and publication-ready visualizations.
 
-## Quantifying Renewable Energy Reliability Through Geographic Diversity
+## Quantifying Renewable Energy Reliability Through [Geographic Diversity](https://github.com/dvjgenis/GeographicDiversity)
 
 
 ![](/images/initiatives/projects/311ab1863bb139276bfb72b1668b425f.jpg)
@@ -193,7 +193,7 @@ During my study abroad experience in Granada, Spain, in Spring 2024, I engaged i
 
 ![](/images/initiatives/projects/fb90cba384d6304bc57869b78d729b7c.jpg)
 
-As a Search Committee Member for the UIUC Office of the Vice Chancellor for Diversity, Equity, and Inclusion for the 2023 Fall semester, I participated in the search process for the Assistant Director for Bias Response Initiatives. Following the Office for Access and Equity guidelines, I reviewed applications, ensured equity and fairness, and maintained confidentiality. My goal was to identify the most qualified candidate who aligns with the role's responsibilities and promotes diversity and inclusion on campus. I am proud to welcome Datia Flowers to the Office!
+As a Search Committee Member for the UIUC Office of the Vice Chancellor for Diversity, Equity, and Inclusion for the 2023 Fall semester, I participated in the search process for the Assistant Director for Bias Response Initiatives. Following the Office for Access and Equity guidelines, I reviewed applications, ensured equity and fairness, and maintained confidentiality. My goal was to identify the most qualified candidate who aligns with the role's responsibilities and promotes diversity and inclusion on campus. I am proud to welcome [Datia Flowers](https://linkedin.com/in/datia-flowers-msw-521910258) to the Office!
 
 ## Salt & Light in Urbana
 
@@ -204,7 +204,7 @@ As a Search Committee Member for the UIUC Office of the Vice Chancellor for Dive
 
 During my fellowship at the University of Illinois' Office of Civic Life, I not only coordinated volunteering events but also utilized my connection with Salt & Light to launch community service initiatives for Research Park and the Ameren Innovation Center, where I interned in the summer of 2023. Our activities included maintenance work, organizing donated items, and assisting with store operations.
 
-### Volunteering at Salt & Light with the Ameren Innovation Center
+### [Volunteering at Salt & Light with the Ameren Innovation Center](https://youtube.com/shorts/7eQTS9nt-d0?feature=share)
 
 youtube:7eQTS9nt-d0
 

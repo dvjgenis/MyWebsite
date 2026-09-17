@@ -131,15 +131,15 @@ As the first GLOBE Ambassador, I committed to enhancing a program that connects 
 
 This role provided me with a unique blend of essential interpersonal and technical skills. Whether building data dashboards or hosting cultural potlucks, I am grateful for the guidance of the program leadership and the opportunity to build a global community on campus.
 
-I developed an interactive data visualization using program metrics to highlight participant backgrounds like country of origin and college affiliation.
+I developed an [interactive data visualization](https://internationaled.illinois.edu/programs/globe/data/country) using program metrics to highlight participant backgrounds like country of origin and college affiliation.
 
 Here are some videos I created to showcase GLOBE participation and testimonials, a s well as a feature from the University YMCA :
 
-International Education (IE) at Illinois on Instagram: "As we celebrate 10 years of International Education at Illinois - we are sharing stories from our students and alumni! In this video we ask the question: “What is your favorite memory about IE/GLOBE?” For more stories and videos please visit https://internationaled.illinois.edu/stories"
+[International Education (IE) at Illinois on Instagram: "As we celebrate 10 years of International Education at Illinois - we are sharing stories from our students and alumni! In this video we ask the question: “What is your favorite memory about IE/GLOBE?” For more stories and videos please visit https://internationaled.illinois.edu/stories"](https://www.instagram.com/reel/C_yW2yYvG-S/?utm_source=ig_web_copy_link)
 
-International Education (IE) at Illinois on Instagram: "As we celebrate 10 years of International Education at Illinois - we are sharing stories from our students and alumni! In this video we ask the question: "What did you enjoy most about IE/GLOBE?" For more stories and videos please visit https://internationaled.illinois.edu/stories"
+[International Education (IE) at Illinois on Instagram: "As we celebrate 10 years of International Education at Illinois - we are sharing stories from our students and alumni! In this video we ask the question: "What did you enjoy most about IE/GLOBE?" For more stories and videos please visit https://internationaled.illinois.edu/stories"](https://www.instagram.com/reel/C_TqzQav_u_/?utm_source=ig_web_copy_link)
 
-internationaled.illinois.edu/about/meet-staff
+[internationaled.illinois.edu/about/meet-staff](https://internationaled.illinois.edu/about/meet-staff)
 
 ## Project Manager/Operations Intern/Data Scientist | Ameren Innovation Center at University of Illinois at Urbana-Champaign Research Park | Full-time
 
@@ -179,6 +179,8 @@ Bill Validation : Leading the development of an innovative solution for accurate
 ### Impact & Reflection
 
 My two-year tenure at the Ameren Innovation Center represents a transformative period of growth that fundamentally reshaped my academic and professional trajectory. Starting in an operational capacity, I was initially focused on the organizational "bridge" between technical research and business value; however, the mentorship and visionary leadership of Shil (Prasenjit Shil), Kevin Ficek, and Sevan Brodjan provided the catalyst for my evolution. Their guidance helped me navigate the complexities of the energy sector and showed me the profound impact that data-driven decision-making has on sustainability. It was directly through this exposure—moving from managing projects to architecting technical solutions like the tri-metric geographic diversity framework—that I found my "technical identity" and officially declared my dual major in Information Sciences and Data Science (IS+DS). This experience allowed me to merge my background in community organization with rigorous Python-based machine learning, leaving me uniquely equipped to translate between executive business strategy and production-grade data science.
+
+[Laura Weisskopf Bleill on LinkedIn: iSchool BSIS+DS student Dulf Genis: Bridging cultures and tech](https://www.linkedin.com/posts/lauraweisskopfbleill_ischool-bsisds-student-dulf-genis-bridging-activity-7259002892924116992-wNUc)
 
 ## Research Assistant | Gies College of Business - University of Illinois at Urbana-Champaign | Part-time
 

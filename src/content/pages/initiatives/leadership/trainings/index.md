@@ -35,7 +35,7 @@ The Donaldson Leadership Retreat, a flagship initiative of the Illinois Leadersh
 
 When and Where:
 
-All information about the retreat is located here . T his retreat invites participants to embark on a journey of self-discovery and leadership mastery. Allerton Park, an idyllic location steeped in history and natural splendor, offers a serene backdrop for this developmental voyage.
+All information about the retreat is located [here](https://leadership.illinois.edu/donaldson-leadership-retreat). This retreat invites participants to embark on a journey of self-discovery and leadership mastery. Allerton Park, an idyllic location steeped in history and natural splendor, offers a serene backdrop for this developmental voyage.
 
 Empowering Leaders:
 
@@ -114,7 +114,7 @@ The LeaderShape® Institute™, a nationally recognized leadership development r
 
 Application Deadline:
 
-All information about the Institute can be found here , along with the application link .
+All information about the Institute can be found [here](https://leadership.illinois.edu/institute), along with the [application link](https://forms.illinois.edu/sec/1397472437?referrer=https://shibboleth.illinois.edu/).
 
 Exploring Leadership:
 
@@ -130,11 +130,11 @@ For Current Students : About 60 Illinois students are selected annually to parta
 
 Information Sessions : Information sessions will be conducted for current students in September and October. Interested students can register for these sessions through the ILC website. Dates, times, and locations are as follows:
 
-Cluster Facilitators : Facilitating each group, known as "Family Clusters," are Cluster Facilitators, consisting of University of Illinois faculty, staff, alumni, or local community members. If you are interested in being a Cluster Facilitator, click here .
+Cluster Facilitators : Facilitating each group, known as "Family Clusters," are Cluster Facilitators, consisting of University of Illinois faculty, staff, alumni, or local community members. If you are interested in being a Cluster Facilitator, click [here](https://leadership.illinois.edu/login).
 
 Daily Schedule : A typical day begins with breakfast at 7:45 AM and concludes around 9:00 or 10:00 PM. Activities include team-building exercises, group discussions, individual reflections, and engaging conversations. Meals, snacks, and refreshments are provided to participants each day.
 
-Location : The program is hosted at the picturesque Allerton Park Retreat Center in Monticello, Illinois. Round-trip transportation, lodging, and three daily meals are provided for all participants. Learn more about Allerton Park here .
+Location : The program is hosted at the picturesque Allerton Park Retreat Center in Monticello, Illinois. Round-trip transportation, lodging, and three daily meals are provided for all participants. Learn more about Allerton Park [here](https://allerton.illinois.edu/).
 
 Cost : The retreat is financially sponsored by respective colleges, departments, or units, ensuring that participants do not bear any costs.
 
