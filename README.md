@@ -114,7 +114,7 @@ Each site page is a **self-contained folder**: Markdown copy, frontmatter, and i
 │   └── extract-export.mjs       # Google Sites → Markdown
 ├── vercel.json                  # Vercel build: Astro → dist/
 ├── archive/media/_unused/       # Unreferenced export images (gitignored)
-└── .github/workflows/           # Optional GitHub Pages workflow
+└── .github/workflows/           # CI build check (Vercel handles production)
 ```
 
 ### Adding or editing a page
@@ -182,7 +182,7 @@ npm run build
 npm run preview
 ```
 
-A GitHub Actions workflow (`.github/workflows/deploy.yml`) can still publish `dist/` to GitHub Pages. Disable it in the repo’s Actions settings if Vercel is the only host, so the two do not compete for the custom domain.
+GitHub Actions (`.github/workflows/deploy.yml`) runs `npm run build` on each push and pull request so the static output stays green. Production hosting is Vercel only — GitHub Pages is not used, so it cannot fight Vercel for `dulfvincent.com`.
 
 ---
 
