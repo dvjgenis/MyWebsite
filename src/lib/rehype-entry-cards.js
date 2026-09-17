@@ -827,9 +827,13 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
       blocks = wrapH3Blocks(prose);
       layout = "gallery";
     } else if (teamExperiences) {
-      rail = mediaRail(merged.videos, merged.images, [], false);
-      blocks = wrapH3Blocks(prose);
-      layout = merged.images.length + merged.videos.length >= 2 ? "gallery" : "split";
+      const photos = extractImageParagraphs(merged.images);
+      if (photos.length === 1 && !merged.videos.length) {
+        blocks = wrapH3Blocks([markEssayFigure(photos[0], "left"), ...prose]);
+      } else {
+        blocks = wrapH3Blocks(interleaveEssayMedia(prose, merged.videos, merged.images));
+      }
+      layout = "essay";
     } else if (costaRica) {
       if (merged.videos.length) {
         feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];

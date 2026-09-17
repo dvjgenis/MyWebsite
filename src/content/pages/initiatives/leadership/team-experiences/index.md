@@ -7,7 +7,7 @@ images:
   - "/images/initiatives/leadership/team-experiences/919245207ad1d028b96c63bf3b14f2f6.jpg"
   - "/images/initiatives/leadership/team-experiences/5b8aeeefc1e00b22bf76ffbda524e047.jpg"
   - "/images/initiatives/leadership/team-experiences/63e87c81f8f8a557d971e8e7cadff6c1.jpg"
-  - "/images/shared/05ef1ecc64cd044e2a2b36624480b26b.jpg"
+  - "/images/initiatives/leadership/team-experiences/2243bdb70801d1bbe1225ddb6c24b24b.jpg"
 ---
 
 ## The Digital Equity Education Roundtables (D.E.E.R.) Initiative
@@ -32,7 +32,7 @@ Furthermore, being the youngest participant and the only high school representat
 
 ## What was most challenging about this team experience and how did you navigate it?
 
-![](/images/initiatives/leadership/team-experiences/57cf3597bdbb510d83fd2740d6e4749e.jpg)
+![](/images/initiatives/leadership/team-experiences/63e87c81f8f8a557d971e8e7cadff6c1.jpg)
 
 Navigating the most challenging aspect of this team experience, the transition from a local community-based leadership role to a national stage, required that I go about it in different ways. First, I prioritized transition preparation. By conducting thorough research and gaining a deep understanding of the broader issues surrounding digital equity in education, I positioned myself to engage in meaningful conversations and effectively share my insights. Seeking guidance from mentors and field experts further enhanced my knowledge of the national landscape.
 

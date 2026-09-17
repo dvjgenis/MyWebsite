@@ -891,6 +891,35 @@
     .entry-card--essay .spread-row {
       clear: both;
     }
+
+    .page-article[data-slug="initiatives/leadership/team-experiences"] .entry-card--essay .essay-figure--left,
+    .page-article[data-slug="initiatives/leadership/team-experiences"] .entry-card--essay .essay-figure--right {
+      width: min(38%, 16.5rem);
+      max-width: 16.5rem;
+    }
+
+    .page-article[data-slug="initiatives/leadership/team-experiences"]
+      .entry-card--essay
+      .entry-body
+      > .essay-figure:first-child:not(:last-child) {
+      float: left;
+      width: min(38%, 16.5rem);
+      max-width: 16.5rem;
+      margin: 0.1rem 1.2rem 0.9rem 0;
+    }
+
+    .page-article[data-slug="initiatives/leadership/team-experiences"] .entry-card--essay .essay-figure img {
+      max-height: 20rem;
+      height: auto;
+      object-fit: contain;
+      object-position: center 24%;
+      background: transparent;
+    }
+
+    .page-article[data-slug="initiatives/leadership/team-experiences"] .entry-card--essay .essay-figure img.is-portrait {
+      object-fit: cover;
+      height: 20rem;
+    }
   }
 
   .spread-figure:has(> img + img),
