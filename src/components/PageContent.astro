@@ -118,7 +118,11 @@ const hasHero = Boolean(heroImage);
         links.append(a);
         continue;
       }
-      if (child.classList.contains("entry-mosaic") || child.classList.contains("site-carousel--resource")) {
+      if (
+        child.classList.contains("entry-mosaic") ||
+        child.classList.contains("site-carousel--resource") ||
+        child.classList.contains("site-carousel--food")
+      ) {
         const mosaicCards = [
           ...child.querySelectorAll(".entry-card:not(.entry-card--person):not(.entry-card--photo)"),
         ];

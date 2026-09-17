@@ -225,14 +225,39 @@ function wrapCarousel(kind, slides, label) {
   );
 }
 
+function isShortMedia(node) {
+  if (classList(node).includes("youtube-embed--short")) return true;
+  return (node.children || []).some((child) => classList(child).includes("youtube-embed--short"));
+}
+
 function carouselEl(kind, nodes) {
-  const slides = flattenMedia(nodes).map((node) => el("div", {}, [enableYoutubeApi(node)]));
-  return wrapCarousel(kind, slides, kind === "video" ? "Videos" : "Photos");
+  const media = flattenMedia(nodes);
+  const slides = media.map((node) => {
+    enableYoutubeApi(node);
+    const short = kind === "video" && isShortMedia(node);
+    return el("div", { className: short ? ["site-carousel-slide--short"] : [] }, [node]);
+  });
+  const carousel = wrapCarousel(kind, slides, kind === "video" ? "Videos" : "Photos");
+  if (kind === "video" && media.length && media.every(isShortMedia)) {
+    carousel.properties.className = [...classList(carousel), "site-carousel--shorts"];
+  }
+  return carousel;
+}
+
+function wrapCardCarousel(kind, cards, label) {
+  return wrapCarousel(
+    kind,
+    cards.map((card) => el("div", {}, [card])),
+    label,
+  );
 }
 
 function wrapResourceCarousel(cards) {
-  const slides = cards.map((card) => el("div", {}, [card]));
-  return wrapCarousel("resource", slides, "Illinois campus resources");
+  return wrapCardCarousel("resource", cards, "Illinois campus resources");
+}
+
+function wrapFoodCarousel(cards) {
+  return wrapCardCarousel("food", cards, "Weekly food deals");
 }
 
 function maybeCarousel(kind, nodes) {
@@ -858,10 +883,13 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     !photoOnly &&
     !aiToolEntry &&
     !isWeekdayFoodTitle(title);
+  const foodDeal =
+    pageSlug === "about/resources" && !peopleHost && isWeekdayFoodTitle(title);
 
   return {
-    mosaic: (photoOnly || (compact && !solo)) && !illinoisResource,
+    mosaic: (photoOnly || (compact && !solo)) && !illinoisResource && !foodDeal,
     illinoisCarousel: illinoisResource,
+    foodCarousel: foodDeal,
     card: el(
       "article",
       {
@@ -945,6 +973,15 @@ export function rehypeEntryCards() {
       illinoisCards = [];
     };
 
+    let foodCards = [];
+    const flushFood = () => {
+      if (!foodCards.length) return;
+      closeMosaic();
+      if (foodCards.length <= 1) out.push(...foodCards);
+      else out.push(wrapFoodCarousel(foodCards));
+      foodCards = [];
+    };
+
     let index = 0;
     while (index < sections.length) {
       const section = sections[index];
@@ -952,6 +989,7 @@ export function rehypeEntryCards() {
 
       if (/^table of contents$/i.test(section.title)) {
         flushIllinois();
+        flushFood();
         closeMosaic();
         out.push(
           el("nav", { className: ["entry-toc"], id, hidden: true, "aria-hidden": "true" }, [
@@ -965,6 +1003,7 @@ export function rehypeEntryCards() {
 
       if (section.empty && !section.person) {
         flushIllinois();
+        flushFood();
         closeMosaic();
         section.heading.properties ||= {};
         section.heading.properties.className = [...classList(section.heading), "entry-group-label"];
@@ -981,6 +1020,7 @@ export function rehypeEntryCards() {
           index += 1;
         }
         flushIllinois();
+        flushFood();
         closeMosaic();
         if (people.length) out.push(el("div", { className: ["entry-people"] }, people.map(personCard)));
         continue;
@@ -1002,16 +1042,24 @@ export function rehypeEntryCards() {
         break;
       }
 
-      const { card, mosaic: inMosaic, illinoisCarousel } = sectionCard(section, people, {
+      const { card, mosaic: inMosaic, illinoisCarousel, foodCarousel } = sectionCard(section, people, {
         useCarousel,
         pageSlug,
       });
       if (illinoisCarousel) {
+        flushFood();
         closeMosaic();
         illinoisCards.push(card);
         continue;
       }
+      if (foodCarousel) {
+        flushIllinois();
+        closeMosaic();
+        foodCards.push(card);
+        continue;
+      }
       flushIllinois();
+      flushFood();
       if (inMosaic) {
         if (!mosaic) mosaic = el("div", { className: ["entry-mosaic"] }, []);
         mosaic.children.push(card);
@@ -1022,6 +1070,7 @@ export function rehypeEntryCards() {
     }
 
     flushIllinois();
+    flushFood();
     closeMosaic();
     tree.children = out;
   };
