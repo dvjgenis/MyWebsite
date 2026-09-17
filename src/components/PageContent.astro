@@ -25,39 +25,40 @@ interface Props {
 const { page, Content, showDescription = true, parent, prev, next } = Astro.props;
 const { title, quote, quoteAuthor, heroImage } = page.data;
 const kind = page.data.slug.split("/").pop() ?? "page";
+const hasHero = Boolean(heroImage);
 ---
 
-<article class="page-article mx-auto max-w-6xl px-4 py-10 md:py-14" data-kind={kind}>
-  <header class="page-masthead stagger-in">
-    <h1 class="page-title">
-      {title}
-    </h1>
-    {
-      showDescription && page.data.description && (
-        <p class="page-dek">{page.data.description}</p>
-      )
-    }
-  </header>
-
+<article class:list={["page-article", hasHero && "page-article--banner"]} data-kind={kind} data-slug={page.data.slug}>
   {
-    (quote || heroImage) && (
-      <div
-        class:list={[
-          "page-band stagger-in",
-          quote && heroImage && "page-band--split",
-          !quote && heroImage && "page-band--photo",
-        ]}
-        style="animation-delay: 60ms"
-      >
-        {quote && <Quote quote={quote} author={quoteAuthor} />}
-        {heroImage && (
-          <figure class="page-band-photo">
-            <img src={heroImage} alt={`Photo for ${title}`} loading="eager" />
-          </figure>
-        )}
-      </div>
+    hasHero && (
+      <header class="page-hero">
+        <div class="page-hero-media">
+          <img src={heroImage} alt="" width="1600" height="640" decoding="async" fetchpriority="high" />
+        </div>
+        <div class="page-hero-copy">
+          <h1 class="page-hero-title">{title}</h1>
+          {showDescription && page.data.description && <p class="page-hero-dek">{page.data.description}</p>}
+        </div>
+      </header>
     )
   }
+
+  <div class:list={["page-shell", hasHero && "page-shell--after-banner"]}>
+    {
+      !hasHero && (
+        <header class="page-masthead stagger-in">
+          <h1 class="page-title">{title}</h1>
+          {showDescription && page.data.description && <p class="page-dek">{page.data.description}</p>}
+        </header>
+      )
+    }
+    {
+      quote && (
+        <div class:list={["page-pullquote", hasHero && "page-pullquote--banner"]}>
+          <Quote quote={quote} author={quoteAuthor} />
+        </div>
+      )
+    }
 
   <slot name="after-intro" />
 
@@ -72,6 +73,7 @@ const kind = page.data.slug.split("/").pop() ?? "page";
   </div>
 
   <PageNav parent={parent} prev={prev} next={next} />
+  </div>
 </article>
 
 <script>
@@ -150,17 +152,30 @@ const kind = page.data.slug.split("/").pop() ?? "page";
     targets.forEach((el) => observer.observe(el));
   }
 
+  function classifyImage(img) {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    const ar = img.naturalWidth / img.naturalHeight;
+    img.classList.toggle("is-frame", ar > 0.82 && ar < 1.22);
+    img.classList.toggle("is-banner", ar > 2.2);
+    img.classList.toggle("is-landscape", ar >= 1.15 && ar <= 2.2);
+    img.classList.toggle("is-portrait", ar < 0.85);
+
+    const person = img.closest(".entry-card--person");
+    if (person) {
+      img.style.objectPosition = ar < 0.92 ? "center 34%" : "center 58%";
+    }
+  }
+
   function markMediaFrames() {
-    document.querySelectorAll(".entry-media img, .entry-stills img").forEach((node) => {
-      const img = node;
-      const apply = () => {
-        if (!img.naturalWidth || !img.naturalHeight) return;
-        const ar = img.naturalWidth / img.naturalHeight;
-        img.classList.toggle("is-frame", ar > 0.82 && ar < 1.22);
-      };
-      if (img.complete) apply();
-      else img.addEventListener("load", apply, { once: true });
-    });
+    document
+      .querySelectorAll(
+        ".entry-media img, .entry-stills img, .spread-row img, .essay-figure img, .page-hero-media img",
+      )
+      .forEach((node) => {
+        const img = node;
+        if (img.complete) classifyImage(img);
+        else img.addEventListener("load", () => classifyImage(img), { once: true });
+      });
   }
 
   document.addEventListener("astro:page-load", initPageIndex);

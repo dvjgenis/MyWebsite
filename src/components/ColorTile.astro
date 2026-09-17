@@ -76,7 +76,10 @@ const onDark = hexLuminance(foreground) > 0.42;
       <img
         src={image}
         alt=""
-        class="color-tile-image absolute inset-0 h-full w-full object-cover"
+        class:list={[
+          "color-tile-image absolute inset-0 h-full w-full object-cover",
+          image.includes("contact-portrait") && "color-tile-image--eyes",
+        ]}
         loading="lazy"
       />
     )

@@ -2,9 +2,9 @@
 title: "Study Abroad"
 slug: "initiatives/abroad"
 description: "A compilation of my journey in Granada, Spain, and the people who defined it."
-heroImage: "/images/initiatives/abroad/09e1cf8108a81b02f759a76d22dae093.jpg"
+heroImage: "/images/initiatives/abroad/51a6cc264bd0396584a83dbe6ac23121.png"
 images:
-  - "/images/initiatives/abroad/09e1cf8108a81b02f759a76d22dae093.jpg"
+  - "/images/initiatives/abroad/51a6cc264bd0396584a83dbe6ac23121.png"
   - "/images/initiatives/abroad/92d6e3cdb53efbd79c663e99364856fd.jpg"
   - "/images/initiatives/abroad/0b0025e5a1d35c16e55734334ea08432.jpg"
   - "/images/initiatives/abroad/ec976d917ead5d3f1382dfbedfd78bb1.jpg"

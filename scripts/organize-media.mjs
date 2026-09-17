@@ -1,12 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 
 const root = path.resolve(import.meta.dirname, "..");
 const pagesDir = path.join(root, "src/content/pages");
+const sharedMedia = path.join(root, "src/content/shared/media");
 const imagesDir = path.join(root, "public/images");
 const rewriteRoots = [path.join(root, "src"), path.join(root, "scripts")];
 
-const IMG_RE = /\/images\/((?:[a-f0-9]{32}|contact-portrait)\.(?:jpg|jpeg|png|gif|webp|svg))/gi;
+const IMG_RE =
+  /\/images\/((?:[a-f0-9]{32}|contact-portrait|food-live-\d+|ryanair-logo|ilc-live-logo)\.(?:jpg|jpeg|png|gif|webp|svg))/gi;
 
 function walk(dir, acc = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -26,6 +29,10 @@ function pageDest(file) {
     .replace(/\.md$/, "");
 }
 
+function mediaDir(slug) {
+  return slug === "shared" ? sharedMedia : path.join(pagesDir, slug, "media");
+}
+
 const owners = new Map();
 const mdFiles = walk(pagesDir).filter((f) => f.endsWith(".md"));
 
@@ -41,7 +48,7 @@ for (const file of mdFiles) {
 
 function destination(base) {
   const set = owners.get(base);
-  if (!set || set.size === 0) return "_unused";
+  if (!set || set.size === 0) return "archive";
   if (set.size > 1) return "shared";
   return [...set][0];
 }
@@ -49,18 +56,19 @@ function destination(base) {
 const mapping = new Map();
 
 function findExisting(base) {
-  const direct = path.join(imagesDir, base);
-  if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return direct;
-  const stack = [imagesDir];
-  while (stack.length) {
-    const dir = stack.pop();
+  const candidates = [];
+  const stack = [imagesDir, ...walk(pagesDir).filter((f) => f.endsWith("media") && fs.statSync(f).isDirectory())];
+  for (const dir of stack) {
+    if (!fs.existsSync(dir)) continue;
+    if (fs.statSync(dir).isFile() && path.basename(dir) === base) return dir;
+    if (!fs.statSync(dir).isDirectory()) continue;
+    const direct = path.join(dir, base);
+    if (fs.existsSync(direct) && fs.statSync(direct).isFile()) candidates.push(direct);
     for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
-      const p = path.join(dir, ent.name);
-      if (ent.isDirectory()) stack.push(p);
-      else if (ent.name === base) return p;
+      if (ent.isFile() && ent.name === base) candidates.push(path.join(dir, ent.name));
     }
   }
-  return null;
+  return candidates[0] || null;
 }
 
 for (const [base] of owners) {
@@ -70,25 +78,26 @@ for (const [base] of owners) {
     console.warn("missing image", base);
     continue;
   }
-  const destDir = path.join(imagesDir, dest);
+  const destDir = mediaDir(dest === "archive" ? "_unused" : dest);
+  if (dest === "archive") {
+    const archiveDir = path.join(root, "archive/media/_unused");
+    fs.mkdirSync(archiveDir, { recursive: true });
+    const destFile = path.join(archiveDir, base);
+    if (path.resolve(src) !== path.resolve(destFile)) {
+      if (fs.existsSync(destFile)) fs.unlinkSync(src);
+      else fs.renameSync(src, destFile);
+    }
+    mapping.set(base, `/images/_unused/${base}`);
+    continue;
+  }
   fs.mkdirSync(destDir, { recursive: true });
   const destFile = path.join(destDir, base);
   if (path.resolve(src) !== path.resolve(destFile)) {
     if (fs.existsSync(destFile)) fs.unlinkSync(src);
     else fs.renameSync(src, destFile);
   }
-  mapping.set(base, `/images/${dest}/${base}`);
-}
-
-for (const name of fs.readdirSync(imagesDir)) {
-  const p = path.join(imagesDir, name);
-  if (!fs.statSync(p).isFile()) continue;
-  if (!/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(name)) continue;
-  const destDir = path.join(imagesDir, "_unused");
-  fs.mkdirSync(destDir, { recursive: true });
-  const destFile = path.join(destDir, name);
-  if (path.resolve(p) !== path.resolve(destFile)) fs.renameSync(p, destFile);
-  if (!mapping.has(name)) mapping.set(name, `/images/_unused/${name}`);
+  const urlSlug = dest === "shared" ? "shared" : dest;
+  mapping.set(base, `/images/${urlSlug}/${base}`);
 }
 
 function rewrite(text) {
@@ -107,6 +116,10 @@ for (const dir of rewriteRoots) {
     }
   }
 }
+
+spawnSync(process.execPath, [path.join(root, "scripts/sync-page-media.mjs")], {
+  stdio: "inherit",
+});
 
 const counts = {};
 for (const dest of mapping.values()) {

@@ -2,9 +2,9 @@
 title: "Background"
 slug: "about/background"
 description: "Essays on identity, rest, and rootedness in two worlds."
-heroImage: "/images/about/background/5314c7dae117836284dff20c22bd45a0.jpg"
+heroImage: "/images/about/background/94d5f3de5e9652443caab741e75195ff.jpg"
 images:
-  - "/images/about/background/5314c7dae117836284dff20c22bd45a0.jpg"
+  - "/images/about/background/94d5f3de5e9652443caab741e75195ff.jpg"
   - "/images/about/background/1e777d0ebb9f378c1996552a60d07147.jpg"
   - "/images/about/background/e47755dd413e3cfe0a22add3fcf1538d.jpg"
   - "/images/about/background/65badc1547c8533e67216f27d6ed7078.jpg"

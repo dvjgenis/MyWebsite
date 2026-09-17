@@ -176,6 +176,10 @@ function textParagraphCount(nodes) {
   ).length;
 }
 
+function isSchoolQuadEntry(title) {
+  return /(?:high school|middle school|elementary school|christian academy)/i.test(title);
+}
+
 function isCompact(heading, body, media, isHost) {
   if (isHost) return false;
   if (countYoutube(media) || body.some((n) => isElement(n, "h3"))) return false;
@@ -294,19 +298,36 @@ function markFlowMedia(node, kind) {
 
 function packImageRows(images) {
   const marked = extractImageParagraphs(images).map((n) => markFlowMedia(n, "spread"));
+  if (marked.length <= 1) return marked;
   const rows = [];
   for (let i = 0; i < marked.length; i += 3) {
     const slice = marked.slice(i, i + 3);
+    if (slice.length === 1) {
+      rows.push(slice[0]);
+      continue;
+    }
     rows.push(el("div", { className: ["spread-row", `spread-row--${slice.length}`] }, slice));
   }
   return rows;
 }
 
-function interleaveBlocks(body, videos, images) {
-  const units = mixMedia(
-    videos.map((n) => markFlowMedia(n, "spread")),
-    packImageRows(images),
-  );
+function markEssayFigure(node, side) {
+  if (isVideoNode(node)) {
+    return el("div", { className: ["spread-embed"] }, [node]);
+  }
+  node.properties ||= {};
+  node.properties.className = [
+    ...classList(node).filter(
+      (c) =>
+        !String(c).startsWith("essay-figure") && c !== "block-figure" && c !== "spread-figure",
+    ),
+    "essay-figure",
+    side === "right" ? "essay-figure--right" : "essay-figure--left",
+  ];
+  return node;
+}
+
+function interleaveUnits(body, units) {
   if (!units.length) return body;
   const anchors = [];
   body.forEach((n, i) => {
@@ -326,6 +347,85 @@ function interleaveBlocks(body, videos, images) {
     if (insertAfter.has(i)) out.push(...insertAfter.get(i));
   });
   return out;
+}
+
+function interleaveBlocks(body, videos, images) {
+  return interleaveUnits(
+    body,
+    mixMedia(
+      videos.map((n) => markFlowMedia(n, "spread")),
+      packImageRows(images),
+    ),
+  );
+}
+
+function isEssayFigure(node) {
+  return isElement(node, "p") && classList(node).some((c) => String(c).startsWith("essay-figure"));
+}
+
+/** Trailing floated essay photos with no text after them leave empty space — span full width instead. */
+function packTrailingEssayMedia(body) {
+  if (!body.length) return body;
+  let cut = body.length;
+  while (cut > 0 && isEssayFigure(body[cut - 1])) cut -= 1;
+  if (cut === body.length) return body;
+
+  const trailing = body.slice(cut);
+  const head = body.slice(0, cut);
+  const stripFloat = (node) => {
+    node.properties ||= {};
+    node.properties.className = [
+      ...classList(node).filter(
+        (c) => !String(c).startsWith("essay-figure") && c !== "spread-figure",
+      ),
+      "spread-figure",
+    ];
+    return node;
+  };
+
+  if (trailing.length === 1) return [...head, stripFloat(trailing[0])];
+
+  return [
+    ...head,
+    el(
+      "div",
+      { className: ["spread-row", `spread-row--${Math.min(trailing.length, 3)}`] },
+      trailing.map(stripFloat),
+    ),
+  ];
+}
+
+function interleaveEssayMedia(body, videos, images) {
+  const imageUnits = extractImageParagraphs(images).map((n, i) =>
+    markEssayFigure(n, i % 2 === 0 ? "left" : "right"),
+  );
+  return packTrailingEssayMedia(
+    interleaveUnits(
+      body,
+      mixMedia(
+        videos.map((n) => markFlowMedia(n, "spread")),
+        imageUnits,
+      ),
+    ),
+  );
+}
+
+function zipMediaPairs(videos, images) {
+  const clips = videos.map((node) => {
+    node.properties ||= {};
+    node.properties.className = [...new Set([...classList(node), "youtube-embed", "youtube-embed--short"])];
+    return node;
+  });
+  const photos = flattenMedia(images);
+  const rows = [];
+  const count = Math.max(clips.length, photos.length);
+  for (let i = 0; i < count; i += 1) {
+    const kids = [];
+    if (clips[i]) kids.push(clips[i]);
+    if (photos[i]) kids.push(photos[i]);
+    rows.push(el("div", { className: ["entry-media-pair"] }, kids));
+  }
+  return el("div", { className: ["entry-media-pairs"] }, rows);
 }
 
 function zipCaptions(images, captions) {
@@ -427,6 +527,7 @@ function partitionBody(nodes) {
   const rest = [];
   let collecting = true;
   for (const node of nodes) {
+    if (collecting && isBlank(node)) continue;
     if (collecting && isMediaNode(node)) {
       media.push(node);
       continue;
@@ -491,13 +592,16 @@ function sectionCard(section, people) {
     measureText(nonCaptions).length < 40;
   const photoOnly = !peopleHost && images.length === 1 && videos.length === 0 && !measureText(rest);
   const compact = !captionGallery && !peopleHost && isCompact(title, rest, media, peopleHost);
-  const solo = compact && !photoOnly && images.length === 1 && videos.length === 0;
+  const schoolQuadEntry =
+    !peopleHost && compact && !photoOnly && isSchoolQuadEntry(title) && images.length === 1 && videos.length === 0;
+  const solo = compact && !photoOnly && images.length === 1 && videos.length === 0 && !schoolQuadEntry;
   const blocked = rest.filter((n) => isElement(n, "h3")).length >= 2;
   const longEssay = textParagraphCount(rest) >= 3 || measureText(rest).length > 1600;
 
   let rail = [];
   let blocks = [];
   let extra = [];
+  let feature = [];
   let layout = "default";
 
   if (photoOnly) {
@@ -510,15 +614,43 @@ function sectionCard(section, people) {
     rail = flattenMedia(media);
     blocks = wrapH3Blocks(rest);
     layout = solo ? "solo" : "compact";
+  } else if (blocked && images.length + videos.length >= 2) {
+    rail = flattenMedia(media);
+    blocks = wrapH3Blocks(rest);
+    layout = "gallery";
   } else if (blocked && images.length + videos.length > 0) {
     blocks = attachMediaToBlocks(wrapH3Blocks(rest), mixMedia(videos, images));
     layout = "banded";
   } else if (longEssay && (images.length + videos.length > 0 || rest.some((n) => isMediaNode(n) || isYoutube(n)))) {
-    const packedRest = packInlineMediaRuns(rest);
-    blocks = wrapH3Blocks(
-      images.length + videos.length > 0 ? interleaveBlocks(packedRest, videos, images) : packedRest,
-    );
-    layout = "essay";
+    const prose = [];
+    const inlineMedia = [];
+    for (const n of rest) {
+      if (isMediaNode(n) || isYoutube(n) || classList(n).includes("youtube-embed") || classList(n).includes("youtube-stack")) {
+        inlineMedia.push(n);
+      } else if (!isBlank(n)) {
+        prose.push(n);
+      }
+    }
+    const merged = splitMedia([...media, ...inlineMedia]);
+    const costaRica = /costa rica/i.test(title);
+    const showcase =
+      !costaRica &&
+      (merged.videos.filter((n) => classList(n).includes("youtube-embed--short")).length >= 2 ||
+        (merged.videos.length >= 3 && merged.images.length >= 2));
+    if (costaRica) {
+      if (merged.videos.length) {
+        feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];
+      }
+      blocks = wrapH3Blocks(interleaveEssayMedia(prose, [], merged.images));
+      layout = "essay";
+    } else if (showcase && merged.videos.length && merged.images.length) {
+      feature = [zipMediaPairs(merged.videos, merged.images)];
+      blocks = wrapH3Blocks(prose);
+      layout = "showcase";
+    } else {
+      blocks = wrapH3Blocks(interleaveEssayMedia(prose, merged.videos, merged.images));
+      layout = "essay";
+    }
   } else if (images.length + videos.length >= 2 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
     rail = flattenMedia(media);
@@ -547,6 +679,7 @@ function sectionCard(section, people) {
   ];
   const children = [el("header", { className: ["entry-head"] }, headerKids)];
   if (rail.length) children.push(el("div", { className: ["entry-media"] }, rail));
+  if (feature.length) children.push(...feature);
   if (blocks.length) {
     const bodyClass = blocks.some((n) => classList(n).includes("entry-block"))
       ? ["entry-body", "entry-body--blocks"]
@@ -567,6 +700,7 @@ function sectionCard(section, people) {
   if (layout === "split") classes.push("entry-card--split");
   if (layout === "essay") classes.push("entry-card--essay");
   if (layout === "gallery") classes.push("entry-card--gallery");
+  if (layout === "showcase") classes.push("entry-card--showcase");
 
   return {
     mosaic: photoOnly || (compact && !solo),

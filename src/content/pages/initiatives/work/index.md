@@ -4,8 +4,9 @@ slug: "initiatives/work"
 description: "Roles across data science, student success, research, and community development."
 quote: "We are proud of your work, Dulf Vincent Genis! Our interns’ success stories are a testament to Ameren’s culture and talent development process. We couldn’t be prouder of the impactful work produced by the Ameren Innovation Center at the University of Illinois Research Park, directly contributing to the company’s success!"
 quoteAuthor: "Prasenjit Shil, Ameren Innovation Manager"
-heroImage: "/images/initiatives/work/91116e3f89a6085ebc624632cead8108.jpg"
+heroImage: "/images/initiatives/work/8f7cfe0b73e78d462676208dc7fe57d0.jpg"
 images:
+  - "/images/initiatives/work/8f7cfe0b73e78d462676208dc7fe57d0.jpg"
   - "/images/initiatives/work/91116e3f89a6085ebc624632cead8108.jpg"
   - "/images/initiatives/work/b53f9739fdc4969f782f89fd828dc2d0.jpg"
   - "/images/initiatives/work/28768f74e741ae7906fb885ccc305241.jpg"
@@ -223,10 +224,6 @@ Our research delves into the nuanced impact of bias and physiological reactions 
 
 ![](/images/initiatives/work/5b07598f5e1c8059f7016e2f79e1edec.png)
 
-![](/images/initiatives/work/890f574e0662b52783e3b671e11ba253.jpg)
-
-![](/images/initiatives/work/e83e5d72e24761838dfb19a9753ea742.jpg)
-
 Urbana-Champaign Area | Nov 2022 - May 2023 | 7 months | On-site
 
 ### Overview
@@ -259,13 +256,13 @@ This fellowship deepened my commitment to community engagement on campus and bey
 
 youtube:SLbkpUjyQt0
 
-![](/images/initiatives/work/801f8c076d1f57fe420fb9f73f9f8a95.jpg)
+![](/images/initiatives/work/890f574e0662b52783e3b671e11ba253.jpg)
+
+![](/images/initiatives/work/e83e5d72e24761838dfb19a9753ea742.jpg)
 
 ![](/images/initiatives/work/79821deda8d297c7f0932c4049eb7ad5.jpg)
 
-![](/images/initiatives/work/3c72e980c3d95e99f7c0e615c10ad304.jpg)
-
-![](/images/initiatives/work/e6b19de842fe1b6bd77a3e03e1e3f903.jpg)
+![](/images/initiatives/work/801f8c076d1f57fe420fb9f73f9f8a95.jpg)
 
 Washington, District of Columbia, United States | Apr 2022 - Sep 2022 | 6 months | Hybrid
 
@@ -294,6 +291,10 @@ As a Student Consultant on Advancing Digital Equity, I played a pivotal role in 
 Being part of this initiative allowed me to contribute to the national conversation on digital equity. Collaborating with industry leaders, I made a meaningful impact in advocating for the technological needs of students nationwide.
 
 ## Violin Instructor | Freelance
+
+![](/images/initiatives/work/e6b19de842fe1b6bd77a3e03e1e3f903.jpg)
+
+![](/images/initiatives/work/3c72e980c3d95e99f7c0e615c10ad304.jpg)
 
 Bolingbrook, Illinois, United States | May 2021 - Sep 2022 | 1 year 5 months
 

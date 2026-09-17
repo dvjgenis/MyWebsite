@@ -2,11 +2,16 @@
   "name": "dulfvincent-site",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "sync:media": "node scripts/sync-page-media.mjs",
+    "dev": "npm run sync:media && astro dev",
+    "build": "npm run sync:media && astro build",
     "preview": "astro preview",
     "extract": "node scripts/extract-export.mjs",
+    "organize:media": "node scripts/organize-media.mjs",
     "redirects": "node scripts/generate-redirects.mjs"
   },
   "dependencies": {

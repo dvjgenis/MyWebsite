@@ -18,8 +18,6 @@ youtube:
 
 youtube:7mgG9dN-IG4
 
-![](/images/about/education/650d81028d0cb778e6f09a7a0c80e04e.jpg)
-
 The University of Illinois School of Information Sciences (iSchool), established in 1893, stands as a global leader in shaping the future of information, research, and public engagement. Within the broader excellence of the University of Illinois at Urbana-Champaign, the iSchool is dedicated to transformative learning that produces alumni poised to lead the digital age. Boasting a world-class faculty, the school integrates a focus on data science and human-centered design that fuels innovation—a synergy perfectly embodied by Dulf’s pursuit of a dual degree in Information Sciences and Data Science. Beyond its specialized curriculum, students benefit from a vibrant campus life, the vast academic network of a premier research institution, and impactful global experiences. For Dulf, this extended to a Spanish minor and an immersive study abroad semester in Granada, Spain. The school defines pre-eminence through its commitment to diversity, equity, and the land-grant mission, equipping graduates to ethically manage and interpret the world's information.
 
 Rather than blindly optimizing algorithms for corporate efficiency, Dulf leveraged the iSchool's interdisciplinary curriculum to champion transparent, accountable technologies, such as engineering the "glass-box" AI system HarmonyForge to preserve user sovereignty. Guided by faculty like Dr. Madelyn Sanfilippo and Dr. Yun Huang, he anchored his technical data science capabilities within rigorous ethical frameworks, ultimately preparing him to act as a "Data Gardener" who scales systems in tandem with human dignity rather than unchecked capability.

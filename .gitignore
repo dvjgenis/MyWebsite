@@ -25,3 +25,9 @@ npm-debug.log*
 
 # astro
 .astro/
+
+# orphaned images moved out of public/ (see archive/media/)
+archive/media/_unused/
+
+# local crawl / migration artifacts
+.tmp-*

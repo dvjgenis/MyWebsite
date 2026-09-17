@@ -45,11 +45,11 @@ function rehypeMatchTocIds() {
 }
 
 /** Turn `youtube:VIDEO_ID` paragraphs into inline embeds. */
-function youtubeEmbed(id) {
+function youtubeEmbed(id, short = false) {
   return {
     type: "element",
     tagName: "div",
-    properties: { className: ["youtube-embed"] },
+    properties: { className: short ? ["youtube-embed", "youtube-embed--short"] : ["youtube-embed"] },
     children: [
       {
         type: "element",
@@ -78,19 +78,20 @@ function rehypeYoutubeEmbeds() {
           .split(/\n+/)
           .map((line) => line.trim())
           .filter(Boolean);
-        const ids = lines
-          .map((line) => line.match(/^youtube:([A-Za-z0-9_-]{11})$/))
+        const parsed = lines
+          .map((line) => line.match(/^youtube(-short)?:([A-Za-z0-9_-]{11})$/))
           .filter(Boolean)
-          .map((m) => m[1]);
-        if (ids.length && ids.length === lines.length) {
+          .map((m) => ({ short: Boolean(m[1]), id: m[2] }));
+        if (parsed.length && parsed.length === lines.length) {
+          const embeds = parsed.map((item) => youtubeEmbed(item.id, item.short));
           parent.children[index] =
-            ids.length === 1
-              ? youtubeEmbed(ids[0])
+            embeds.length === 1
+              ? embeds[0]
               : {
                   type: "element",
                   tagName: "div",
                   properties: { className: ["youtube-stack"] },
-                  children: ids.map(youtubeEmbed),
+                  children: embeds,
                 };
           return;
         }
@@ -109,7 +110,7 @@ export default defineConfig({
   redirects: withSlashVariants(googleSitesRedirects),
   markdown: {
     // Rehype plugins run at markdown compile time; restart `astro dev` after editing them.
-    // cache-bust: explode grouped imgs; essay 3-up throughout copy (2026-09-17c)
+    // cache-bust: work media pairs (2026-09-17i)
     rehypePlugins: [rehypeYoutubeEmbeds, rehypeMatchTocIds, rehypeEntryCards],
   },
   vite: {

@@ -65,13 +65,13 @@ Throughout my coursework, I developed core competencies in foundational programm
 ## Filter of Hope: Costa Rica 2026
 
 
-youtube:KhX2iXqptUI
+youtube-short:KhX2iXqptUI
 
-youtube:Nqg_3Ehly5A
+youtube-short:Nqg_3Ehly5A
 
-youtube:B5b0VYFEVDc
+youtube-short:B5b0VYFEVDc
 
-youtube:OKfhae80G6A
+youtube-short:OKfhae80G6A
 
 ![](/images/initiatives/projects/95338c1e618cfcd72ecdb0675e389d8d.jpg)
 
