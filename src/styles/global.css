@@ -1883,8 +1883,8 @@
   .site-carousel--resource .entry-card--solo .entry-media {
     order: -1;
     width: 100%;
-    aspect-ratio: 16 / 10;
-    max-height: none;
+    aspect-ratio: 16 / 9;
+    max-height: 10.5rem;
     height: auto;
     border-radius: 0.75rem;
     overflow: hidden;
@@ -1934,13 +1934,6 @@
 
   .entry-card .site-carousel--resource .site-carousel-frame {
     border-color: rgba(45, 42, 38, 0.1);
-  }
-
-  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".png"],
-  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".svg"] {
-    object-fit: contain;
-    padding: 1rem;
-    background: var(--color-paper);
   }
 
   .site-carousel--food {
@@ -2073,13 +2066,13 @@
     .site-carousel--resource .entry-card--solo,
     .site-carousel--resource .entry-card--compact {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.9fr);
+      grid-template-columns: minmax(0, 0.88fr) minmax(14rem, 1.12fr);
       grid-template-areas:
         "media head"
         "media body";
       gap: 0.2rem 1.35rem;
       align-items: center;
-      min-height: 16.5rem;
+      min-height: 12.5rem;
       padding: 1.05rem 1.15rem;
     }
 
@@ -2089,8 +2082,12 @@
       grid-area: media;
       order: 0;
       aspect-ratio: 4 / 3;
-      height: 100%;
-      min-height: 15.5rem;
+      width: min(100%, 13.5rem);
+      height: auto;
+      max-height: 11.5rem;
+      min-height: 0;
+      justify-self: center;
+      align-self: center;
     }
 
     .site-carousel--resource .entry-head {
@@ -2739,11 +2736,34 @@
     margin-bottom: 0;
   }
 
+  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media {
+    aspect-ratio: 1 / 1;
+    max-height: 8.75rem;
+    max-width: 10.5rem;
+    margin-inline: auto;
+  }
+
   .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".png"],
   .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".svg"] {
     object-fit: contain;
-    padding: 1rem;
+    padding: 0.75rem;
     background: var(--color-paper);
+  }
+
+  @media (min-width: 760px) {
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-card,
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-card--solo,
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-card--compact {
+      min-height: 10.5rem;
+      grid-template-columns: minmax(0, 0.68fr) minmax(12rem, 1.32fr);
+    }
+
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media,
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-card--compact .entry-media,
+    .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-card--solo .entry-media {
+      max-height: 8.25rem;
+      max-width: 10rem;
+    }
   }
 
   .site-carousel--food .entry-card--solo,
