@@ -83,6 +83,16 @@ youtube-short:OKfhae80G6A
 
 ![](/images/initiatives/projects/e5f059d8c71fe448c63d67e7ea983867.jpg)
 
+![](/images/initiatives/projects/30acc44f179cb0bf33ea434df2f81b95.jpg)
+
+![](/images/initiatives/projects/38799867ffbd9a3763a1d1359e19d3b4.jpg)
+
+![](/images/initiatives/projects/e0d23458d6c324360de5f3114347f6d4.jpg)
+
+![](/images/initiatives/projects/5e43d142aa1b97dac8ad54dad2e29ebc.jpg)
+
+![](/images/initiatives/projects/1623bc615390c8ecb7b32efa72df0b65.jpg)
+
 During Spring Break 2026, from March 13 to 20, I had the privilege of traveling to Liberia, Costa Rica, with Filter of Hope. Joining forces with an amazing group of students from Cru, Bridges International, Destino, and Design Movement, we partnered with a local camp called Hacienda Palabra de Vida and local churches. Our daily mission was to go house-to-house in the surrounding neighborhoods, distributing state-of-the-art water filters capable of providing a family with clean drinking water for up to ten years. Alongside installing the filters, we focused on building relationships and sharing the love and hope of Jesus. After long days walking through the communities, our evenings were spent back at the camp, unwinding in the semi-olympic pool, playing ping pong, and gathering for team debriefs to reflect on the day.
 
 What made this trip distinctly beautiful was the deep sense of partnership we felt with the locals. A significant portion of the families we visited were already believers. Instead of just sharing a basic message, we had the opportunity to connect deeply, discussing how our faith is the root of our actions, rather than our works being a means to earn faith. Even more impactfully, we spent time teaching these local Christians how to use the water filters we provided as a practical tool to serve and bless their own friends, families, and neighbors. It felt incredible to not just drop off a resource, but to genuinely equip and empower the community to continue caring for one another long after our group flew home.
@@ -127,16 +137,6 @@ I built this interactive Tableau dashboard to showcase the academic and geograph
 
 ## Filter of Hope: Cuba 2025
 
-
-![](/images/initiatives/projects/30acc44f179cb0bf33ea434df2f81b95.jpg)
-
-![](/images/initiatives/projects/38799867ffbd9a3763a1d1359e19d3b4.jpg)
-
-![](/images/initiatives/projects/e0d23458d6c324360de5f3114347f6d4.jpg)
-
-![](/images/initiatives/projects/5e43d142aa1b97dac8ad54dad2e29ebc.jpg)
-
-![](/images/initiatives/projects/1623bc615390c8ecb7b32efa72df0b65.jpg)
 
 ![](/images/initiatives/projects/92f132e27f29f140ac732ca096171d2a.jpg)
 
