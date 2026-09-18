@@ -8,6 +8,6 @@ if (!result) throw new Error("Timeline page missing");
 const { page } = result;
 ---
 
-<Base title="Timeline" description={page.data.description} flushFooter>
+<Base title="Timeline" description={page.data.description} flushFooter noindex>
   <LifeTimeline />
 </Base>

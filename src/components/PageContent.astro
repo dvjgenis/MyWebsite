@@ -185,9 +185,28 @@ const hasHero = Boolean(heroImage);
   document.addEventListener("astro:page-load", initPageIndex);
   document.addEventListener("astro:page-load", markMediaFrames);
   document.addEventListener("astro:page-load", initCarousels);
+  document.addEventListener("astro:page-load", plantBackgroundHint);
   initPageIndex();
   markMediaFrames();
   initCarousels();
+  plantBackgroundHint();
+
+  function plantBackgroundHint() {
+    document.querySelectorAll(".egg-hint").forEach((el) => el.remove());
+    const article = document.querySelector('[data-slug="about/background"]');
+    if (!(article instanceof HTMLElement)) return;
+    const cards = [...article.querySelectorAll(".entry-card")].filter((card) => {
+      const title = card.querySelector("h2")?.textContent ?? "";
+      return !/table of contents/i.test(title);
+    });
+    if (!cards.length) return;
+    const card = cards[Math.floor(Math.random() * cards.length)];
+    const hint = document.createElement("p");
+    hint.className = "egg-hint";
+    hint.textContent = "hint: 0324";
+    const body = card.querySelector(".entry-body");
+    (body ?? card).append(hint);
+  }
 
   function pauseSlideMedia(slide) {
     slide?.querySelectorAll("iframe").forEach((iframe) => {

@@ -8,12 +8,7 @@ interface Props {
 
 const { class: className, compact = false } = Astro.props;
 const year = new Date().getFullYear();
-const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const isContact = path === "/contact";
-const explore = [
-  ...navigation.filter((item) => item.href !== "/contact/"),
-  ...(isContact ? [{ label: "Timeline", href: "/timeline/" }] : []),
-];
+const explore = navigation.filter((item) => item.href !== "/contact/");
 ---
 
 <footer class:list={["site-footer border-t border-border bg-paper-dark/40", className]}>

@@ -15,6 +15,7 @@ interface Props {
   image?: string;
   flushFooter?: boolean;
   hideFooter?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   image,
   flushFooter = false,
   hideFooter = false,
+  noindex = false,
 } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.name;
 const pageDesc = description ?? site.description;
@@ -41,6 +43,7 @@ const ogImage = image
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={pageDesc} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#faf7f2" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
@@ -95,5 +98,9 @@ const ogImage = image
     </main>
     {!hideFooter && <Footer class={flushFooter ? "mt-0" : "mt-16"} compact={flushFooter} />}
     <Analytics />
+    <script>
+      import { bindTimelineEgg } from "../lib/timeline-egg.js";
+      bindTimelineEgg();
+    </script>
   </body>
 </html>
