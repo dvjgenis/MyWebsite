@@ -218,12 +218,12 @@ function wrapCarousel(kind, slides, label) {
       tabIndex: 0,
     },
     [
-      el("div", { className: ["site-carousel-nav"] }, navKids),
       el("div", { className: ["site-carousel-frame"] }, [
         carouselButton("prev"),
         el("div", { className: ["site-carousel-track"] }, slides),
         carouselButton("next"),
       ]),
+      el("div", { className: ["site-carousel-nav"] }, navKids),
     ],
   );
 }

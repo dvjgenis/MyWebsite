@@ -1707,7 +1707,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.38rem;
-    margin: 0 0 0.7rem;
+    margin: 0.75rem 0 0;
   }
 
   .site-carousel-dots {
@@ -2664,6 +2664,56 @@
     object-fit: contain;
     padding: 1rem;
     background: var(--color-paper);
+  }
+
+  .site-carousel--food .entry-card--solo,
+  .site-carousel--food .entry-card--compact {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    grid-template-columns: none;
+    grid-template-areas: none;
+  }
+
+  .site-carousel--food .entry-card--solo .entry-head,
+  .site-carousel--food .entry-card--solo .entry-media,
+  .site-carousel--food .entry-card--solo .entry-body,
+  .site-carousel--food .entry-card--compact .entry-head,
+  .site-carousel--food .entry-card--compact .entry-media,
+  .site-carousel--food .entry-card--compact .entry-body {
+    grid-area: auto;
+  }
+
+  .site-carousel--food .entry-card--solo .entry-media,
+  .site-carousel--food .entry-card--compact .entry-media {
+    order: -1;
+    display: grid;
+    overflow: hidden;
+    aspect-ratio: auto;
+    height: 12.75rem;
+    max-height: 12.75rem;
+    background: var(--color-paper-dark);
+  }
+
+  .site-carousel--food .entry-card--solo .entry-media > *,
+  .site-carousel--food .entry-card--compact .entry-media > *,
+  .site-carousel--food .entry-card--solo .entry-media p,
+  .site-carousel--food .entry-card--compact .entry-media p {
+    min-height: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .site-carousel--food .entry-card--solo .entry-media img,
+  .site-carousel--food .entry-card--compact .entry-media img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    padding: 0;
+    border-radius: 0;
+    background: none;
   }
 
   .entry-card.entry-card--photo,
