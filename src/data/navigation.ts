@@ -212,9 +212,13 @@ export const allRoutes: { title: string; href: string; section?: string }[] = [
   { title: "Contact", href: "/contact/" },
 ];
 
-const surpriseSkip = new Set(["/", "/about/", "/initiatives/"]);
+const leadershipSurpriseSkip = leadershipHubCards
+  .filter(({ slug }) => slug !== "initiatives/leadership/cumulative-reflection")
+  .map(({ slug }) => `/${slug}/`);
 
-/** Content pages Surprise Me can land on — skip Home and the About/Initiatives hubs. */
+const surpriseSkip = new Set(["/", "/about/", "/initiatives/", ...leadershipSurpriseSkip]);
+
+/** Content pages Surprise Me can land on — skip hubs and leadership certification milestones. */
 export const surpriseRoutes = allRoutes
   .filter((route) => !surpriseSkip.has(route.href))
   .map((route) => route.href);
