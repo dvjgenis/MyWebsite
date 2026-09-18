@@ -80,6 +80,86 @@
     @apply border border-ink/20 text-ink hover:border-ink/40 hover:bg-ink/5;
   }
 
+  [data-surprise] {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    overflow: hidden;
+    border-color: transparent !important;
+    background: transparent !important;
+    transition:
+      transform 220ms var(--ease-out),
+      box-shadow 220ms var(--ease-out),
+      color 220ms var(--ease-out);
+  }
+
+  [data-surprise]::before {
+    content: "";
+    position: absolute;
+    inset: -130%;
+    z-index: -2;
+    background: conic-gradient(
+      from 0deg,
+      color-mix(in srgb, var(--color-accent) 82%, white),
+      color-mix(in srgb, var(--color-accent-warm) 74%, white),
+      #c9a36a,
+      color-mix(in srgb, var(--color-tile-about) 68%, white),
+      color-mix(in srgb, var(--color-accent) 82%, white)
+    );
+    animation: surprise-border-spin 14s linear infinite;
+  }
+
+  [data-surprise]::after {
+    content: "";
+    position: absolute;
+    inset: 1.5px;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--color-paper);
+    transition: background 220ms var(--ease-out);
+  }
+
+  .glass-header [data-surprise]::after {
+    background: color-mix(in srgb, var(--color-paper) 94%, white);
+  }
+
+  [data-surprise]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px color-mix(in srgb, var(--color-accent) 16%, transparent);
+    color: var(--color-ink);
+  }
+
+  [data-surprise]:hover::after {
+    background: color-mix(in srgb, var(--color-paper) 86%, var(--color-accent) 14%);
+  }
+
+  .glass-header [data-surprise]:hover::after {
+    background: color-mix(in srgb, var(--color-paper) 82%, var(--color-accent) 18%);
+  }
+
+  @keyframes surprise-border-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-surprise]::before {
+      animation: none;
+      inset: -1px;
+      background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-accent) 62%, transparent),
+        color-mix(in srgb, var(--color-accent-warm) 58%, transparent),
+        color-mix(in srgb, var(--color-accent) 62%, transparent)
+      );
+    }
+
+    [data-surprise]:hover {
+      transform: none;
+    }
+  }
+
   .nav-link {
     @apply text-ink/70 hover:text-ink hover:bg-ink/5;
   }
