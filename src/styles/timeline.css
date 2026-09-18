@@ -660,6 +660,40 @@
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--tl-gold) 22%, transparent);
 }
 
+.life-tl-item.is-found .life-tl-node {
+  animation: tl-found-node 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.life-tl-item.is-found .life-tl-card {
+  animation: tl-found-card 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tl-found-node {
+  0% {
+    transform: translateX(-50%) scale(0.7);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--tl-gold) 0%, transparent);
+  }
+  45% {
+    transform: translateX(-50%) scale(1.55);
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--tl-gold) 28%, transparent);
+  }
+  100% {
+    transform: translateX(-50%) scale(1.18);
+  }
+}
+
+@keyframes tl-found-card {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--tl-gold) 0%, transparent);
+  }
+  40% {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--tl-gold) 55%, transparent), 0 18px 40px color-mix(in srgb, var(--tl-gold) 22%, transparent);
+  }
+  100% {
+    box-shadow: var(--shadow-card);
+  }
+}
+
 .life-tl-item--green .life-tl-node.is-lit {
   border-color: var(--tl-green);
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--tl-green) 20%, transparent);
@@ -1125,7 +1159,9 @@
 @media (prefers-reduced-motion: reduce) {
   .tl-scroll-hint svg,
   .life-tl-node--live::before,
-  .life-tl-fill::after {
+  .life-tl-fill::after,
+  .life-tl-item.is-found .life-tl-node,
+  .life-tl-item.is-found .life-tl-card {
     animation: none;
   }
 

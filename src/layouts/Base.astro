@@ -56,6 +56,16 @@ const ogImage = image
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <title>{pageTitle}</title>
+    <style is:inline>
+      html.is-tl-unlocking { background: #141820; }
+    </style>
+    <script is:inline>
+      try {
+        if (sessionStorage.getItem("tl-unlock") === "1") {
+          document.documentElement.classList.add("is-tl-unlocking");
+        }
+      } catch (e) {}
+    </script>
     <ClientRouter />
   </head>
   <body class="min-h-dvh flex flex-col">
@@ -97,10 +107,12 @@ const ogImage = image
       <slot />
     </main>
     {!hideFooter && <Footer class={flushFooter ? "mt-0" : "mt-16"} compact={flushFooter} />}
+    <div id="tl-gate-root" class="tl-gate-root" transition:persist="tl-gate"></div>
     <Analytics />
     <script>
+      import { navigate } from "astro:transitions/client";
       import { bindTimelineEgg } from "../lib/timeline-egg.js";
-      bindTimelineEgg();
+      bindTimelineEgg({ navigate });
     </script>
   </body>
 </html>
