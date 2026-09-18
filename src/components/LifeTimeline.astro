@@ -1,0 +1,545 @@
+---
+import "../styles/timeline.css";
+import { getTimelineModel, TIMELINE_START, TIMELINE_END } from "../data/timeline";
+
+const { rows, spans, eras } = getTimelineModel();
+
+function firstSentence(body: string) {
+  const match = body.match(/^.+?[.!?](?=\s|$)/);
+  return match?.[0] ?? body;
+}
+---
+
+<div class="tl-page" data-tl-page>
+  <section class="tl-hero">
+    <div class="tl-hero-inner">
+      <p class="tl-wip">Under Construction</p>
+      <p class="tl-hero-kicker">A life, drawn in years</p>
+      <h1 class="tl-hero-title">Timeline</h1>
+      <p class="tl-hero-dek">
+        From Bacolod City on March 24, 2004, to this moment — a vertical map of the path between two homes.
+      </p>
+      <div class="tl-hero-meta">
+        <span>
+          <b>Mar 24, 2004</b>
+          <small>Bacolod City</small>
+        </span>
+        <span class="tl-hero-rule" aria-hidden="true"></span>
+        <span>
+          <b>Now</b>
+          <small>September 2026</small>
+        </span>
+      </div>
+      <p class="tl-how">Scroll to travel. Click a moment to read it.</p>
+      <ul class="tl-key">
+        <li class="tl-key-school">School years</li>
+        <li class="tl-key-role">Work &amp; roles</li>
+      </ul>
+      <p class="tl-scroll-hint">
+        Scroll
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"></path>
+        </svg>
+      </p>
+    </div>
+    <div class="tl-hero-line" aria-hidden="true"></div>
+  </section>
+
+  <nav class="tl-jump" data-tl-jump aria-label="Chapters">
+    {
+      eras.map((era) => (
+        <a class="tl-jump-link" href={`#${era.id}`} data-tl-chapter={era.id}>
+          <span class="tl-jump-title">{era.title}</span>
+          <span class="tl-jump-years">{era.years}</span>
+        </a>
+      ))
+    }
+    <span class="tl-jump-year" data-tl-jump-year>2004</span>
+  </nav>
+
+  <div class="life-tl" data-life-tl data-start={TIMELINE_START} data-end={TIMELINE_END}>
+    <div class="tl-yearchip" data-tl-year hidden>
+      <span class="tl-yearchip-era" data-tl-chip-era>Philippines</span>
+      <span class="tl-yearchip-year">2004</span>
+    </div>
+
+    <div class="life-tl-stage">
+      <div class="life-tl-spine" data-tl-spine aria-hidden="true">
+        <div class="life-tl-fill" data-tl-fill></div>
+        <div class="life-tl-spans">
+          {
+            spans.map((span) => (
+              <div
+                class:list={[
+                  "life-tl-span",
+                  `life-tl-span--${span.kind}`,
+                  span.laneX < 0 ? "life-tl-span--west" : "life-tl-span--east",
+                ]}
+                data-span={span.id}
+                style={`--tl-span-color:${span.color};--tl-lane:${span.lane};--tl-lane-x:${span.laneX}px`}
+                title={span.title}
+              >
+                <span class="life-tl-span-name">{span.title}</span>
+              </div>
+            ))
+          }
+        </div>
+        <div class="life-tl-bead" data-tl-bead></div>
+      </div>
+      <ol class="life-tl-list" aria-label="Life timeline from March 24, 2004 to September 2026">
+        {
+          rows.map((row) => {
+            if (row.kind === "era") {
+              return (
+                <li
+                  class={`life-tl-era life-tl-era--lead life-tl-era--${row.era.tone}`}
+                  id={row.era.id}
+                  data-tl-era={row.era.id}
+                >
+                  <span class="life-tl-era-label">{row.era.title}</span>
+                  <span class="life-tl-era-years">{row.era.years}</span>
+                  {row.era.dek && <p class="life-tl-era-dek">{row.era.dek}</p>}
+                </li>
+              );
+            }
+
+            if (row.kind === "gap") {
+              return (
+                <li
+                  class:list={["life-tl-gap", row.tail && "life-tl-gap--tail"]}
+                  style={`--tl-years:${row.years.toFixed(4)}`}
+                  aria-hidden="true"
+                >
+                  {
+                    row.marks.map((mark) => (
+                      <span class="life-tl-yearmark" style={`top:${mark.pct.toFixed(2)}%`}>
+                        {mark.year}
+                      </span>
+                    ))
+                  }
+                  {
+                    row.era && (
+                      <div
+                        class={`life-tl-era life-tl-era--${row.era.tone}`}
+                        id={row.era.id}
+                        data-tl-era={row.era.id}
+                      >
+                        <span class="life-tl-era-label">{row.era.title}</span>
+                        <span class="life-tl-era-years">{row.era.years}</span>
+                        {row.era.dek && <p class="life-tl-era-dek">{row.era.dek}</p>}
+                      </div>
+                    )
+                  }
+                </li>
+              );
+            }
+
+            const { event, side, role } = row;
+            const spanStyle = event.spanColor ? `--tl-span-color:${event.spanColor}` : undefined;
+
+            if (role === "end") {
+              return (
+                <li
+                  class:list={[
+                    "life-tl-item",
+                    "life-tl-item--end",
+                    `life-tl-item--${side}`,
+                    `life-tl-item--${event.tone}`,
+                  ]}
+                  style={spanStyle}
+                  data-tl-item
+                  data-span-end={event.id}
+                  data-year={event.until?.slice(0, 4) ?? event.year}
+                  data-at={event.until}
+                  aria-label={`${event.title} ends, ${event.untilDate}`}
+                >
+                  <span class="life-tl-node life-tl-node--end" data-tl-node></span>
+                </li>
+              );
+            }
+
+            return (
+              <li
+                class:list={[
+                  "life-tl-item",
+                  `life-tl-item--${side}`,
+                  `life-tl-item--${event.tone}`,
+                  event.featured && "life-tl-item--featured",
+                  role === "start" && "life-tl-item--start",
+                ]}
+                style={spanStyle}
+                id={event.id}
+                data-tl-item
+                data-open={event.id}
+                data-span-start={role === "start" ? event.id : undefined}
+                data-year={event.year}
+                data-at={event.at}
+              >
+                <span class:list={["life-tl-node", role === "start" && "life-tl-node--start", event.live && "life-tl-node--live"]} data-tl-node></span>
+                <article
+                  class="life-tl-card"
+                  data-span-card={role === "start" ? event.id : undefined}
+                  tabindex="0"
+                  aria-expanded="false"
+                >
+                  <div class="life-tl-card-body">
+                    <p class="life-tl-date">{event.date}</p>
+                    {
+                      event.untilDate && (
+                        <p class="life-tl-through">through {event.untilDate}</p>
+                      )
+                    }
+                    <h2>{event.title}</h2>
+                    <p class="life-tl-place">{event.place}</p>
+                    <p class="life-tl-lede">{firstSentence(event.body)}</p>
+                    <p class="life-tl-hint">
+                      Read
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </p>
+                  </div>
+                  <div class="life-tl-card-detail">
+                    <div class="life-tl-card-detail-inner">
+                      {
+                        event.image && (
+                          <div class="life-tl-card-media">
+                            <img src={event.image} alt={event.imageAlt ?? ""} loading="lazy" />
+                          </div>
+                        )
+                      }
+                      <div class="life-tl-card-extra">
+                        <p class="life-tl-copy">{event.body}</p>
+                        {
+                          event.href && (
+                            <a class="life-tl-more footer-link" href={event.href}>
+                              {event.hrefLabel ?? "Read more"}
+                            </a>
+                          )
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script>
+  let cleanup = () => {};
+
+  function initLifeTimeline() {
+    cleanup();
+    const root = document.querySelector("[data-life-tl]");
+    if (!(root instanceof HTMLElement)) return;
+
+    const spine = root.querySelector("[data-tl-spine]");
+    const fill = root.querySelector("[data-tl-fill]");
+    const bead = root.querySelector("[data-tl-bead]");
+    const chip = document.querySelector("[data-tl-year]");
+    const chipYear = chip?.querySelector(".tl-yearchip-year");
+    const chipEra = document.querySelector("[data-tl-chip-era]");
+    const jumpYear = document.querySelector("[data-tl-jump-year]");
+    const chapterLinks = [...document.querySelectorAll("[data-tl-chapter]")];
+    const eraEls = [...document.querySelectorAll("[data-tl-era]")];
+    const nodes = [...root.querySelectorAll("[data-tl-node]")];
+    const items = [...root.querySelectorAll("[data-tl-item]")];
+    const cards = [...root.querySelectorAll(".life-tl-card, .life-tl-endcap")];
+    const openItems = [...root.querySelectorAll("[data-open]")];
+    const spanEls = [...root.querySelectorAll("[data-span]")];
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const start = Date.parse(`${root.dataset.start ?? "2004-03-24"}T12:00:00`);
+    const end = Date.parse(`${root.dataset.end ?? "2026-09-18"}T12:00:00`);
+    const desktopQuery = window.matchMedia("(min-width: 900px)");
+
+    if (chip instanceof HTMLElement) chip.hidden = false;
+
+    let pinnedId = null;
+    let openId = null;
+    let currentId = null;
+
+    const layoutSpans = () => {
+      if (!(spine instanceof HTMLElement)) return;
+      const spineBox = spine.getBoundingClientRect();
+      spanEls.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        const id = el.dataset.span;
+        const startNode = root.querySelector(`[data-span-start="${id}"] [data-tl-node]`);
+        const endNode = root.querySelector(`[data-span-end="${id}"] [data-tl-node]`);
+        if (!(startNode instanceof HTMLElement) || !(endNode instanceof HTMLElement)) return;
+        const a = startNode.getBoundingClientRect();
+        const b = endNode.getBoundingClientRect();
+        const top = a.top + a.height / 2 - spineBox.top;
+        const bottom = b.top + b.height / 2 - spineBox.top;
+        el.style.top = `${top}px`;
+        el.style.height = `${Math.max(0, bottom - top)}px`;
+      });
+    };
+
+    const nudgeCards = () => {
+      const gap = 18;
+      const groups = desktopQuery.matches
+        ? [
+            openItems.filter((el) => el.classList.contains("life-tl-item--left")),
+            openItems.filter((el) => el.classList.contains("life-tl-item--right")),
+          ]
+        : [openItems];
+
+      for (const group of groups) {
+        group.forEach((item) => {
+          if (item instanceof HTMLElement) {
+            item.style.setProperty("--tl-nudge", "0px");
+            item.classList.remove("is-nudged");
+          }
+        });
+      }
+
+      void root.offsetHeight;
+
+      for (const group of groups) {
+        let lastBottom = -Infinity;
+        for (const item of group) {
+          if (!(item instanceof HTMLElement)) continue;
+          const card = item.querySelector(".life-tl-card");
+          if (!(card instanceof HTMLElement)) continue;
+          const rect = card.getBoundingClientRect();
+          const overlap = lastBottom + gap - rect.top;
+          if (Number.isFinite(lastBottom) && overlap > 1) {
+            item.style.setProperty("--tl-nudge", `${overlap}px`);
+            item.classList.add("is-nudged");
+            lastBottom = rect.bottom + overlap;
+          } else {
+            lastBottom = rect.bottom;
+          }
+        }
+      }
+    };
+
+    const nearestOpenId = () => {
+      const anchor = window.innerHeight * 0.42;
+      let bestId = openItems[0] instanceof HTMLElement ? openItems[0].dataset.open : null;
+      let bestDist = Infinity;
+      openItems.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        const node = item.querySelector("[data-tl-node]");
+        if (!(node instanceof HTMLElement)) return;
+        const box = node.getBoundingClientRect();
+        if (box.bottom < 0 || box.top > window.innerHeight) return;
+        const dist = Math.abs(box.top + box.height / 2 - anchor);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestId = item.dataset.open;
+        }
+      });
+      return bestId ?? null;
+    };
+
+    const applyCardState = () => {
+      const current = pinnedId || nearestOpenId();
+      const expanded = pinnedId;
+      const currentChanged = current !== currentId;
+      const expandChanged = expanded !== openId;
+      currentId = current;
+      openId = expanded;
+      openItems.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        const isOpen = item.dataset.open === expanded;
+        item.classList.toggle("is-current", item.dataset.open === current);
+        item.classList.toggle("is-open", isOpen);
+        const card = item.querySelector(".life-tl-card");
+        if (card instanceof HTMLElement) card.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      const currentItem = openItems.find((item) => item instanceof HTMLElement && item.dataset.open === current);
+      const currentIsRange = currentItem instanceof HTMLElement && Boolean(currentItem.dataset.spanStart);
+      let focusId = currentIsRange ? current : null;
+      if (!focusId) {
+        const active = spanEls.filter((el) => el.classList.contains("is-active"));
+        const school = active.find((el) => el.classList.contains("life-tl-span--school"));
+        const pick = school ?? active[0];
+        if (pick instanceof HTMLElement) focusId = pick.dataset.span ?? null;
+      }
+      spanEls.forEach((el) => {
+        el.classList.toggle("is-focus", el instanceof HTMLElement && el.dataset.span === focusId);
+      });
+      if (expandChanged || currentChanged) {
+        nudgeCards();
+        requestAnimationFrame(nudgeCards);
+      }
+    };
+
+    const setPinned = (id) => {
+      pinnedId = id;
+      if (id) history.replaceState(null, "", `#${id}`);
+      else history.replaceState(null, "", `${location.pathname}${location.search}`);
+      applyCardState();
+    };
+
+    if (reduce) {
+      items.forEach((item) => item.classList.add("is-in", "is-lit"));
+      nodes.forEach((node) => node.classList.add("is-lit"));
+      spanEls.forEach((el) => el.classList.add("is-active"));
+      if (fill instanceof HTMLElement) fill.style.transform = "scaleY(1)";
+      if (chipYear) chipYear.textContent = "2026";
+      layoutSpans();
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const item = entry.target.closest("[data-tl-item]");
+          item?.classList.add("is-in");
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    cards.forEach((card) => io.observe(card));
+
+    const onCardActivate = (event) => {
+      if (!(event.currentTarget instanceof HTMLElement)) return;
+      if (event.target instanceof Element && event.target.closest("a")) return;
+      const item = event.currentTarget.closest("[data-open]");
+      if (!(item instanceof HTMLElement) || !item.dataset.open) return;
+      setPinned(pinnedId === item.dataset.open ? null : item.dataset.open);
+    };
+    const onCardKey = (event) => {
+      if (event.target instanceof HTMLAnchorElement) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      onCardActivate(event);
+    };
+    const onCardEnter = (event) => {
+      const item = event.currentTarget instanceof HTMLElement ? event.currentTarget.closest("[data-open]") : null;
+      const id = item instanceof HTMLElement ? item.dataset.open : undefined;
+      if (!id) return;
+      root.querySelector(`[data-span="${id}"]`)?.classList.add("is-hover");
+    };
+    const onCardLeave = (event) => {
+      const item = event.currentTarget instanceof HTMLElement ? event.currentTarget.closest("[data-open]") : null;
+      const id = item instanceof HTMLElement ? item.dataset.open : undefined;
+      if (!id) return;
+      root.querySelector(`[data-span="${id}"]`)?.classList.remove("is-hover");
+    };
+
+    openItems.forEach((item) => {
+      const card = item.querySelector(".life-tl-card");
+      if (!(card instanceof HTMLElement)) return;
+      card.addEventListener("click", onCardActivate);
+      card.addEventListener("keydown", onCardKey);
+      card.addEventListener("pointerenter", onCardEnter);
+      card.addEventListener("pointerleave", onCardLeave);
+    });
+    spanEls.forEach((el) => {
+      el.addEventListener("pointerenter", () => el.classList.add("is-hover"));
+      el.addEventListener("pointerleave", () => el.classList.remove("is-hover"));
+      el.addEventListener("click", () => {
+        const id = el instanceof HTMLElement ? el.dataset.span : undefined;
+        if (!id) return;
+        setPinned(id);
+        document.getElementById(id)?.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+      });
+    });
+
+    let queued = false;
+    const update = () => {
+      queued = false;
+      if (!(spine instanceof HTMLElement) || !(fill instanceof HTMLElement) || !(bead instanceof HTMLElement)) return;
+      layoutSpans();
+      const rect = spine.getBoundingClientRect();
+      if (rect.height < 8) return;
+      const anchor = window.innerHeight * 0.42;
+      const progress = Math.min(1, Math.max(0, (anchor - rect.top) / rect.height));
+      if (!reduce) {
+        fill.style.transform = `scaleY(${progress})`;
+        bead.style.top = `${progress * 100}%`;
+      }
+      if (chip instanceof HTMLElement) chip.classList.toggle("is-on", progress > 0.02 && progress < 0.985);
+
+      const at = new Date(start + progress * (end - start));
+      const yearLabel = String(at.getFullYear());
+      if (chipYear) chipYear.textContent = yearLabel;
+      if (jumpYear) jumpYear.textContent = yearLabel;
+
+      let chapterId = eraEls[0] instanceof HTMLElement ? eraEls[0].dataset.tlEra : null;
+      eraEls.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        if (el.getBoundingClientRect().top <= anchor + 8) chapterId = el.dataset.tlEra ?? chapterId;
+      });
+      const chapterTitle = chapterLinks.find((link) => link instanceof HTMLElement && link.dataset.tlChapter === chapterId);
+      if (chipEra && chapterTitle) chipEra.textContent = chapterTitle.querySelector(".tl-jump-title")?.textContent?.trim() ?? "";
+      chapterLinks.forEach((link) => {
+        const on = link instanceof HTMLElement && link.dataset.tlChapter === chapterId;
+        link.classList.toggle("is-on", on);
+        if (link instanceof HTMLElement) link.setAttribute("aria-current", on ? "true" : "false");
+      });
+
+      items.forEach((item, i) => {
+        const node = nodes[i];
+        if (!(node instanceof HTMLElement)) return;
+        const nodeBox = node.getBoundingClientRect();
+        const lit = nodeBox.top + nodeBox.height / 2 <= anchor + 10;
+        node.classList.toggle("is-lit", lit);
+        item.classList.toggle("is-lit", lit);
+      });
+
+      spanEls.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        const box = el.getBoundingClientRect();
+        const active = box.height > 0 && box.top <= anchor && box.bottom >= anchor;
+        el.classList.toggle("is-active", active);
+        const name = el.querySelector(".life-tl-span-name");
+        if (name instanceof HTMLElement && box.height > 24) {
+          const viewY = Math.min(Math.max(anchor, box.top + 16), box.bottom - 28);
+          name.style.top = `${viewY - box.top}px`;
+        }
+      });
+
+      applyCardState();
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+
+    const onResize = () => {
+      layoutSpans();
+      nudgeCards();
+      onScroll();
+    };
+
+    layoutSpans();
+    const hash = decodeURIComponent(location.hash.replace(/^#/, ""));
+    if (hash && root.querySelector(`[data-open="${hash}"]`)) {
+      pinnedId = hash;
+      const target = document.getElementById(hash);
+      if (target) target.scrollIntoView({ block: "center", behavior: "instant" });
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    cleanup = () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      openItems.forEach((item) => {
+        const card = item.querySelector(".life-tl-card");
+        if (!(card instanceof HTMLElement)) return;
+        card.removeEventListener("click", onCardActivate);
+        card.removeEventListener("keydown", onCardKey);
+        card.removeEventListener("pointerenter", onCardEnter);
+        card.removeEventListener("pointerleave", onCardLeave);
+      });
+    };
+  }
+
+  document.addEventListener("astro:page-load", initLifeTimeline);
+  document.addEventListener("astro:before-swap", () => cleanup());
+</script>

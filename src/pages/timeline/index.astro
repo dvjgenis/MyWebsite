@@ -1,0 +1,13 @@
+---
+import Base from "../../layouts/Base.astro";
+import LifeTimeline from "../../components/LifeTimeline.astro";
+import { getPageBySlug } from "../../lib/pages";
+
+const result = await getPageBySlug("timeline");
+if (!result) throw new Error("Timeline page missing");
+const { page } = result;
+---
+
+<Base title="Timeline" description={page.data.description} flushFooter>
+  <LifeTimeline />
+</Base>

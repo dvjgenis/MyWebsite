@@ -9,7 +9,7 @@ import { leadershipTiles } from "../data/tiles";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
-  const skip = new Set(["home", "about", "initiatives", "contact"]);
+  const skip = new Set(["home", "about", "initiatives", "contact", "timeline"]);
 
   return pages
     .filter((p) => !skip.has(p.data.slug))
