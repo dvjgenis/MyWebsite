@@ -868,6 +868,33 @@
     justify-self: center;
   }
 
+  .prose-site .entry-card--essay h3 {
+    clear: both;
+    float: none;
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 1.85rem 0 0.8rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(45, 42, 38, 0.16);
+    @apply font-display text-[1.2rem] md:text-[1.4rem] tracking-tight text-ink;
+  }
+
+  .prose-site .entry-card--essay h3::before {
+    content: "";
+    display: block;
+    width: 2.15rem;
+    height: 2px;
+    margin: 0 0 0.7rem;
+    background: var(--color-accent);
+  }
+
+  .prose-site .entry-card--essay .entry-body > h3:first-child {
+    margin-top: 0.15rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+
   @media (min-width: 720px) {
     .entry-card--essay .essay-figure--left,
     .entry-card--essay .essay-figure--right {
@@ -1675,21 +1702,25 @@
 
   .site-carousel-nav {
     display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: 0.85rem;
-    min-height: 1.4rem;
-    margin-top: 0.7rem;
+    gap: 0.38rem;
+    margin: 0 0 0.7rem;
   }
 
   .site-carousel-dots {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
     gap: 0.32rem;
   }
 
   .site-carousel-dot {
+    display: block;
+    flex: 0 0 auto;
     width: 0.42rem;
     height: 0.42rem;
     padding: 0;
@@ -1701,13 +1732,18 @@
 
   .site-carousel-dot.is-active {
     width: 1.05rem;
+    height: 0.42rem;
     background: var(--color-accent);
   }
 
   .site-carousel-count {
+    display: inline-flex;
+    align-items: center;
     margin: 0;
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
+    line-height: 1;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
     text-transform: uppercase;
     color: var(--color-ink-muted);
   }
@@ -1717,25 +1753,27 @@
   }
 
   .site-carousel--resource .site-carousel-frame {
-    overflow: visible;
-    background: transparent;
-    border: 0;
-  }
-
-  .site-carousel--resource .site-carousel-track {
-    gap: 1rem;
-    padding: 0.15rem 11% 0.35rem;
-    scroll-padding-inline: 11%;
-  }
-
-  .site-carousel--resource .site-carousel-slide {
-    flex: 0 0 min(42rem, 78%);
-    height: auto;
+    overflow: hidden;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: 1.05rem;
-    box-shadow: var(--shadow-card);
-    scroll-snap-align: center;
+  }
+
+  .site-carousel--resource .site-carousel-track {
+    gap: 0;
+    padding: 0;
+    scroll-padding-inline: 0;
+  }
+
+  .site-carousel--resource .site-carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    scroll-snap-align: start;
     place-items: stretch;
     overflow: hidden;
   }
@@ -1789,8 +1827,11 @@
     padding: 0.15rem 0.15rem 0;
   }
 
-  .prose-site .site-carousel--resource .entry-card h2 {
-    @apply text-xl md:text-[1.35rem] mt-0 mb-0;
+  .prose-site .site-carousel--resource .entry-card h2,
+  .prose-site .site-carousel--resource .entry-card h3 {
+    @apply text-xl md:text-[1.35rem] mt-0 mb-0 font-display tracking-tight text-ink;
+    letter-spacing: -0.02em;
+    text-transform: none;
   }
 
   .site-carousel--resource .entry-body {
@@ -1804,7 +1845,22 @@
   }
 
   .site-carousel--resource .site-carousel-btn {
-    top: calc(min(42vw, 13.5rem) + 0.95rem);
+    top: 50%;
+  }
+
+  .entry-card .site-carousel--resource {
+    margin: 0.2rem 0 0;
+  }
+
+  .entry-card .site-carousel--resource .site-carousel-frame {
+    border-color: rgba(45, 42, 38, 0.1);
+  }
+
+  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".png"],
+  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".svg"] {
+    object-fit: contain;
+    padding: 1rem;
+    background: var(--color-paper);
   }
 
   .site-carousel--food {
@@ -1974,14 +2030,27 @@
   }
 
   @media (max-width: 639px) {
+    .site-carousel-nav {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      row-gap: 0.35rem;
+    }
+
+    .site-carousel-dots {
+      flex-wrap: wrap;
+      height: auto;
+      max-width: 100%;
+    }
+
     .site-carousel--resource .site-carousel-track {
-      padding-inline: 0.15rem;
-      scroll-padding-inline: 0.15rem;
-      gap: 0.75rem;
+      padding: 0;
+      scroll-padding-inline: 0;
+      gap: 0;
     }
 
     .site-carousel--resource .site-carousel-slide {
       flex-basis: 100%;
+      min-width: 100%;
     }
 
     .site-carousel--food .site-carousel-track {
@@ -2562,6 +2631,39 @@
     padding: 0;
     background: none;
     border-radius: 0;
+  }
+
+  .site-carousel--resource .entry-media p,
+  .site-carousel--resource .entry-media a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .site-carousel--resource .entry-media--pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .page-article[data-slug="initiatives/abroad/resources"] .entry-card--gallery {
+    gap: 0.55rem 1.1rem;
+  }
+
+  .page-article[data-slug="initiatives/abroad/resources"] .entry-card--gallery > .entry-head {
+    padding-bottom: 0.1rem;
+  }
+
+  .page-article[data-slug="initiatives/abroad/resources"] .entry-card .site-carousel--resource .entry-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".png"],
+  .page-article[data-slug="initiatives/abroad/resources"] .site-carousel--resource .entry-media img[src$=".svg"] {
+    object-fit: contain;
+    padding: 1rem;
+    background: var(--color-paper);
   }
 
   .entry-card.entry-card--photo,

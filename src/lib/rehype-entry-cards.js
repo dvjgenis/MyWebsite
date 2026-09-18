@@ -74,6 +74,7 @@ function isKicker(node) {
   if (!isElement(node, "p") || isMediaNode(node)) return false;
   const text = nodeText(node).trim();
   if (!text || text.length > 160) return false;
+  if (/^connections\s*:/i.test(text) || /@/.test(text)) return false;
   if (text.includes(". ") && text.length > 80 && !text.includes("|") && !text.includes("·")) return false;
   return (
     text.includes("|") ||
@@ -182,8 +183,10 @@ function wrapCarousel(kind, slides, label) {
     slide.properties["data-index"] = String(i);
   });
 
-  const navKids = [];
-  if (count <= 8) {
+  const navKids = [
+    el("p", { className: ["site-carousel-count"], "aria-live": "polite" }, [{ type: "text", value: `1 / ${count}` }]),
+  ];
+  if (count <= 16) {
     navKids.push(
       el(
         "div",
@@ -203,9 +206,6 @@ function wrapCarousel(kind, slides, label) {
       ),
     );
   }
-  navKids.push(
-    el("p", { className: ["site-carousel-count"], "aria-live": "polite" }, [{ type: "text", value: `1 / ${count}` }]),
-  );
 
   return el(
     "div",
@@ -218,12 +218,12 @@ function wrapCarousel(kind, slides, label) {
       tabIndex: 0,
     },
     [
+      el("div", { className: ["site-carousel-nav"] }, navKids),
       el("div", { className: ["site-carousel-frame"] }, [
         carouselButton("prev"),
         el("div", { className: ["site-carousel-track"] }, slides),
         carouselButton("next"),
       ]),
-      el("div", { className: ["site-carousel-nav"] }, navKids),
     ],
   );
 }
@@ -261,6 +261,43 @@ function wrapResourceCarousel(cards) {
 
 function wrapFoodCarousel(cards) {
   return wrapCardCarousel("food", cards, "Weekly food deals");
+}
+
+function toolSlideFromBlock(block) {
+  const kids = (block.children || []).filter((n) => !isBlank(n));
+  const heading = kids.find((n) => isElement(n, "h3"));
+  const media = kids.filter((n) => isMediaNode(n) || countImgs([n]) > 0);
+  const rest = kids.filter((n) => n !== heading && !media.includes(n));
+  const title = nodeText(heading).trim();
+  const id = heading?.properties?.id || slugify(title);
+  const children = [el("header", { className: ["entry-head"] }, heading ? [heading] : [])];
+  if (media.length) {
+    children.push(
+      el("div", { className: media.length > 1 ? ["entry-media", "entry-media--pair"] : ["entry-media"] }, media),
+    );
+  }
+  if (rest.length) children.push(el("div", { className: ["entry-body"] }, rest));
+  return el(
+    "article",
+    {
+      className: ["entry-card", "entry-card--solo"],
+      "data-label": shortLabel(title),
+      "data-anchor": id,
+      "aria-labelledby": id,
+    },
+    children,
+  );
+}
+
+function wrapH3Carousel(nodes, label) {
+  const intro = [];
+  const items = [];
+  for (const node of nodes) {
+    if (classList(node).includes("entry-block")) items.push(toolSlideFromBlock(node));
+    else intro.push(node);
+  }
+  if (items.length < 2) return nodes;
+  return [...intro, wrapCardCarousel("resource", items, label)];
 }
 
 function maybeCarousel(kind, nodes) {
@@ -442,6 +479,7 @@ function isVideoNode(node) {
 }
 
 function isSpreadAnchor(node) {
+  if (isElement(node, "h3")) return true;
   return isElement(node, "p") && !isMediaNode(node) && nodeText(node).trim().length > 50;
 }
 
@@ -775,6 +813,7 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   const solo =
     compact && !photoOnly && images.length === 1 && videos.length === 0 && !schoolQuadEntry && !aiToolEntry;
   const blocked = rest.filter((n) => isElement(n, "h3")).length >= 2;
+  const abroadTools = pageSlug === "initiatives/abroad/resources" && blocked;
   const longEssay = textParagraphCount(rest) >= 3 || measureText(rest).length > 1600;
 
   let rail = [];
@@ -797,13 +836,9 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     rail = flattenMedia(media);
     blocks = wrapH3Blocks(rest);
     layout = solo ? "solo" : "compact";
-  } else if (blocked && images.length + videos.length >= 2) {
-    rail = mediaRail(videos, images, media, useCarousel);
-    blocks = wrapH3Blocks(rest);
+  } else if (abroadTools) {
+    blocks = wrapH3Carousel(wrapH3Blocks(rest), heading || title);
     layout = "gallery";
-  } else if (blocked && images.length + videos.length > 0) {
-    blocks = attachMediaToBlocks(wrapH3Blocks(rest), mixMedia(videos, images));
-    layout = "banded";
   } else if (longEssay && (images.length + videos.length > 0 || rest.some((n) => isMediaNode(n) || isYoutube(n)))) {
     const prose = [];
     const inlineMedia = [];
@@ -829,25 +864,32 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     } else if (teamExperiences) {
       const photos = extractImageParagraphs(merged.images);
       if (photos.length === 1 && !merged.videos.length) {
-        blocks = wrapH3Blocks([markEssayFigure(photos[0], "left"), ...prose]);
+        blocks = [markEssayFigure(photos[0], "left"), ...prose];
       } else {
-        blocks = wrapH3Blocks(interleaveEssayMedia(prose, merged.videos, merged.images));
+        blocks = interleaveEssayMedia(prose, merged.videos, merged.images);
       }
       layout = "essay";
     } else if (costaRica) {
       if (merged.videos.length) {
         feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];
       }
-      blocks = wrapH3Blocks(interleaveEssayMedia(prose, [], merged.images));
+      blocks = interleaveEssayMedia(prose, [], merged.images);
       layout = "essay";
     } else if (showcase && merged.videos.length && merged.images.length) {
       feature = [zipMediaPairs(merged.videos, merged.images)];
       blocks = wrapH3Blocks(prose);
       layout = "showcase";
     } else {
-      blocks = wrapH3Blocks(interleaveEssayMedia(prose, merged.videos, merged.images));
+      blocks = interleaveEssayMedia(prose, merged.videos, merged.images);
       layout = "essay";
     }
+  } else if (blocked && images.length + videos.length >= 2) {
+    rail = mediaRail(videos, images, media, useCarousel);
+    blocks = wrapH3Blocks(rest);
+    layout = "gallery";
+  } else if (blocked && images.length + videos.length > 0) {
+    blocks = attachMediaToBlocks(wrapH3Blocks(rest), mixMedia(videos, images));
+    layout = "banded";
   } else if (images.length + videos.length >= 2 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
     rail = mediaRail(videos, images, media, useCarousel);
@@ -899,7 +941,7 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   if (layout === "gallery") classes.push("entry-card--gallery");
   if (layout === "showcase") classes.push("entry-card--showcase");
   if (layout === "profile") classes.push("entry-card--profile");
-  if (nodeHasCarousel(rail) || nodeHasCarousel(feature)) classes.push("entry-card--carousel");
+  if (nodeHasCarousel(rail) || nodeHasCarousel(feature) || nodeHasCarousel(blocks)) classes.push("entry-card--carousel");
 
   const illinoisResource =
     pageSlug === "about/resources" &&

@@ -127,7 +127,7 @@ SPAN 303 - The Sounds of Spanish (Phonetics) - Nerea Muguerza 🔊🗣️🎵�
 
 ## My Study Abroad Experience in Granada: A Cumulative Reflection
 
-A Dream Realized
+### A Dream Realized
 
 When I first contemplated studying abroad, I knew it had to be a part of my college experience and something I wanted to check off my bucket list. However, as I began planning during my freshman year, I was uncertain whether my study abroad journey would focus on my major, my minor, or even an internship. It wasn’t until the second semester that I seriously considered Spain, among other Hispanic countries, as my study-abroad destination. I strategically aligned my general education classes to complete a Spanish minor, which further solidified my decision.
 
@@ -143,7 +143,7 @@ While my program provided valuable language instruction and cultural activities,
 
 ![](/images/initiatives/abroad/2e59110cc547ff91a29b2e79db677cab.jpg)
 
-Understanding the "Colonial Student" Mentality
+### Understanding the "Colonial Student" Mentality
 
 Ogden describes the "colonial student" mentality as a way of thinking where students view their study abroad destinations mainly as places for fun and self-exploration, rather than as communities to genuinely connect with. This attitude leads students to engage in familiar activities instead of diving deeper into the local culture and forming real relationships with residents. Essentially, it reduces rich cultural experiences to a checklist of sights to see and keeps social circles small and non-local, rather than fostering meaningful interactions. This mindset creates an imbalance, making it easy for students to overlook the complexities and/or nuances of the communities they’re temporarily a part of.
 
@@ -155,7 +155,7 @@ I observed this mentality within myself and other study abroad students, whether
 
 ![](/images/initiatives/abroad/093c1d68ac41b730b7e13551cb71080b.jpg)
 
-Thriving in Cultural Immersion in Granada
+### Thriving in Cultural Immersion in Granada
 
 Some of the many efforts I made to immerse myself in the local culture began with gauging my current connections at the University of Illinois to see if they knew anyone or had any kind of connection in Granada that I could meet up with, whether that be a previous study abroad student or an international friend. On campus, I’m part of a faith-based group called Bridges International, and conveniently, my directors in the program used to live in Spain, specifically Málaga. Bridges is part of a larger organization called Cru. As it turns out, there were similar sub-groups of Cru around Spain, including one in Granada called Agape, headed by Dziu and Garrick Roegner, who were also long-time friends of my Bridges directors, Ana and Joel Schrader. Once Ana connected me with them via email over winter break, I was one step closer to developing local connections and friendships, while also finding a way to engage in Bible study and locate a church.
 
@@ -169,7 +169,7 @@ I can’t necessarily speak to how my interactions with locals differed from tho
 
 ![](/images/initiatives/abroad/1826c924441c6c05d3724bda2d79dd66.jpg)
 
-Finding the Balance: Travel vs. Immersion
+### Finding the Balance: Travel vs. Immersion
 
 When considering my desire to travel during my program, I had initially planned two to three trips throughout the semester to places like France, Egypt, Morocco, and Germany. However, I intended to do these trips only during specific week-long breaks in the semester. I was aware of two breaks: “Semana Blanca,” a week off in late February, and “Semana Santa,” or Easter week, in late March. What I didn’t know, though, was that there is a concept called “puentes” in Spain. Essentially, if there’s a major holiday in the middle of the week, say Wednesday, the rest of the week gets canceled. This happened twice—first on February 28th, which was the Day of Andalucía, falling on a Wednesday, and then for Labor Day and the Cruces de Mayo, which were on Wednesday and Friday, respectively. So, I ended up with two week-long breaks and two five-day weekends, which I ultimately took as an opportunity to travel even more.
 
@@ -177,7 +177,7 @@ To maintain my connection with the local culture in Granada, I made sure to limi
 
 By the first Puente, which came after the initial break, I remember asking my host mom whether I should be traveling as much as I was during these breaks or if I should stay in Granada. I had an internal conflict about whether I might be unknowingly treating my time in Granada as a “colonial experience,” as Ogden discussed. However, she told me something along the lines of that if she were my age, she would actually travel more, which echoed the sentiments of many of my local friends who encouraged me to “aprovecha todo lo que puedas.” While I hadn’t planned to travel more anyway, this sentiment solidified my decision to use the Puentes and week-long breaks for trips outside of Spain while reserving weekends for staying in Spain or taking small local trips.
 
-Ethical Reflections on My Presence
+### Ethical Reflections on My Presence
 
 Specific instances where my presence as a study abroad student affected my relationship with the local community were more positive than negative. For example, when I first met a friend named Claudia, the daughter of Pablo, one of my peers in the dance studio where I took classes, she brought one of her friends, Andrea, to meet me. I had initially told Pablo that I was looking for more Spanish-speaking local friends, and he referred me to his daughter. When we met at a local restaurant for tapas, I expressed my interest in both practicing my Spanish and making more local connections. As it turned out, they were also looking to practice their English and make more American friends, much less international ones. Thus, we spent the rest of our time together, and in our subsequent meet-ups, I spoke Spanish to them while they spoke English to me, allowing us both to learn and struggle in our respective ways. We still keep in touch, and I intend to visit them in the near future in Granada, Lord willing.
 
@@ -185,7 +185,7 @@ Some ways in which the study abroad program could be redesigned to foster more e
 
 Reflecting on my time in Granada, I thoroughly enjoyed improving my Spanish and immersing myself in the local culture. However, there were certain times that I felt conflicted about my role as a foreign student. Despite the vibrant atmosphere and the friendships I formed, there was always some sort of concern that our presence as study-abroad students might unintentionally displace locals from their own spaces. Additionally, I recognized how our status as Americans, coupled with our spending habits, could foster a sense of envy, especially in a country grappling with economic challenges. For instance, I frequented a local coffee shop for breakfast or lunch, only to learn from my teacher, Nerea, that it was considered one of the more expensive options for food. My Syr ian friend, Khaled, expanded on his journey and struggles as a refugee to Granada and told me how he viewed the United States as a paradise. My local friends often expressed the difficulty of securing employment in Spain, highlighting my fortunate position regarding job opportunities in the United States. These conversations prompted me to reflect on the economic disparities between us and the potential envy our presence could evoke, as we enjoyed resources and experiences that remained out of reach for many locals.
 
-Looking Ahead: Committing to Meaningful Engagement
+### Looking Ahead: Committing to Meaningful Engagement
 
 Overall, my cultural engagement during my time abroad has been exponential, leading me to realize that my capacity for intercultural communication and socializing on a global scale knows no limits. If there’s one approach I would take for my cultural engagement moving forward, it would be to continue what I’m doing while improving upon my current methods and personality in interacting with other cultures. I aim to be more aware of how I may subconsciously approach people from different countries, backgrounds, and ethnicities, whether they share my culture, are similar, or are entirely different.
 
@@ -193,7 +193,7 @@ Reflecting on my study abroad experience, I recognize that my interactions were 
 
 Now, back home in the United States, I have become more intentional in my efforts to make friends from all over the world. As the Lead Ambassador for the GLOBE program in International Education at the University of Illinois, I embrace my responsibility to bridge cultural gaps but also help international students adjust to campus life. Additionally, I’m taking on a more prominent leadership role in my Bridges International faith-based group, and I am steadily expanding my language learning. I build upon my knowledge of English, Bisaya, Ilonggo, and Spanish through my Filipino and Hispanic friends while also making an effort to engage in Mandarin Chinese and Arabic conversations with my Chinese and Egyptian/Palestinian/Syrian friends.
 
-Final Thoughts
+### Final Thoughts
 
 As I reflect on my time in Granada, I realize that my study abroad experience has become far more than I ever expected. My main objective was to improve my Spanish, immerse myself in the culture, and focus on my classes. But by the end of the program, I not only gained fluency; I built a life—a life in a city I had only read about in history books. My goal of setting aside my habits and customs led me to discover new talents, hobbies, and ways of thinking, giving me a clearer sense of who I am and where I belong in this world. Granada gave me more than language; it gave me a community, a routine, and lifelong friendships.
 

@@ -212,6 +212,13 @@ export const allRoutes: { title: string; href: string; section?: string }[] = [
   { title: "Contact", href: "/contact/" },
 ];
 
+const surpriseSkip = new Set(["/", "/about/", "/initiatives/"]);
+
+/** Content pages Surprise Me can land on — skip Home and the About/Initiatives hubs. */
+export const surpriseRoutes = allRoutes
+  .filter((route) => !surpriseSkip.has(route.href))
+  .map((route) => route.href);
+
 /**
  * Google Sites hyphenated paths → rebuilt routes.
  * Include slash variants so both live URLs and trailing-slash links resolve.

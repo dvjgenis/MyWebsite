@@ -201,15 +201,15 @@ const hasHero = Boolean(heroImage);
 
   function enhanceCarousel(root) {
     if (root.dataset.enhanced === "true") return;
-    const track = root.querySelector(".site-carousel-track");
-    const slides = [...root.querySelectorAll(":scope .site-carousel-slide")];
+    const track = root.querySelector(":scope > .site-carousel-frame > .site-carousel-track");
+    const slides = track ? [...track.children].filter((node) => node.classList.contains("site-carousel-slide")) : [];
     if (!track || slides.length < 2) return;
     root.dataset.enhanced = "true";
 
-    const prev = root.querySelector(".site-carousel-btn--prev");
-    const next = root.querySelector(".site-carousel-btn--next");
-    const dots = [...root.querySelectorAll(".site-carousel-dot")];
-    const count = root.querySelector(".site-carousel-count");
+    const prev = root.querySelector(":scope > .site-carousel-frame > .site-carousel-btn--prev");
+    const next = root.querySelector(":scope > .site-carousel-frame > .site-carousel-btn--next");
+    const dots = [...root.querySelectorAll(":scope > .site-carousel-nav .site-carousel-dot")];
+    const count = root.querySelector(":scope > .site-carousel-nav .site-carousel-count");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let active = 0;
 
