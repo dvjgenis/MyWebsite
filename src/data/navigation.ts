@@ -15,7 +15,6 @@ export const site = {
   social: {
     instagram: "https://instagram.com/dv.gen14",
     linkedin: "https://linkedin.com/in/dvgenis",
-    snapchat: "https://t.snapchat.com/k7zOTQvX",
     blinq: "https://blinq.me/NYe3XvCtUDzP",
   },
 } as const;

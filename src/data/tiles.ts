@@ -111,8 +111,8 @@ export const initiativesTiles: ColorTileData[] = [
     href: "/initiatives/awards/",
     description: "Recent recognitions, awards, and scholarships.",
     tone: "initiatives",
-    bg: "#e0893a",
-    fg: "#3b1d0a",
+    bg: "#9a4418",
+    image: "/images/initiatives/awards/15cff78094ca36f796696c92fca9cc03.jpg",
   },
 ];
 

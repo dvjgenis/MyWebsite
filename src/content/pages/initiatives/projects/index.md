@@ -83,15 +83,11 @@ youtube-short:OKfhae80G6A
 
 ![](/images/initiatives/projects/e5f059d8c71fe448c63d67e7ea983867.jpg)
 
-![](/images/initiatives/projects/30acc44f179cb0bf33ea434df2f81b95.jpg)
-
-![](/images/initiatives/projects/38799867ffbd9a3763a1d1359e19d3b4.jpg)
-
-![](/images/initiatives/projects/e0d23458d6c324360de5f3114347f6d4.jpg)
-
 ![](/images/initiatives/projects/5e43d142aa1b97dac8ad54dad2e29ebc.jpg)
 
 ![](/images/initiatives/projects/1623bc615390c8ecb7b32efa72df0b65.jpg)
+
+![](/images/initiatives/projects/c27a80f9c360c883707b92865989015c.jpg)
 
 During Spring Break 2026, from March 13 to 20, I had the privilege of traveling to Liberia, Costa Rica, with Filter of Hope. Joining forces with an amazing group of students from Cru, Bridges International, Destino, and Design Movement, we partnered with a local camp called Hacienda Palabra de Vida and local churches. Our daily mission was to go house-to-house in the surrounding neighborhoods, distributing state-of-the-art water filters capable of providing a family with clean drinking water for up to ten years. Alongside installing the filters, we focused on building relationships and sharing the love and hope of Jesus. After long days walking through the communities, our evenings were spent back at the camp, unwinding in the semi-olympic pool, playing ping pong, and gathering for team debriefs to reflect on the day.
 
@@ -115,8 +111,6 @@ I built IlliniOverlap to help University of Illinois Urbana-Champaign (UIUC) stu
 
 youtube:MrZmXS6HQ0M
 
-![](/images/initiatives/projects/c27a80f9c360c883707b92865989015c.jpg)
-
 On New Year’s 2025, I traveled to Denver for the [Bridges International Vision Conference](https://www.visionconf.com/) , a global gathering of students from over 75 nations focused on personal growth and spiritual discovery. Our time was split between exploring Colorado’s landmarks, like Garden of the gods, and attending insightful seminars on topics such as AI and Faith and Faith in Suffering. Between the nightly sessions with world-class speakers and multicultural worship, I spent my days in "Tracks," building deep connections with people from vastly different backgrounds while exploring the intersection of culture and faith.
 
 A highlight of the week was the Global Showcase, where I had the opportunity to represent my heritage by singing "Ikaw Lang Ang Mamahalin" by Joey Albert, despite being sick and losing a lot of my voice. Performing that song for such a diverse audience was a surreal moment of connection, especially alongside the vibrant Culture Night, where we all wore our traditional attire. Capping off the year with a massive New Year’s Eve celebration, I left Colorado with a profound appreciation for the global community and a heart transformed by the simple power of presence and shared stories.
@@ -137,6 +131,12 @@ I built this interactive Tableau dashboard to showcase the academic and geograph
 
 ## Filter of Hope: Cuba 2025
 
+
+![](/images/initiatives/projects/30acc44f179cb0bf33ea434df2f81b95.jpg)
+
+![](/images/initiatives/projects/38799867ffbd9a3763a1d1359e19d3b4.jpg)
+
+![](/images/initiatives/projects/e0d23458d6c324360de5f3114347f6d4.jpg)
 
 ![](/images/initiatives/projects/92f132e27f29f140ac732ca096171d2a.jpg)
 

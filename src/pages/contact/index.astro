@@ -11,10 +11,38 @@ if (!result) throw new Error("Contact page missing");
 const { page } = result;
 
 const connectTiles = [
-  { title: "LinkedIn", href: site.social.linkedin, bg: "#2f4a73", fg: "#e7eef8", description: "Professional updates and messages." },
-  { title: "Instagram", href: site.social.instagram, bg: "#6b3a4a", fg: "#f8e7ee", description: "Photos and day-to-day notes." },
-  { title: "Blinq", href: site.social.blinq, bg: "#3d5a4a", fg: "#e7f3ea", description: "Digital business card." },
-  { title: "Resume", href: site.resume, bg: "#2d2a26", fg: "#faf7f2", description: "Experience, education, and skills." },
+  {
+    title: "LinkedIn",
+    href: site.social.linkedin,
+    bg: "#2f4a73",
+    fg: "#e7eef8",
+    icon: "linkedin" as const,
+    description: "Professional updates and messages.",
+  },
+  {
+    title: "Instagram",
+    href: site.social.instagram,
+    bg: "#6b3a4a",
+    fg: "#f8e7ee",
+    icon: "instagram" as const,
+    description: "Photos and day-to-day notes.",
+  },
+  {
+    title: "Blinq",
+    href: site.social.blinq,
+    bg: "#3d5a4a",
+    fg: "#e7f3ea",
+    icon: "blinq" as const,
+    description: "Digital business card.",
+  },
+  {
+    title: "Resume",
+    href: site.resume,
+    bg: "#2d2a26",
+    fg: "#faf7f2",
+    icon: "resume" as const,
+    description: "Experience, education, and skills.",
+  },
 ];
 ---
 
@@ -54,6 +82,7 @@ const connectTiles = [
           description={tile.description}
           bg={tile.bg}
           fg={tile.fg}
+          icon={tile.icon}
           delay={i * 50}
           external
         />

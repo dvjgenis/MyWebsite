@@ -1,4 +1,5 @@
 ---
+import ConnectIcon, { type ConnectIconName } from "./ConnectIcon.astro";
 import { tileTones, type TileTone } from "../data/tiles";
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   tone?: TileTone;
   bg?: string;
   fg?: string;
+  icon?: ConnectIconName;
   external?: boolean;
   featured?: boolean;
   dense?: boolean;
@@ -24,6 +26,7 @@ const {
   tone = "ink",
   bg,
   fg,
+  icon,
   external = false,
   featured = false,
   dense = false,
@@ -85,6 +88,13 @@ const onDark = hexLuminance(foreground) > 0.42;
     )
   }
   <div class="color-tile-wash absolute inset-0"></div>
+  {
+    icon && (
+      <span class="color-tile-icon" aria-hidden="true">
+        <ConnectIcon name={icon} class="h-[1.15rem] w-[1.15rem]" />
+      </span>
+    )
+  }
   <div class="relative z-10">
     <h2
       class:list={[
@@ -94,7 +104,7 @@ const onDark = hexLuminance(foreground) > 0.42;
     >
       {title}
       {
-        external && (
+        external && !icon && (
           <svg class="ml-1.5 inline-block align-[-0.12em] w-[0.62em] h-[0.62em] opacity-80" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>

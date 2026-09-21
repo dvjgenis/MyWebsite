@@ -2,8 +2,8 @@
 title: "Contact"
 slug: "contact"
 description: "Connect with me or send a note."
-quote: "Dulf would be a great asset to any team! As an intern, Dulf helped manage innovative and insightful communication projects... His expertise helped increase awareness of the overall Center for Innovation in Teaching & Learning brand, reaching a broader audience and strengthening brand visibility."
-quoteAuthor: "Shenika Glover, Strategy Leader"
+quote: "Service defines Dulf's entire being. He works hard to make sure his community is a valuable place to live, and he encourages others to do the same...Dulf is generous, hard-working, dependable, and leads with his heart and soul."
+quoteAuthor: "Jessica Maag, Education & Events Coordinator at Center of Concern"
 heroImage: "/images/contact/contact-portrait.jpg"
 images:
   - "/images/contact/contact-portrait.jpg"

@@ -2,6 +2,8 @@
 title: "CITL Student Quick Takes series"
 slug: "initiatives/speaking/citl"
 description: "Conversations with Illinois students about learning, courses, and careers."
+quote: "Dulf would be a great asset to any team! As an intern, Dulf helped manage innovative and insightful communication projects... His expertise helped increase awareness of the overall Center for Innovation in Teaching & Learning brand, reaching a broader audience and strengthening brand visibility."
+quoteAuthor: "Shenika Glover, Strategy Leader"
 heroImage: "/images/initiatives/speaking/citl/ea3e61082fce6fd910dd05ff52525934.jpg"
 images:
   - "/images/initiatives/speaking/citl/ea3e61082fce6fd910dd05ff52525934.jpg"

@@ -12,7 +12,7 @@ const { page } = result;
 const enriched = await Promise.all(
   initiativesTiles.map(async (tile) => ({
     ...tile,
-    image: (await getPageData(tile.href.replace(/^\/|\/$/g, "")))?.heroImage,
+    image: tile.image ?? (await getPageData(tile.href.replace(/^\/|\/$/g, "")))?.heroImage,
   })),
 );
 ---

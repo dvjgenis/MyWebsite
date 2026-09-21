@@ -2,8 +2,6 @@
 title: "I-Programs"
 slug: "initiatives/leadership/i-programs"
 description: "The Rolls-Royce Innovation program hones skills in innovation, creativity, and diverse problem-solving techniques. We gained insights into our dominant problem-solving style's influence on organizations and people. This "
-quote: "Service defines Dulf's entire being. He works hard to make sure his community is a valuable place to live, and he encourages others to do the same...Dulf is generous, hard-working, dependable, and leads with his heart and soul."
-quoteAuthor: "Jessica Maag, SPEAK Des Plaines Community Engagement Coordinator"
 heroImage: "/images/initiatives/leadership/i-programs/af2ed5ab575874e3156a5e0a1a1a39df.jpg"
 images:
   - "/images/initiatives/leadership/i-programs/af2ed5ab575874e3156a5e0a1a1a39df.jpg"

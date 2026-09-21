@@ -63,7 +63,7 @@ const hasHero = Boolean(heroImage);
 
   <slot name="after-intro" />
 
-  <div class="page-layout stagger-in" style="animation-delay: 120ms">
+    <div class="page-layout">
     <nav class="page-index" data-page-index hidden aria-label="On this page">
       <p class="page-index-kicker">On this page</p>
       <div class="page-index-links"></div>
@@ -174,10 +174,34 @@ const hasHero = Boolean(heroImage);
     img.classList.toggle("is-banner", ar > 2.2);
     img.classList.toggle("is-landscape", ar >= 1.15 && ar <= 2.2);
     img.classList.toggle("is-portrait", ar < 0.85);
+    img.draggable = false;
+    img.setAttribute("draggable", "false");
+
+    if (img.closest(".page-hero-media")) {
+      img.style.removeProperty("object-position");
+      return;
+    }
 
     const person = img.closest(".entry-card--person, .entry-card--profile");
     if (person) {
       img.style.objectPosition = ar < 0.92 ? "center 28%" : "center 42%";
+    }
+
+    const carousel = img.closest(".site-carousel--image");
+    if (carousel) {
+      if (/92f132e27f29f140ac732ca096171d2a/.test(img.src)) {
+        img.style.objectPosition = "center 88%";
+        img.style.transform = "scale(1.5)";
+        img.style.transformOrigin = "center 80%";
+      } else if (/4b6035e8462143b6fdde08939ae277df/.test(img.src)) {
+        img.style.objectPosition = "center 88%";
+        img.style.transform = "scale(1.28)";
+        img.style.transformOrigin = "center 85%";
+      } else {
+        img.style.objectPosition = "center 50%";
+        img.style.removeProperty("transform");
+        img.style.removeProperty("transform-origin");
+      }
     }
   }
 
@@ -193,12 +217,38 @@ const hasHero = Boolean(heroImage);
       });
   }
 
+  function lockMediaDrag() {
+    document.querySelectorAll(".entry-card img, .page-hero-media img, .entry-photo-grid img").forEach((img) => {
+      img.draggable = false;
+      img.setAttribute("draggable", "false");
+    });
+    document.querySelectorAll(".site-carousel--image .site-carousel-track").forEach((track) => {
+      track.addEventListener(
+        "wheel",
+        (event) => {
+          if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) event.preventDefault();
+        },
+        { passive: false },
+      );
+      track.addEventListener(
+        "pointerdown",
+        (event) => {
+          if (event.target.closest(".site-carousel-btn")) return;
+          event.preventDefault();
+        },
+        { passive: false },
+      );
+    });
+  }
+
   document.addEventListener("astro:page-load", initPageIndex);
   document.addEventListener("astro:page-load", markMediaFrames);
+  document.addEventListener("astro:page-load", lockMediaDrag);
   document.addEventListener("astro:page-load", initCarousels);
   document.addEventListener("astro:page-load", plantBackgroundHint);
   initPageIndex();
   markMediaFrames();
+  lockMediaDrag();
   initCarousels();
   plantBackgroundHint();
 

@@ -26,97 +26,99 @@ function isActive(href: string) {
         </span>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-0.5" aria-label="Main">
-        {
-          navigation.map((item) => {
-            const active = isActive(item.href);
-            if (item.children) {
-              return (
-                <div class="relative group/nav">
-                  <a
-                    href={item.href}
-                    data-nav-href={item.href}
-                    class:list={[
-                      "nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1",
-                      active && "is-active",
-                    ]}
-                    aria-current={active ? "page" : undefined}
-                    aria-haspopup="true"
-                  >
-                    {item.label}
-                    <svg class="nav-chevron w-3.5 h-3.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </a>
-                  <div class="nav-flyout absolute left-0 top-full z-50 pt-1 opacity-0 invisible translate-y-1 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto group-focus-within/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:pointer-events-auto">
-                    <div class="min-w-[17rem] max-h-[70vh] overflow-y-auto rounded-xl border border-border bg-surface/95 backdrop-blur-xl shadow-lg py-1.5">
-                      {
-                        item.children.map((child) => (
-                          <div>
-                            <a
-                              href={child.href}
-                              class="block px-4 py-2 text-sm text-ink/85 hover:text-ink hover:bg-paper-dark/70 transition-colors"
-                            >
-                              {child.label}
-                            </a>
-                            {child.children?.map((gc) => (
+      <div class="site-header-desktop hidden lg:flex">
+        <nav class="site-header-nav" aria-label="Main">
+          {
+            navigation.map((item) => {
+              const active = isActive(item.href);
+              if (item.children) {
+                return (
+                  <div class="relative group/nav">
+                    <a
+                      href={item.href}
+                      data-nav-href={item.href}
+                      class:list={["nav-link", active && "is-active"]}
+                      aria-current={active ? "page" : undefined}
+                      aria-haspopup="true"
+                    >
+                      {item.label}
+                      <svg class="nav-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </a>
+                    <div class="nav-flyout absolute left-0 top-full z-50 pt-1 opacity-0 invisible translate-y-1 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto group-focus-within/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:pointer-events-auto">
+                      <div class="min-w-[17rem] max-h-[70vh] overflow-y-auto rounded-xl border border-border bg-surface/95 backdrop-blur-xl shadow-lg py-1.5">
+                        {
+                          item.children.map((child) => (
+                            <div>
                               <a
-                                href={gc.href}
-                                class="block pl-8 pr-4 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                                href={child.href}
+                                class="block px-4 py-2 text-sm text-ink/85 hover:text-ink hover:bg-paper-dark/70 transition-colors"
                               >
-                                {gc.label}
+                                {child.label}
                               </a>
-                            ))}
-                          </div>
-                        ))
-                      }
+                              {child.children?.map((gc) => (
+                                <a
+                                  href={gc.href}
+                                  class="block pl-8 pr-4 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                                >
+                                  {gc.label}
+                                </a>
+                              ))}
+                            </div>
+                          ))
+                        }
+                      </div>
                     </div>
                   </div>
-                </div>
+                );
+              }
+              return (
+                <a
+                  href={item.href}
+                  data-nav-href={item.href}
+                  class:list={["nav-link", active && "is-active"]}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
               );
-            }
-            return (
-              <a
-                href={item.href}
-                data-nav-href={item.href}
-                class:list={["nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors", active && "is-active"]}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.label}
-              </a>
-            );
-          })
-        }
-        <a
-          href={surpriseHref}
-          data-surprise
-          data-surprise-routes={surpriseRoutesJson}
-          aria-label="Surprise Me: open a random page on this site"
-          title="Surprise Me"
-          class="surprise-btn ml-1 inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg text-ink-muted transition-colors hover:text-ink"
-        >
-          <svg class="h-[1.05rem] w-[1.05rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-            />
-          </svg>
-        </a>
-        <button
-          type="button"
-          id="search-trigger"
-          class="ml-1.5 px-3 py-2 text-sm text-ink-muted hover:text-ink hover:bg-ink/5 border border-border rounded-lg flex items-center gap-2 transition-colors"
-          aria-label="Search site"
-        >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <span class="hidden lg:inline">Search</span>
-          <kbd data-search-hotkey class="hidden lg:inline font-sans text-[0.65rem] tracking-wide text-ink-muted bg-paper-dark px-1.5 py-0.5 rounded border border-border/80">Cmd K</kbd>
-        </button>
-      </nav>
+            })
+          }
+        </nav>
+
+        <div class="site-header-utilities">
+          <a
+            href={surpriseHref}
+            data-surprise
+            data-surprise-routes={surpriseRoutesJson}
+            aria-label="Surprise Me: open a random page on this site"
+            title="Surprise Me"
+            class="surprise-btn site-header-utility-btn"
+          >
+            <svg class="h-[1.05rem] w-[1.05rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
+          </a>
+          <button
+            type="button"
+            id="search-trigger"
+            class="site-header-search"
+            aria-label="Search site"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>Search</span>
+            <kbd data-search-hotkey class="site-header-search-kbd">Cmd K</kbd>
+          </button>
+        </div>
+      </div>
 
       <div class="site-header-tools flex items-center lg:hidden">
         <button

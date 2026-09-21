@@ -139,9 +139,16 @@ const CAROUSEL_PAGES = new Set(["initiatives/projects", "initiatives/work"]);
 function pageSlugFromFile(file) {
   const fromMatter = file?.data?.astro?.frontmatter?.slug;
   if (fromMatter) return String(fromMatter);
-  const raw = String(file?.path || file?.history?.[0] || "");
-  const match = raw.replace(/\\/g, "/").match(/\/content\/pages\/(.+?)\/index\.md$/i);
-  return match ? match[1] : "";
+  const candidates = [file?.path, file?.history?.[0], file?.dirname].filter(Boolean).map(String);
+  for (const raw of candidates) {
+    const norm = raw.replace(/\\/g, "/");
+    const match =
+      norm.match(/\/content\/pages\/(.+?)\/index\.md$/i) ||
+      norm.match(/content\/pages\/(.+?)\/index\.md$/i) ||
+      norm.match(/\/pages\/(.+?)\/index\.md$/i);
+    if (match) return match[1];
+  }
+  return "";
 }
 
 function isWeekdayFoodTitle(title) {
@@ -300,15 +307,25 @@ function wrapH3Carousel(nodes, label) {
   return [...intro, wrapCardCarousel("resource", items, label)];
 }
 
-function maybeCarousel(kind, nodes) {
+function maybeCarousel(kind, nodes, useCarousel = false) {
   if (!nodes.length) return [];
-  if (nodes.length <= 3) return flattenMedia(nodes);
+  if (kind === "image") {
+    const media = flattenMedia(nodes);
+    if (media.length <= 1) return media;
+    if (useCarousel) return [carouselEl("image", nodes)];
+    return [el("div", { className: ["entry-photo-grid"] }, media)];
+  }
+  if (!useCarousel && nodes.length <= 3) return flattenMedia(nodes);
   return [carouselEl(kind, nodes)];
 }
 
 function packLooseMedia(nodes) {
   if (nodes.length <= 1) return nodes;
-  if (nodes.some((n) => classList(n).includes("site-carousel"))) return nodes;
+  if (nodes.some((n) => classList(n).includes("site-carousel") || classList(n).includes("entry-photo-grid"))) {
+    return nodes;
+  }
+  const allImages = nodes.every((n) => isMediaNode(n) && !isYoutube(n));
+  if (allImages) return [el("div", { className: ["entry-photo-grid"] }, flattenMedia(nodes))];
   return [el("div", { className: ["entry-media-row"] }, nodes)];
 }
 
@@ -316,7 +333,33 @@ function mediaRail(videos, images, originalMedia, useCarousel) {
   if (!useCarousel || (videos.length <= 3 && images.length <= 3)) {
     return flattenMedia(originalMedia.length ? originalMedia : [...videos, ...images]);
   }
-  return [...packLooseMedia(maybeCarousel("video", videos)), ...packLooseMedia(maybeCarousel("image", images))];
+  return [
+    ...packLooseMedia(maybeCarousel("video", videos, useCarousel)),
+    ...packLooseMedia(maybeCarousel("image", images, useCarousel)),
+  ];
+}
+
+function filterOfHopeCostaRicaRail(videos, images) {
+  const cols = [];
+  if (videos.length) {
+    cols.push(
+      el("div", { className: ["entry-media-duo-col", "entry-media-duo-col--video"] }, [
+        ...maybeCarousel("video", videos, true),
+      ]),
+    );
+  }
+  if (images.length) {
+    cols.push(
+      el("div", { className: ["entry-media-duo-col", "entry-media-duo-col--photos"] }, [
+        ...maybeCarousel("image", images, true),
+      ]),
+    );
+  }
+  return cols.length ? [el("div", { className: ["entry-media-duo"] }, cols)] : [];
+}
+
+function filterOfHopeCubaRail(images) {
+  return images.length ? maybeCarousel("image", images, true) : [];
 }
 
 function nodeHasCarousel(nodes) {
@@ -788,6 +831,9 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   );
 
   const peopleHost = people.length > 0;
+  const costaRica = /costa rica/i.test(title);
+  const filterOfHopeCuba = /cuba/i.test(title);
+  const vision2025 = /vision 2025/i.test(title);
   const { videos, images } = splitMedia(media);
   const captions = rest.filter(isShortCaption);
   const nonCaptions = rest.filter((n) => !isShortCaption(n));
@@ -850,14 +896,25 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
       }
     }
     const merged = splitMedia([...media, ...inlineMedia]);
-    const costaRica = /costa rica/i.test(title);
     const teamExperiences = pageSlug === "initiatives/leadership/team-experiences";
     const showcase =
       !costaRica &&
       !teamExperiences &&
       (merged.videos.filter((n) => classList(n).includes("youtube-embed--short")).length >= 2 ||
         (merged.videos.length >= 3 && merged.images.length >= 2));
-    if (useCarousel && (merged.images.length > 3 || merged.videos.length > 3)) {
+    if (costaRica) {
+      rail = filterOfHopeCostaRicaRail(merged.videos, merged.images);
+      blocks = wrapH3Blocks(prose);
+      layout = "essay";
+    } else if (filterOfHopeCuba && merged.images.length) {
+      rail = filterOfHopeCubaRail(merged.images);
+      blocks = wrapH3Blocks(prose);
+      layout = "gallery";
+    } else if (vision2025) {
+      rail = flattenMedia(merged.videos.length ? merged.videos : media);
+      blocks = wrapH3Blocks(prose);
+      layout = "gallery";
+    } else if (useCarousel && (merged.images.length > 3 || merged.videos.length > 3)) {
       rail = mediaRail(merged.videos, merged.images, [], true);
       blocks = wrapH3Blocks(prose);
       layout = "gallery";
@@ -868,12 +925,6 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
       } else {
         blocks = interleaveEssayMedia(prose, merged.videos, merged.images);
       }
-      layout = "essay";
-    } else if (costaRica) {
-      if (merged.videos.length) {
-        feature = [el("div", { className: ["entry-shorts"] }, merged.videos)];
-      }
-      blocks = interleaveEssayMedia(prose, [], merged.images);
       layout = "essay";
     } else if (showcase && merged.videos.length && merged.images.length) {
       feature = [zipMediaPairs(merged.videos, merged.images)];
@@ -892,16 +943,45 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     layout = "banded";
   } else if (images.length + videos.length >= 2 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
-    rail = mediaRail(videos, images, media, useCarousel);
-    blocks = wrapH3Blocks(parts.prose);
-    extra = parts.extra;
-    layout = "gallery";
+    if (costaRica) {
+      rail = filterOfHopeCostaRicaRail(videos, images);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "essay";
+    } else if (filterOfHopeCuba) {
+      rail = filterOfHopeCubaRail(images);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "gallery";
+    } else {
+      rail = mediaRail(videos, images, media, useCarousel);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "gallery";
+    }
   } else if (images.length + videos.length > 0 && measureText(rest)) {
     const parts = splitProseAndExtra(rest);
-    rail = mediaRail(videos, images, media, useCarousel);
-    blocks = wrapH3Blocks(parts.prose);
-    extra = parts.extra;
-    layout = "split";
+    if (costaRica) {
+      rail = filterOfHopeCostaRicaRail(videos, images);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "essay";
+    } else if (filterOfHopeCuba) {
+      rail = filterOfHopeCubaRail(images);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "gallery";
+    } else if (vision2025) {
+      rail = flattenMedia(media);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "gallery";
+    } else {
+      rail = mediaRail(videos, images, media, useCarousel);
+      blocks = wrapH3Blocks(parts.prose);
+      extra = parts.extra;
+      layout = "split";
+    }
   } else {
     rail = mediaRail(videos, images, media, useCarousel);
     blocks = wrapH3Blocks(rest);

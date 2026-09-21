@@ -13,12 +13,9 @@ youtube:
   - "7mgG9dN-IG4"
 ---
 
-## Division of General Studies (2022 - 2024)
-
-Dulf entered the University of Illinois Urbana-Champaign in August 2022 through the Division of General (Exploratory) Studies — undeclared, on purpose. That home for not-knowing-yet lasted through January 2024, when he was admitted to the iSchool while finishing his Spanish minor in Granada.
-
 ## iSchool, University of Illinois (2024 - 2026)
 
+Dulf entered the University of Illinois Urbana-Champaign in August 2022 through the Division of General (Exploratory) Studies — undeclared, on purpose. That home for not-knowing-yet lasted through January 2024, when he was admitted to the iSchool while finishing his Spanish minor in Granada.
 
 youtube:7mgG9dN-IG4
 
