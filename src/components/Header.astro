@@ -3,191 +3,224 @@ import { navigation, site, surpriseRoutes } from "../data/navigation";
 
 const surpriseHref = surpriseRoutes[0];
 const surpriseRoutesJson = JSON.stringify(surpriseRoutes);
-
 const path = Astro.url.pathname;
+
+function isActive(href: string) {
+  return href === "/" ? path === "/" : path === href || path.startsWith(href);
+}
 ---
 
-<div transition:persist="site-header">
-<header class="glass-header sticky top-0 z-50">
-  <div data-header-bar class="mx-auto flex max-w-6xl items-center justify-between gap-3 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] py-3 md:py-3.5">
-    <a href="/" class="group shrink-0 inline-flex min-h-11 items-center min-w-0">
-      <span class="font-display text-[1.05rem] sm:text-lg lg:text-xl tracking-tight text-ink group-hover:text-accent transition-colors truncate block">
-        {site.name}
-      </span>
-    </a>
+<div class="site-header-root" transition:persist="site-header">
+  <header class="glass-header site-header sticky top-0 z-50">
+    <div
+      data-header-bar
+      class="site-header-bar mx-auto max-w-6xl pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]"
+    >
+      <div class="site-header-main">
+      <a href="/" class="site-wordmark group shrink-0 inline-flex min-h-11 items-center min-w-0">
+        <span class="site-wordmark-full font-display text-[1.05rem] sm:text-lg lg:text-xl tracking-tight text-ink group-hover:text-accent transition-colors truncate">
+          {site.name}
+        </span>
+        <span class="site-wordmark-short font-display text-[1.05rem] tracking-tight text-ink group-hover:text-accent transition-colors">
+          Dulf
+        </span>
+      </a>
 
-    <nav class="hidden lg:flex items-center gap-0.5" aria-label="Main">
-      {
-        navigation.map((item) => {
-          const active = item.href === "/" ? path === "/" : path === item.href || path.startsWith(item.href);
-          if (item.children) {
-            return (
-              <div class="relative group/nav">
-                <a
-                  href={item.href}
-                  data-nav-href={item.href}
-                  class:list={[
-                    "nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1",
-                    active && "is-active",
-                  ]}
-                  aria-current={active ? "page" : undefined}
-                  aria-haspopup="true"
-                >
-                  {item.label}
-                  <svg class="nav-chevron w-3.5 h-3.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-                <div class="nav-flyout absolute left-0 top-full z-50 pt-1 opacity-0 invisible translate-y-1 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto group-focus-within/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:pointer-events-auto">
-                  <div class="min-w-[17rem] max-h-[70vh] overflow-y-auto rounded-xl border border-border bg-surface/95 backdrop-blur-xl shadow-lg py-1.5">
-                    {
-                      item.children.map((child) => (
-                        <div>
-                          <a
-                            href={child.href}
-                            class="block px-4 py-2 text-sm text-ink/85 hover:text-ink hover:bg-paper-dark/70 transition-colors"
-                          >
-                            {child.label}
-                          </a>
-                          {child.children?.map((gc) => (
+      <nav class="hidden lg:flex items-center gap-0.5" aria-label="Main">
+        {
+          navigation.map((item) => {
+            const active = isActive(item.href);
+            if (item.children) {
+              return (
+                <div class="relative group/nav">
+                  <a
+                    href={item.href}
+                    data-nav-href={item.href}
+                    class:list={[
+                      "nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1",
+                      active && "is-active",
+                    ]}
+                    aria-current={active ? "page" : undefined}
+                    aria-haspopup="true"
+                  >
+                    {item.label}
+                    <svg class="nav-chevron w-3.5 h-3.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                  <div class="nav-flyout absolute left-0 top-full z-50 pt-1 opacity-0 invisible translate-y-1 pointer-events-none group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto group-focus-within/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:pointer-events-auto">
+                    <div class="min-w-[17rem] max-h-[70vh] overflow-y-auto rounded-xl border border-border bg-surface/95 backdrop-blur-xl shadow-lg py-1.5">
+                      {
+                        item.children.map((child) => (
+                          <div>
                             <a
-                              href={gc.href}
-                              class="block pl-8 pr-4 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                              href={child.href}
+                              class="block px-4 py-2 text-sm text-ink/85 hover:text-ink hover:bg-paper-dark/70 transition-colors"
                             >
-                              {gc.label}
+                              {child.label}
                             </a>
-                          ))}
-                        </div>
-                      ))
-                    }
+                            {child.children?.map((gc) => (
+                              <a
+                                href={gc.href}
+                                class="block pl-8 pr-4 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-paper-dark/70 transition-colors"
+                              >
+                                {gc.label}
+                              </a>
+                            ))}
+                          </div>
+                        ))
+                      }
+                    </div>
                   </div>
                 </div>
-              </div>
+              );
+            }
+            return (
+              <a
+                href={item.href}
+                data-nav-href={item.href}
+                class:list={["nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors", active && "is-active"]}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </a>
             );
-          }
-          return (
-            <a
-              href={item.href}
-              data-nav-href={item.href}
-              class:list={["nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors", active && "is-active"]}
-              aria-current={active ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          );
-        })
-      }
-      <a
-        href={surpriseHref}
-        data-surprise
-        data-surprise-routes={surpriseRoutesJson}
-        aria-label="Surprise Me: open a random page on this site"
-        title="Surprise Me"
-        class="surprise-btn ml-1 inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg text-ink-muted transition-colors hover:text-ink"
-      >
-        <svg class="h-[1.05rem] w-[1.05rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-          />
-        </svg>
-      </a>
-      <button
-        type="button"
-        id="search-trigger"
-        class="ml-1.5 px-3 py-2 text-sm text-ink-muted hover:text-ink hover:bg-ink/5 border border-border rounded-lg flex items-center gap-2 transition-colors"
-        aria-label="Search site"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <span class="hidden lg:inline">Search</span>
-        <kbd data-search-hotkey class="hidden lg:inline font-sans text-[0.65rem] tracking-wide text-ink-muted bg-paper-dark px-1.5 py-0.5 rounded border border-border/80">Cmd K</kbd>
-      </button>
-    </nav>
+          })
+        }
+        <a
+          href={surpriseHref}
+          data-surprise
+          data-surprise-routes={surpriseRoutesJson}
+          aria-label="Surprise Me: open a random page on this site"
+          title="Surprise Me"
+          class="surprise-btn ml-1 inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg text-ink-muted transition-colors hover:text-ink"
+        >
+          <svg class="h-[1.05rem] w-[1.05rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+        </a>
+        <button
+          type="button"
+          id="search-trigger"
+          class="ml-1.5 px-3 py-2 text-sm text-ink-muted hover:text-ink hover:bg-ink/5 border border-border rounded-lg flex items-center gap-2 transition-colors"
+          aria-label="Search site"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <span class="hidden lg:inline">Search</span>
+          <kbd data-search-hotkey class="hidden lg:inline font-sans text-[0.65rem] tracking-wide text-ink-muted bg-paper-dark px-1.5 py-0.5 rounded border border-border/80">Cmd K</kbd>
+        </button>
+      </nav>
 
-    <div class="flex items-center gap-1.5 lg:hidden">
-      <a
-        href={surpriseHref}
-        data-surprise
-        data-surprise-routes={surpriseRoutesJson}
-        aria-label="Surprise Me: open a random page on this site"
-        title="Surprise Me"
-        class="surprise-btn inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-ink-muted transition-colors hover:text-ink"
-      >
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-          />
-        </svg>
-      </a>
-      <button
-        type="button"
-        id="search-trigger-mobile"
-        class="p-2.5 min-h-11 min-w-11 rounded-lg border border-border text-ink hover:bg-ink/5 transition-colors"
-        aria-label="Search site"
-      >
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        id="mobile-menu-btn"
-        class="p-2.5 min-h-11 min-w-11 rounded-lg border border-border hover:bg-ink/5 transition-colors"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label="Open menu"
-      >
-        <svg id="icon-menu" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      <div class="site-header-tools flex items-center lg:hidden">
+        <button
+          type="button"
+          id="search-trigger-mobile"
+          class="header-icon-btn"
+          aria-label="Search site"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          class="header-icon-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-haspopup="dialog"
+          aria-label="Open menu"
+        >
+          <svg id="icon-menu" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      </div>
+
+      <nav class="site-header-pills lg:hidden" aria-label="Primary">
+        {
+          navigation.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <a
+                href={item.href}
+                data-nav-href={item.href}
+                class:list={["site-header-pill", active && "is-active"]}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+      </nav>
     </div>
-  </div>
-</header>
+  </header>
 
   <div
     id="mobile-menu"
-    class="lg:hidden hidden fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto overscroll-contain border-t border-border bg-paper/97 backdrop-blur-xl"
+    class="mobile-nav lg:hidden"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title"
   >
-    <nav class="mx-auto max-w-6xl px-4 py-4 flex flex-col gap-0.5 pb-[max(1.5rem,env(safe-area-inset-bottom))]" aria-label="Mobile">
-      {
-        navigation.map((item) => (
-          <div>
-            <a href={item.href} data-nav-href={item.href} class="nav-link block py-2.5 px-2 -mx-2 rounded-lg font-medium text-ink">
-              {item.label}
-            </a>
-            {
-              item.children && (
-                <div class="pl-3 pb-2 flex flex-col border-l border-border ml-1">
+    <div class="mobile-nav-panel" data-mobile-panel tabindex="-1">
+      <p id="mobile-menu-title" class="sr-only">Site menu</p>
+      <nav class="mobile-nav-list" aria-label="Mobile">
+        {
+          navigation.map((item) => {
+            if (!item.children) {
+              return (
+                <a href={item.href} data-nav-href={item.href} class="mobile-nav-link">
+                  {item.label}
+                </a>
+              );
+            }
+            return (
+              <details class="mobile-nav-group" open={isActive(item.href)}>
+                <summary class="mobile-nav-summary">
+                  <span>{item.label}</span>
+                  <svg class="mobile-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mobile-nav-sub">
+                  <a href={item.href} data-nav-href={item.href} class="mobile-nav-sublink mobile-nav-sublink--hub">
+                    Overview
+                  </a>
                   {item.children.map((child) => (
-                    <div>
-                      <a href={child.href} data-nav-href={child.href} class="nav-link block py-1.5 px-2 rounded-md text-sm text-ink-muted hover:text-ink">
-                        {child.label}
-                      </a>
-                      {child.children?.map((gc) => (
-                        <a href={gc.href} data-nav-href={gc.href} class="nav-link block pl-4 py-1 px-2 rounded-md text-xs text-ink-muted/90 hover:text-ink">
-                          {gc.label}
-                        </a>
-                      ))}
-                    </div>
+                    <a href={child.href} data-nav-href={child.href} class="mobile-nav-sublink">
+                      {child.label}
+                    </a>
                   ))}
                 </div>
-              )
-            }
-          </div>
-        ))
-      }
-    </nav>
+              </details>
+            );
+          })
+        }
+      </nav>
+      <a
+        href={surpriseHref}
+        data-surprise
+        data-surprise-routes={surpriseRoutesJson}
+        class="mobile-nav-surprise"
+        aria-label="Surprise Me: open a random page on this site"
+      >
+        Surprise Me
+      </a>
+    </div>
   </div>
 </div>
 
@@ -197,6 +230,12 @@ const path = Astro.url.pathname;
   function setHeaderHeight() {
     const bar = document.querySelector("header [data-header-bar]");
     if (bar) document.documentElement.style.setProperty("--header-h", `${bar.offsetHeight}px`);
+    const index = document.querySelector("[data-page-index]");
+    const mobile = window.matchMedia("(max-width: 1023px)").matches;
+    document.documentElement.style.setProperty(
+      "--page-index-h",
+      mobile && index instanceof HTMLElement && !index.hidden ? `${index.offsetHeight}px` : "0px",
+    );
   }
 
   function setHotkeys() {
@@ -217,30 +256,58 @@ const path = Astro.url.pathname;
     });
   }
 
+  function menuEl() {
+    return document.getElementById("mobile-menu");
+  }
+
+  function menuBtn() {
+    return document.getElementById("mobile-menu-btn");
+  }
+
+  function focusables(root) {
+    return [...root.querySelectorAll('a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])')].filter(
+      (el) => el instanceof HTMLElement && !el.closest("[hidden]"),
+    );
+  }
+
   function closeMenu() {
-    const menu = document.getElementById("mobile-menu");
-    const btn = document.getElementById("mobile-menu-btn");
-    menu?.classList.add("hidden");
+    const menu = menuEl();
+    const btn = menuBtn();
+    if (!menu || menu.hidden) return;
+    const restore = menu.contains(document.activeElement);
+    menu.hidden = true;
     btn?.setAttribute("aria-expanded", "false");
     btn?.setAttribute("aria-label", "Open menu");
     document.body.classList.remove("nav-open");
     document.getElementById("icon-menu")?.classList.remove("hidden");
     document.getElementById("icon-close")?.classList.add("hidden");
+    document.getElementById("main")?.removeAttribute("inert");
+    document.querySelector(".crumb-bar")?.removeAttribute("inert");
     setHeaderHeight();
+    if (restore) btn?.focus();
+  }
+
+  function openMenu() {
+    const menu = menuEl();
+    const btn = menuBtn();
+    if (!menu || !menu.hidden) return;
+    menu.hidden = false;
+    btn?.setAttribute("aria-expanded", "true");
+    btn?.setAttribute("aria-label", "Close menu");
+    document.body.classList.add("nav-open");
+    document.getElementById("icon-menu")?.classList.add("hidden");
+    document.getElementById("icon-close")?.classList.remove("hidden");
+    document.getElementById("main")?.setAttribute("inert", "");
+    document.querySelector(".crumb-bar")?.setAttribute("inert", "");
+    setHeaderHeight();
+    const panel = menu.querySelector("[data-mobile-panel]");
+    if (panel instanceof HTMLElement) panel.focus();
   }
 
   function toggleMenu() {
-    const menu = document.getElementById("mobile-menu");
-    const btn = document.getElementById("mobile-menu-btn");
-    const willOpen = menu?.classList.contains("hidden");
-    menu?.classList.toggle("hidden");
-    const isOpen = Boolean(willOpen);
-    btn?.setAttribute("aria-expanded", String(isOpen));
-    btn?.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-    document.body.classList.toggle("nav-open", isOpen);
-    document.getElementById("icon-menu")?.classList.toggle("hidden", isOpen);
-    document.getElementById("icon-close")?.classList.toggle("hidden", !isOpen);
-    setHeaderHeight();
+    const menu = menuEl();
+    if (menu?.hidden) openMenu();
+    else closeMenu();
   }
 
   function openSearch() {
@@ -264,7 +331,32 @@ const path = Astro.url.pathname;
       if (event.target instanceof Element && event.target.closest("a")) closeMenu();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
+      const menu = menuEl();
+      if (!menu || menu.hidden) {
+        if (event.key === "Escape") closeMenu();
+        return;
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const nodes = focusables(menu);
+      const headerTools = [...document.querySelectorAll(".site-header-tools button")].filter(
+        (el) => el instanceof HTMLElement,
+      );
+      const cycle = [...headerTools, ...nodes];
+      if (!cycle.length) return;
+      const first = cycle[0];
+      const last = cycle[cycle.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
     window.addEventListener("resize", () => {
       setHeaderHeight();

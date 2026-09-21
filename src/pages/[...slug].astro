@@ -3,8 +3,10 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import PageContent from "../components/PageContent.astro";
 import ColorTile from "../components/ColorTile.astro";
+import ResumePill from "../components/ResumePill.astro";
+import VisitedMap from "../components/VisitedMap.astro";
 import { getPageBySlug, getPageData } from "../lib/pages";
-import { getSiblings } from "../data/navigation";
+import { getSiblings, site } from "../data/navigation";
 import { leadershipTiles } from "../data/tiles";
 
 export async function getStaticPaths() {
@@ -87,6 +89,8 @@ const siblings = getSiblings(pageSlug);
 const isLeadershipHub = pageSlug === "initiatives/leadership";
 const isSpeakingHub = pageSlug === "initiatives/speaking";
 const isAbroadHub = pageSlug === "initiatives/abroad";
+const showResumePill = pageSlug === "about/education" || pageSlug === "initiatives/work";
+const showVisitedMap = pageSlug === "about/hobbies";
 
 const leadershipCards = isLeadershipHub
   ? await Promise.all(
@@ -138,6 +142,8 @@ const abroadCard = isAbroadHub
     prev={siblings.prev}
     next={siblings.next}
   >
+    {showResumePill && <ResumePill slot="hero-actions" />}
+    {showVisitedMap && <VisitedMap slot="after-intro" />}
     {
       isLeadershipHub && (
         <section slot="after-intro" class="hub-continue" aria-label="Leadership program pages">

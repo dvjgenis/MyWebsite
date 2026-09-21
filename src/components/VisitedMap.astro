@@ -1,0 +1,337 @@
+---
+import { visitedCountries } from "../data/visited-countries";
+import { buildWorldMap } from "../lib/world-map";
+
+const map = buildWorldMap();
+const count = visitedCountries.length;
+---
+
+<section class="visited-map" data-visited-map aria-labelledby="visited-map-title">
+  <header class="visited-map-head">
+    <div>
+      <p class="visited-map-kicker">Travel</p>
+      <h2 id="visited-map-title" class="visited-map-title">Places I’ve been</h2>
+      <p class="visited-map-dek">{count} countries so far. Tap a country to fly there.</p>
+    </div>
+    <p class="visited-map-count" aria-hidden="true">
+      <strong>{count}</strong>
+      <span>countries</span>
+    </p>
+  </header>
+
+  <div class="visited-map-frame">
+    <div class="visited-map-viewport" data-map-viewport>
+      <svg
+        class="visited-map-svg"
+        viewBox={`0 0 ${map.width} ${map.height}`}
+        role="img"
+        aria-label="World map of countries I have visited"
+      >
+        <defs>
+          <filter id="visited-glow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="blur"></feGaussianBlur>
+            <feMerge>
+              <feMergeNode in="blur"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+          </filter>
+        </defs>
+        <g data-map-stage>
+          <path class="visited-map-ocean" d={map.sphere}></path>
+          <path class="visited-map-graticule" d={map.graticule}></path>
+          {
+            map.countries.map((country) => (
+              <path
+                class:list={["visited-map-country", country.visited && "is-visited"]}
+                d={country.d}
+                data-iso={country.id}
+                data-name={country.name}
+                data-visited={country.visited ? "true" : "false"}
+                data-bounds={country.bounds.join(",")}
+                tabindex={country.visited ? 0 : -1}
+                role={country.visited ? "button" : undefined}
+                aria-label={country.visited ? country.name : undefined}
+              />
+            ))
+          }
+          <path class="visited-map-borders" d={map.borders}></path>
+          {
+            map.countries
+              .filter((country) => country.visited)
+              .map((country) => (
+                <g class="visited-map-marker" data-iso={country.id} data-name={country.name} aria-hidden="true">
+                  <circle class="visited-map-pin-ring" cx={country.cx} cy={country.cy} r="7.5"></circle>
+                  <circle class="visited-map-pin" cx={country.cx} cy={country.cy} r="2.7"></circle>
+                </g>
+              ))
+          }
+        </g>
+      </svg>
+      <div class="visited-map-tooltip" data-map-tooltip hidden></div>
+      <p class="sr-only" data-map-status aria-live="polite"></p>
+      <button type="button" class="visited-map-reset" data-map-reset hidden>Reset view</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function parseBounds(value) {
+    const parts = (value ?? "").split(",").map(Number);
+    if (parts.length !== 4 || parts.some((n) => Number.isNaN(n))) return null;
+    return parts;
+  }
+
+  function enhanceMap(root) {
+    if (!(root instanceof HTMLElement) || root.dataset.enhanced === "true") return;
+    root.dataset.enhanced = "true";
+
+    const viewport = root.querySelector("[data-map-viewport]");
+    const stage = root.querySelector("[data-map-stage]");
+    const tooltip = root.querySelector("[data-map-tooltip]");
+    const status = root.querySelector("[data-map-status]");
+    const reset = root.querySelector("[data-map-reset]");
+    const svg = root.querySelector(".visited-map-svg");
+    if (!(viewport instanceof HTMLElement) || !(stage instanceof SVGGElement) || !(tooltip instanceof HTMLElement) || !(svg instanceof SVGSVGElement)) {
+      return;
+    }
+
+    const width = Number(svg.viewBox.baseVal.width) || 1000;
+    const height = Number(svg.viewBox.baseVal.height) || 520;
+    const countries = [...root.querySelectorAll(".visited-map-country")];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let scale = 1;
+    let tx = 0;
+    let ty = 0;
+    let selected = "";
+    let dragging = false;
+    let dragged = false;
+    let pressCountry = null;
+    let pointerId = null;
+    let lastX = 0;
+    let lastY = 0;
+    let pinch = null;
+    let anim = 0;
+
+    const apply = () => {
+      stage.setAttribute("transform", `translate(${tx} ${ty}) scale(${scale})`);
+      if (reset instanceof HTMLElement) reset.hidden = scale <= 1.02 && Math.abs(tx) < 2 && Math.abs(ty) < 2;
+    };
+
+    const setTransform = (nextScale, nextTx, nextTy, animate = false) => {
+      const targetScale = clamp(nextScale, 1, 8);
+      cancelAnimationFrame(anim);
+      if (!animate || reduceMotion) {
+        scale = targetScale;
+        tx = nextTx;
+        ty = nextTy;
+        apply();
+        return;
+      }
+      const from = { scale, tx, ty };
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / 460);
+        const ease = 1 - (1 - t) ** 3;
+        scale = from.scale + (targetScale - from.scale) * ease;
+        tx = from.tx + (nextTx - from.tx) * ease;
+        ty = from.ty + (nextTy - from.ty) * ease;
+        apply();
+        if (t < 1) anim = requestAnimationFrame(step);
+      };
+      anim = requestAnimationFrame(step);
+    };
+
+    const pointFromEvent = (clientX, clientY) => {
+      const box = svg.getBoundingClientRect();
+      return {
+        x: ((clientX - box.left) / box.width) * width,
+        y: ((clientY - box.top) / box.height) * height,
+      };
+    };
+
+    const zoomAt = (clientX, clientY, factor) => {
+      const pt = pointFromEvent(clientX, clientY);
+      const next = clamp(scale * factor, 1, 8);
+      const x = (pt.x - tx) / scale;
+      const y = (pt.y - ty) / scale;
+      setTransform(next, pt.x - x * next, pt.y - y * next);
+    };
+
+    const flyTo = (bounds) => {
+      if (!bounds) return;
+      const [x0, y0, x1, y1] = bounds;
+      const pad = 28;
+      const bw = Math.max(18, x1 - x0);
+      const bh = Math.max(18, y1 - y0);
+      const next = clamp(Math.min((width - pad * 2) / bw, (height - pad * 2) / bh) * 0.72, 2.1, 7.2);
+      const cx = (x0 + x1) / 2;
+      const cy = (y0 + y1) / 2;
+      setTransform(next, width / 2 - cx * next, height / 2 - cy * next, true);
+    };
+
+    const resetView = () => setTransform(1, 0, 0, true);
+
+    const hideTooltip = () => {
+      tooltip.hidden = true;
+      countries.forEach((el) => el.classList.remove("is-hover"));
+    };
+
+    const showTooltip = (name, clientX, clientY) => {
+      tooltip.hidden = false;
+      tooltip.textContent = name;
+      const box = viewport.getBoundingClientRect();
+      const tip = tooltip.getBoundingClientRect();
+      const x = clamp(clientX - box.left + 14, 8, box.width - tip.width - 8);
+      const y = clamp(clientY - box.top + 14, 8, box.height - tip.height - 8);
+      tooltip.style.transform = `translate(${x}px, ${y}px)`;
+    };
+
+    const selectCountry = (id) => {
+      selected = id;
+      countries.forEach((el) => el.classList.toggle("is-selected", el.getAttribute("data-iso") === id));
+      const country = countries.find((el) => el.getAttribute("data-iso") === id);
+      const name = country?.getAttribute("data-name") ?? "";
+      if (status) status.textContent = name ? `${name}` : "";
+      if (country) flyTo(parseBounds(country.getAttribute("data-bounds")));
+    };
+
+    const clearSelection = () => {
+      selected = "";
+      countries.forEach((el) => el.classList.remove("is-selected"));
+      if (status) status.textContent = "";
+      resetView();
+    };
+
+    const countryFromTarget = (target) => {
+      if (!(target instanceof Element)) return null;
+      const mark = target.closest("[data-iso]");
+      if (!(mark instanceof Element)) return null;
+      const id = mark.getAttribute("data-iso");
+      return countries.find((el) => el.getAttribute("data-iso") === id) ?? mark;
+    };
+
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      dragging = true;
+      dragged = false;
+      pressCountry = countryFromTarget(event.target);
+      pointerId = event.pointerId;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      viewport.setPointerCapture(event.pointerId);
+    });
+
+    viewport.addEventListener("pointermove", (event) => {
+      if (!dragging || event.pointerId !== pointerId) {
+        const country = countryFromTarget(event.target);
+        if (country) {
+          const name = country.getAttribute("data-name") ?? "";
+          countries.forEach((el) => el.classList.toggle("is-hover", el === country || el.getAttribute("data-iso") === country.getAttribute("data-iso")));
+          showTooltip(name, event.clientX, event.clientY);
+        } else {
+          hideTooltip();
+        }
+        return;
+      }
+      const dx = event.clientX - lastX;
+      const dy = event.clientY - lastY;
+      if (Math.abs(dx) + Math.abs(dy) > 4) dragged = true;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      const box = svg.getBoundingClientRect();
+      tx += (dx / box.width) * width;
+      ty += (dy / box.height) * height;
+      apply();
+      hideTooltip();
+    });
+
+    const endPointer = (event) => {
+      if (event.pointerId !== pointerId) return;
+      const country =
+        pressCountry ??
+        countryFromTarget(document.elementFromPoint(event.clientX, event.clientY));
+      const id = country?.getAttribute("data-iso") ?? "";
+      const visited = country?.getAttribute("data-visited") === "true";
+      if (!dragged && visited && id) {
+        if (selected === id) clearSelection();
+        else selectCountry(id);
+      }
+      dragging = false;
+      pressCountry = null;
+      pointerId = null;
+    };
+
+    viewport.addEventListener("pointerup", endPointer);
+    viewport.addEventListener("pointercancel", endPointer);
+    viewport.addEventListener("pointerleave", hideTooltip);
+
+    viewport.addEventListener(
+      "wheel",
+      (event) => {
+        event.preventDefault();
+        zoomAt(event.clientX, event.clientY, event.deltaY < 0 ? 1.14 : 1 / 1.14);
+      },
+      { passive: false },
+    );
+
+    viewport.addEventListener(
+      "touchstart",
+      (event) => {
+        if (event.touches.length !== 2) return;
+        const a = event.touches[0];
+        const b = event.touches[1];
+        pinch = {
+          dist: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY),
+          cx: (a.clientX + b.clientX) / 2,
+          cy: (a.clientY + b.clientY) / 2,
+        };
+      },
+      { passive: true },
+    );
+
+    viewport.addEventListener(
+      "touchmove",
+      (event) => {
+        if (!pinch || event.touches.length !== 2) return;
+        event.preventDefault();
+        const a = event.touches[0];
+        const b = event.touches[1];
+        const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        zoomAt((a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2, dist / pinch.dist);
+        pinch = { dist, cx: (a.clientX + b.clientX) / 2, cy: (a.clientY + b.clientY) / 2 };
+      },
+      { passive: false },
+    );
+
+    viewport.addEventListener("touchend", (event) => {
+      if (event.touches.length < 2) pinch = null;
+    });
+
+    countries.forEach((el) => {
+      el.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        const id = el.getAttribute("data-iso") ?? "";
+        if (!id || el.getAttribute("data-visited") !== "true") return;
+        if (selected === id) clearSelection();
+        else selectCountry(id);
+      });
+    });
+
+    reset?.addEventListener("pointerdown", (event) => event.stopPropagation());
+    reset?.addEventListener("click", () => clearSelection());
+    apply();
+  }
+
+  function initVisitedMaps() {
+    document.querySelectorAll("[data-visited-map]").forEach(enhanceMap);
+  }
+
+  document.addEventListener("astro:page-load", initVisitedMaps);
+  initVisitedMaps();
+</script>

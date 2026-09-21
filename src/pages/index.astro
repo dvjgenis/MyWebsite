@@ -35,21 +35,13 @@ const images: Record<string, string | undefined> = {
           This site is a map of my work — who I am, what I’ve built, and how to reach me.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a
-            href={site.resume}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary"
-          >
-            View resume
-          </a>
           {
             page.data.youtube?.[0] && (
               <a
                 href={`https://www.youtube.com/watch?v=${page.data.youtube[0]}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-ghost"
+                class="btn btn-primary"
               >
                 Watch the intro
               </a>
@@ -71,9 +63,6 @@ const images: Record<string, string | undefined> = {
         <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="footer-link">
             LinkedIn
-          </a>
-          <a href={site.resume} target="_blank" rel="noopener noreferrer" class="footer-link">
-            Resume
           </a>
           <a href="/contact/" class="footer-link">Contact</a>
         </div>

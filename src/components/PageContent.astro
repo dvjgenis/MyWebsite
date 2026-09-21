@@ -38,6 +38,7 @@ const hasHero = Boolean(heroImage);
         <div class="page-hero-copy">
           <h1 class="page-hero-title">{title}</h1>
           {showDescription && page.data.description && <p class="page-hero-dek">{page.data.description}</p>}
+          <slot name="hero-actions" />
         </div>
       </header>
     )
@@ -63,7 +64,7 @@ const hasHero = Boolean(heroImage);
   <slot name="after-intro" />
 
   <div class="page-layout stagger-in" style="animation-delay: 120ms">
-    <nav class="page-index" data-page-index hidden>
+    <nav class="page-index" data-page-index hidden aria-label="On this page">
       <p class="page-index-kicker">On this page</p>
       <div class="page-index-links"></div>
     </nav>
@@ -102,8 +103,16 @@ const hasHero = Boolean(heroImage);
     links.replaceChildren();
 
     const cards = [...root.querySelectorAll(".entry-card")];
+    const setIndexHeight = () => {
+      const mobile = window.matchMedia("(max-width: 1023px)").matches;
+      document.documentElement.style.setProperty(
+        "--page-index-h",
+        mobile && !nav.hidden ? `${nav.offsetHeight}px` : "0px",
+      );
+    };
     if (cards.length < 3) {
       nav.hidden = true;
+      setIndexHeight();
       return;
     }
 
@@ -136,6 +145,7 @@ const hasHero = Boolean(heroImage);
 
     if (!links.children.length) {
       nav.hidden = true;
+      setIndexHeight();
       return;
     }
 
@@ -154,6 +164,7 @@ const hasHero = Boolean(heroImage);
       { rootMargin: "-22% 0px -62% 0px", threshold: 0 },
     );
     targets.forEach((el) => observer.observe(el));
+    setIndexHeight();
   }
 
   function classifyImage(img) {
