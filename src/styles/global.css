@@ -320,48 +320,6 @@
     border-radius: 0.35rem;
   }
 
-  .site-header-pills {
-    display: flex;
-    gap: 0.35rem;
-    overflow-x: auto;
-    padding: 0 0 0.55rem;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .site-header-pills::-webkit-scrollbar {
-    display: none;
-  }
-
-  .site-header-pill {
-    display: inline-flex;
-    align-items: center;
-    flex: 0 0 auto;
-    min-height: 2.15rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 9999px;
-    font-size: 0.82rem;
-    font-weight: 550;
-    line-height: 1;
-    color: var(--color-ink-muted);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .site-header-pill.is-active {
-    background: var(--color-ink);
-    color: var(--color-paper);
-  }
-
-  .site-header-pill:hover {
-    color: var(--color-ink);
-  }
-
-  .site-header-pill.is-active:hover {
-    color: var(--color-paper);
-  }
-
   @media (min-width: 1024px) {
     .site-header-bar {
       min-height: 3.65rem;
@@ -951,6 +909,10 @@
     min-width: 0;
   }
 
+  .page-index-toggle {
+    display: none;
+  }
+
   .page-index-kicker {
     @apply text-[0.68rem] font-medium uppercase tracking-[0.16em] text-ink-muted mb-2;
   }
@@ -988,33 +950,114 @@
   }
 
   @media (max-width: 1023px) {
+    .page-layout:has(.page-index:not([hidden])) {
+      padding-bottom: 4.5rem;
+    }
+
     .page-index:not([hidden]) {
-      position: sticky;
-      top: var(--header-h, 3.6rem);
-      z-index: 30;
-      margin: 0 -1rem 1rem;
-      padding: 0.5rem 1rem 0.6rem;
-      background: var(--color-paper);
-      border-bottom: 1px solid var(--color-border);
+      position: fixed;
+      z-index: 40;
+      left: 50%;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 0.2rem);
+      width: min(22rem, calc(100% - 1.5rem));
+      margin: 0;
+      transform: translateX(-50%);
+      background: transparent;
+      border: 0;
     }
 
     .page-index-kicker {
-      position: absolute;
-      width: 1px;
-      height: 1px;
+      display: none;
+    }
+
+    .page-index-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: 100%;
+      min-height: 3rem;
+      padding: 0.4rem 0.85rem 0.4rem 1rem;
+      border: 0;
+      border-radius: 999px;
+      background: var(--color-ink);
+      color: var(--color-paper);
+      text-align: left;
+      box-shadow: 0 10px 28px rgba(45, 42, 38, 0.22);
+    }
+
+    .page-index-toggle-copy {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 0.05rem;
+    }
+
+    .page-index-toggle-kicker {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--color-paper) 68%, transparent);
+    }
+
+    .page-index-toggle-current {
+      font-size: 0.9rem;
+      font-weight: 560;
+      line-height: 1.2;
+      color: var(--color-paper);
+      white-space: nowrap;
       overflow: hidden;
-      clip: rect(0 0 0 0);
+      text-overflow: ellipsis;
+    }
+
+    .page-index-chevron {
+      width: 1.05rem;
+      height: 1.05rem;
+      flex: 0 0 auto;
+      opacity: 0.8;
+      transition: transform 180ms var(--ease-out);
+    }
+
+    .page-index.is-open .page-index-chevron {
+      transform: rotate(180deg);
+    }
+
+    .page-index-panel {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(100% + 0.45rem);
+      max-height: min(52vh, 22rem);
+      overflow: auto;
+      padding: 0.4rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 1rem;
+      box-shadow: 0 16px 40px rgba(45, 42, 38, 0.16);
+    }
+
+    .page-index.is-open .page-index-panel {
+      display: block;
     }
 
     .page-index-links {
-      gap: 0.35rem;
+      flex-direction: column;
+      overflow: visible;
+      gap: 0.15rem;
       padding-bottom: 0;
     }
 
     .page-index-link {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      min-height: 2.15rem;
+      width: 100%;
+      min-height: 2.75rem;
+      white-space: normal;
+      border-radius: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      background: transparent;
     }
   }
 

@@ -149,24 +149,6 @@ function isActive(href: string) {
         </button>
       </div>
       </div>
-
-      <nav class="site-header-pills lg:hidden" aria-label="Primary">
-        {
-          navigation.map((item) => {
-            const active = isActive(item.href);
-            return (
-              <a
-                href={item.href}
-                data-nav-href={item.href}
-                class:list={["site-header-pill", active && "is-active"]}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.label}
-              </a>
-            );
-          })
-        }
-      </nav>
     </div>
   </header>
 
@@ -232,12 +214,7 @@ function isActive(href: string) {
   function setHeaderHeight() {
     const bar = document.querySelector("header [data-header-bar]");
     if (bar) document.documentElement.style.setProperty("--header-h", `${bar.offsetHeight}px`);
-    const index = document.querySelector("[data-page-index]");
-    const mobile = window.matchMedia("(max-width: 1023px)").matches;
-    document.documentElement.style.setProperty(
-      "--page-index-h",
-      mobile && index instanceof HTMLElement && !index.hidden ? `${index.offsetHeight}px` : "0px",
-    );
+    document.documentElement.style.setProperty("--page-index-h", "0px");
   }
 
   function setHotkeys() {

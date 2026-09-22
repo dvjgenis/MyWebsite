@@ -65,8 +65,25 @@ const hasHero = Boolean(heroImage);
 
     <div class="page-layout">
     <nav class="page-index" data-page-index hidden aria-label="On this page">
+      <button
+        type="button"
+        class="page-index-toggle"
+        data-page-index-toggle
+        aria-expanded="false"
+        aria-controls="page-index-panel"
+      >
+        <span class="page-index-toggle-copy">
+          <span class="page-index-toggle-kicker">On this page</span>
+          <span class="page-index-toggle-current" data-page-index-current>Sections</span>
+        </span>
+        <svg class="page-index-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
       <p class="page-index-kicker">On this page</p>
-      <div class="page-index-links"></div>
+      <div class="page-index-panel" id="page-index-panel">
+        <div class="page-index-links"></div>
+      </div>
     </nav>
     <div class="prose-site page-entries" data-page-entries>
       <Content />
@@ -99,17 +116,48 @@ const hasHero = Boolean(heroImage);
     if (!nav || !root) return;
 
     const links = nav.querySelector(".page-index-links");
+    const toggle = nav.querySelector("[data-page-index-toggle]");
+    const current = nav.querySelector("[data-page-index-current]");
     if (!links) return;
     links.replaceChildren();
 
-    const cards = [...root.querySelectorAll(".entry-card")];
-    const setIndexHeight = () => {
-      const mobile = window.matchMedia("(max-width: 1023px)").matches;
-      document.documentElement.style.setProperty(
-        "--page-index-h",
-        mobile && !nav.hidden ? `${nav.offsetHeight}px` : "0px",
-      );
+    const mobileQuery = window.matchMedia("(max-width: 1023px)");
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      toggle?.setAttribute("aria-expanded", open ? "true" : "false");
     };
+    const setIndexHeight = () => {
+      document.documentElement.style.setProperty("--page-index-h", "0px");
+    };
+    const setActive = (id) => {
+      let label = "";
+      links.querySelectorAll(".page-index-link").forEach((link) => {
+        const active = link.dataset.target === id;
+        link.classList.toggle("is-active", active);
+        if (active) label = link.textContent.trim();
+      });
+      if (current && label) current.textContent = label;
+    };
+
+    if (toggle && !toggle.dataset.bound) {
+      toggle.dataset.bound = "true";
+      toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    }
+    if (!nav.dataset.bound) {
+      nav.dataset.bound = "true";
+      nav.addEventListener("click", (event) => {
+        if (!mobileQuery.matches) return;
+        if (event.target.closest(".page-index-link")) setOpen(false);
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+      });
+      document.addEventListener("click", (event) => {
+        if (!mobileQuery.matches || nav.hidden) return;
+        if (!nav.contains(event.target)) setOpen(false);
+      });
+    }
+    const cards = [...root.querySelectorAll(".entry-card")];
     if (cards.length < 3) {
       nav.hidden = true;
       setIndexHeight();
@@ -149,6 +197,9 @@ const hasHero = Boolean(heroImage);
       return;
     }
 
+    const first = links.querySelector(".page-index-link");
+    if (first?.dataset.target) setActive(first.dataset.target);
+
     const targets = [...root.querySelectorAll(".entry-card h2[id], .entry-group-label[id]")];
     observer = new IntersectionObserver(
       (entries) => {
@@ -157,9 +208,7 @@ const hasHero = Boolean(heroImage);
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         const id = visible[0]?.target?.id;
         if (!id) return;
-        links.querySelectorAll(".page-index-link").forEach((link) => {
-          link.classList.toggle("is-active", link.dataset.target === id);
-        });
+        setActive(id);
       },
       { rootMargin: "-22% 0px -62% 0px", threshold: 0 },
     );
