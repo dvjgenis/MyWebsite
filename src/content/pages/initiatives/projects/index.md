@@ -24,6 +24,12 @@ youtube:
   - "MrZmXS6HQ0M"
 ---
 
+## [FyrstUp](https://www.fyrstup.site/) — Task App for How I Actually Think About Work
+
+![FyrstUp](/images/initiatives/projects/fyrstup-logo.png)
+
+[FyrstUp](https://www.fyrstup.site/) is a task app I built for how I actually think about work—not just due dates, but where something belongs: on a Kanban board, on the calendar, and on Eisenhower and Impact×Effort matrices. It started from the prioritization spreadsheet [Madelyn Rose Sanfilippo](https://ischool.illinois.edu/people/madelyn-rose-sanfilippo) shares with her grad students, mixed with the Scrum and Kanban habits I already used, and I turned that into a live product at [fyrstup.site](https://www.fyrstup.site) with accounts, sync, and four linked views so capture, prioritize, and schedule stay in one place. On the design side, I cared about a clear visual system (cream, ember, and pine), layouts that work on phone and desktop, drag-and-drop that feels intentional, and small trust details like onboarding, privacy, and an updates page so the app feels finished, not like a homework demo. Building it meant scoping features in phases, shipping incrementally, and keeping docs and deployment straight while balancing it with everything else on my plate—so the project itself is proof I can manage time and scope, not just write code. If someone wants to see how I organize, prioritize, and ship something real end to end, this is the story in one app.
+
 ## [Teaching Strings Online](https://teachingstrings.online/) — Static Site Modernization & Launch
 
 
