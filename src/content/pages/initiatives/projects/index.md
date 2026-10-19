@@ -39,11 +39,11 @@ With my skills in AI-assisted web development and my background as a violinist, 
 
 Interested in learning a string instrument? Explore the redesigned [companion site](https://teachingstrings.online/) to access interactive lessons, video tutorials, and core technique guides.
 
-## Filam — Church Websites & Interactive Ministry Platforms
+## Filam — Church Websites for FABC & PFBC
 
 ![](/images/initiatives/projects/28a1b825bfd1bc8510b99b5547e6d92f.jpg)
 
-[Fabcchicago.org](https://fabcchicago.org) and [pfbcnaperville.org](https://www.pfbcnaperville.org/) are custom church websites I designed and built for Fil-American Baptist Church and [Pillar of Faith Baptist Church](https://www.pfbcnaperville.org/) in Naperville. The FABC site is a React SPA with real-time community features (Supabase Prayer Wall), an embedded Bible reader, an interactive missions map, and ministry photography, with smooth scrolling, GSAP animation, and accessible motion fallbacks. I built PFBC’s site in the same spirit to strengthen each congregation’s online presence and showcase full-stack front-end craft in real, mission-driven contexts.
+[Fabcchicago.org](https://fabcchicago.org) and [pfbcnaperville.org](https://www.pfbcnaperville.org/) are custom church websites I designed and built for FABC (Fil-American Baptist Church) and PFBC (Pillar of Faith Baptist Church) in Naperville. The FABC site is a React SPA with real-time community features (Supabase Prayer Wall), an embedded Bible reader, an interactive missions map, and ministry photography, with smooth scrolling, GSAP animation, and accessible motion fallbacks. I built the PFBC site in the same spirit to strengthen each congregation’s online presence and showcase full-stack front-end craft in real, mission-driven contexts.
 
 ## [Dulf’s Plant Hydration Hub](https://github.com/dvjgenis/plant-monitor) — Full-Stack IoT Plant Care & Analytics
 
