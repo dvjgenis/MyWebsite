@@ -1,7 +1,7 @@
 ---
 title: "Home"
 slug: "home"
-description: "Building reliable data systems around human needs"
+description: "Building reliable data systems around human needs."
 heroImage: "/images/home/1560979a76b6aab447a743651519561d.jpg"
 featuredLeftImage: "/images/shared/2f5d4eaa2d7ea7dde6f0b3c171fbe06c.jpg"
 featuredChartImage: "/images/home/52ae540f357a5fad1549c26e28724e87.jpg"
@@ -17,7 +17,7 @@ youtube:
 
 Hey there! I'm Dulf.
 
-Building reliable data systems around human needs
+Building reliable data systems around human needs.
 
 I bridge the gap between large-scale architecture and actionable stewardship.
 

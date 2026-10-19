@@ -6,7 +6,7 @@ export interface NavItem {
 
 export const site = {
   name: "Dulf Vincent Genis",
-  tagline: "Building reliable data systems around human needs",
+  tagline: "Building reliable data systems around human needs.",
   description:
     "In these pages, I highlight my technical engineering projects, global volunteer initiatives, and leadership experiences alongside my speaking engagements.",
   url: "https://dulfvincent.com",
