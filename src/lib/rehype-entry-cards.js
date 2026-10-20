@@ -660,6 +660,31 @@ function interleaveEssayMedia(body, videos, images) {
   );
 }
 
+/** Photos the author placed mid-essay stay beside that passage instead of being redistributed. */
+function placeInlineEssayMedia(nodes) {
+  const out = [];
+  let figure = 0;
+  for (const node of nodes) {
+    if (isBlank(node)) continue;
+    if (
+      isMediaNode(node) ||
+      isYoutube(node) ||
+      classList(node).includes("youtube-embed") ||
+      classList(node).includes("youtube-stack")
+    ) {
+      const { videos, images } = splitMedia([node]);
+      for (const video of videos) out.push(markFlowMedia(video, "spread"));
+      for (const image of extractImageParagraphs(images)) {
+        out.push(markEssayFigure(image, figure % 2 === 0 ? "left" : "right"));
+        figure += 1;
+      }
+      continue;
+    }
+    out.push(node);
+  }
+  return packTrailingEssayMedia(out);
+}
+
 function zipMediaPairs(videos, images) {
   const clips = videos.map((node) => {
     node.properties ||= {};
@@ -930,6 +955,9 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
       feature = [zipMediaPairs(merged.videos, merged.images)];
       blocks = wrapH3Blocks(prose);
       layout = "showcase";
+    } else if (inlineMedia.length && !media.length) {
+      blocks = placeInlineEssayMedia(rest);
+      layout = "essay";
     } else {
       blocks = interleaveEssayMedia(prose, merged.videos, merged.images);
       layout = "essay";
