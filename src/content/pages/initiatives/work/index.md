@@ -23,6 +23,43 @@ youtube:
   - "buHJGR0Ch80"
 ---
 
+## Associate Consultant, Forward Deployed Engineer | Capgemini Invent | Full-time
+
+
+![](/images/initiatives/work/2447bee7886d61267a30d33f05b5e7eb.jpg)
+
+Chicago, IL | Offer accepted October 2026 | Full-time
+
+### Overview
+
+In October 2026, I accepted an offer to join [Capgemini Invent](https://www.capgemini.com/us-en/) as an Associate Consultant on the Forward Deployed Engineer (FDE) track. Invent FDEs combine strategy and design with production software engineering, embedded with client teams to turn ambiguous business problems into working AI, data, and agentic solutions. I will enter the two-year FDE Apprenticeship, building toward end-to-end ownership of discovery, build, deployment, and handoff in live enterprise environments.
+
+### Key Responsibilities & Achievements
+
+- Partner with senior FDEs on client engagements while learning client systems, delivery cadences, and enterprise constraints.
+
+- Translate ambiguous business challenges into scoped requirements, hypotheses, and upfront success measures, including ROI framing.
+
+- Build and evaluate Python and SQL data pipelines, LLM and agent workflows, and platform configurations within client environments.
+
+- Apply responsible AI, security, and data-privacy controls while deploying, monitoring, and supporting solutions in production.
+
+- Document solutions, enable client teams through training and knowledge transfer, and feed recurring needs back to product and platform teams.
+
+### Skills Developed
+
+- Forward-deployed consulting and client delivery
+
+- Python, SQL, and production ML/LLM systems
+
+- Business case development and structured problem-solving
+
+- Technical communication, requirements translation, and stakeholder listening
+
+### Impact & Reflection
+
+This role sits at the intersection of everything I have been building: production data systems, human-centered design, and translating between leaders and engineers. Ameren and Illinois taught me to ship under real constraints; Invent is the next step, embedding that craft inside client organizations and growing into full lifecycle ownership through the apprenticeship.
+
 ## Data Innovation Intern | Student Success, Inclusion & Belonging - University of Illinois at Urbana-Champaign | Part-time
 
 Urbana-Champaign Area | August 2025 - May 2026 | Hybrid
