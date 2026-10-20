@@ -28,7 +28,7 @@ youtube:
 
 ![](/images/initiatives/work/2447bee7886d61267a30d33f05b5e7eb.jpg)
 
-Chicago, IL | Offer accepted October 2026 | Full-time
+Chicago, IL | November 2026 - Present | Full-time
 
 ### Overview
 
