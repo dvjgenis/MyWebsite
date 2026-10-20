@@ -17,6 +17,13 @@ export const site = {
     linkedin: "https://linkedin.com/in/dvgenis",
     blinq: "https://blinq.me/NYe3XvCtUDzP",
   },
+  currentRole: {
+    kicker: "Now",
+    title: "Forward Deployed Engineer",
+    company: "Capgemini Invent",
+    href: "/initiatives/work/",
+    companyHref: "https://www.capgemini.com/us-en/",
+  },
 } as const;
 
 /** Ensure trailing slash for Astro static routes (except home). */

@@ -28,6 +28,22 @@ const images: Record<string, string | undefined> = {
         <h1 class="mt-5 font-display text-[clamp(1.85rem,4vw,2.35rem)] tracking-tight text-ink leading-[1.2] text-wrap-balance hyphens-none">
           {site.tagline}
         </h1>
+        {
+          site.currentRole && (
+            <p class="mt-4">
+              <a href={site.currentRole.href} class="home-status">
+                <span class="home-status-dot" aria-hidden="true" />
+                <span class="home-status-copy">
+                  <span class="home-status-kicker">{site.currentRole.kicker}</span>
+                  <span class="home-status-role">
+                    {site.currentRole.title} at{" "}
+                    <span class="home-status-company">{site.currentRole.company}</span>
+                  </span>
+                </span>
+              </a>
+            </p>
+          )
+        }
         <p class="mt-6 text-base md:text-lg text-ink/85 leading-relaxed">
           I bridge the gap between large-scale architecture and actionable stewardship.
         </p>
