@@ -910,7 +910,11 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
   } else if (abroadTools) {
     blocks = wrapH3Carousel(wrapH3Blocks(rest), heading || title);
     layout = "gallery";
-  } else if (longEssay && (images.length + videos.length > 0 || rest.some((n) => isMediaNode(n) || isYoutube(n)))) {
+  } else if (
+    longEssay &&
+    !blocked &&
+    (images.length + videos.length > 0 || rest.some((n) => isMediaNode(n) || isYoutube(n)))
+  ) {
     const prose = [];
     const inlineMedia = [];
     for (const n of rest) {
