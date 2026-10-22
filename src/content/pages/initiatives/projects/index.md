@@ -41,25 +41,9 @@ Interested in learning a string instrument? Explore the redesigned [companion si
 
 ## [The Growing Gap: Cost of Living and Community Needs](https://centerofconcern.org/needs/)
 
-
 ![](/images/initiatives/projects/514b3c570e754007704d631d9c472555.jpg)
 
-[The Growing Gap: Cost of Living and Community Needs](https://centerofconcern.org/needs/) was a panel discussion and community awards event hosted by the [Center of Concern (COC)](https://centerofconcern.org/) at the Des Plaines Theatre. The seminar examined how inflation and rising expenses impact older adults and low-income families, bringing together regional leaders to discuss practical solutions across housing, healthcare, food security, and transportation.
-
-### Key event elements
-
-- **Featured speakers and panel:** The program featured virtual opening remarks from U.S. Senator Tammy Duckworth, a panel discussion moderated by State Representative Michelle Mussman, and contributions from leaders in public housing, healthcare, human services, and aging advocacy.
-- **Community recognition:** The evening included an awards presentation honoring local leadership and service, including Volunteer of the Year, the Dee Heinrich Award, Excellence in Leadership, and Partner of the Year.
-
-### Stage management and operations
-
-As stage manager, I coordinated backstage logistics and program timing:
-
-- **Cue cards and operational checklists:** I developed custom cue cards for each participant group alongside a stage management checklist, establishing clear visual and verbal cues for speakers, presenters, and award recipients.
-- **Timeline execution:** I managed transition timing, including cueing Senator Duckworth’s opening video at 6:55 PM, initiating panelist introductions at 7:00 PM, and guiding Q&A stage exits around 8:00 PM.
-- **Participant and seating coordination:** I directed front-row reserved seating for panelists, exhibitors, and awardees while coordinating stage entrances. That allowed venue technicians to focus on lighting and separate volunteers to manage lobby registration tables.
-
-This event extends my long-standing service footprint in Des Plaines and my active involvement with the Center of Concern beyond staff workshops and community volunteering.
+[The Growing Gap: Cost of Living and Community Needs](https://centerofconcern.org/needs/) was a panel and awards evening hosted by the [Center of Concern (COC)](https://centerofconcern.org/) at the Des Plaines Theatre, focused on how inflation and rising costs strain older adults and low-income families across housing, healthcare, food security, and transportation. The program featured virtual opening remarks from U.S. Senator Tammy Duckworth, a panel moderated by State Representative Michelle Mussman, contributions from regional leaders in public housing, healthcare, and aging advocacy, and awards honoring Volunteer of the Year, the Dee Heinrich Award, Excellence in Leadership, and Partner of the Year. As stage manager, I built cue cards and run-of-show checklists, coordinated reserved seating and stage entrances, and kept transitions on time so venue technicians and lobby volunteers could stay focused on lighting and registration. The event extended my long-standing service in Des Plaines and my involvement with COC beyond staff workshops and day-to-day community volunteering.
 
 ## Filam — Church Websites for FABC & PFBC
 
