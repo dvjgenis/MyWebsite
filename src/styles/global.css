@@ -2125,7 +2125,7 @@
     background: var(--color-paper-dark);
   }
 
-  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media img {
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media:not(:has(.site-carousel)) img {
     height: 10rem;
     max-height: 10rem;
   }
@@ -2141,11 +2141,30 @@
     object-position: center;
   }
 
-  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media img.is-landscape,
-  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media img.is-frame {
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media:not(:has(.site-carousel)) img.is-landscape,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media:not(:has(.site-carousel)) img.is-frame {
     object-fit: contain;
     height: auto;
     max-height: 10rem;
+  }
+
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image .site-carousel-frame {
+    aspect-ratio: 16 / 10;
+    height: auto;
+  }
+
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image .site-carousel-track,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image .site-carousel-slide {
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image .site-carousel-slide > p {
+    display: block;
+    height: 100%;
+    line-height: 0;
   }
 
   .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .youtube-embed {
@@ -2348,6 +2367,14 @@
     border-radius: 0;
     margin: 0;
     background: var(--color-paper-dark);
+  }
+
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image img.is-landscape,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image img.is-portrait,
+  .page-article[data-slug="initiatives/work"] .entry-card--gallery .entry-media .site-carousel--image img.is-frame {
+    object-fit: cover;
+    height: 100%;
+    max-height: none;
   }
 
   .site-carousel--video .site-carousel-slide {
