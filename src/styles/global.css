@@ -420,6 +420,17 @@
     visibility: hidden;
   }
 
+  .site-header-tools {
+    gap: 0.15rem;
+    margin-left: auto;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .site-header-surprise-mobile {
+    flex-shrink: 0;
+  }
+
   .header-icon-btn {
     display: inline-flex;
     align-items: center;
