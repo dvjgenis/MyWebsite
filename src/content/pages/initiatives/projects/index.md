@@ -63,7 +63,7 @@ Per my interest in full-stack IoT engineering, I designed and deployed an end-to
 
 ![](/images/initiatives/projects/6fc392097ce50f35fc3b7e423aedc161.jpg)
 
-As the backend engineer, I developed a rule-based harmony generation and analysis engine for HarmonyForge, moving away from black-box models to provide a transparent, user-editable music system. My architecture parses files (MusicXML, MIDI, PDF), infers chords, and solves SATB voicings using explicit music theory rules, allowing users to inspect and edit notes interactively. I worked closely with my research partner, Shivam Patel, who engineered the frontend and the tactile RiffScore interface. This project was developed under the guidance of Dr. Yun Huang, Dr. Jeff Ginger, and research assistants Muawiz Khan and Yiren Liu.
+As the backend engineer, I developed a rule-based harmony generation and analysis engine for HarmonyForge, moving away from black-box models to provide a transparent, user-editable music system. My architecture parses files (MusicXML, MIDI, PDF), infers chords, and solves SATB voicings using explicit music theory rules, allowing users to inspect and edit notes interactively. I worked closely with my research partner, Shivam Patel, who engineered the frontend and the tactile RiffScore interface. This project was developed under the guidance of Dr. Yun Huang, Dr. Jeff Ginger, and research assistants Muawiz Khan and Yiren Liu. In November 2026, our team presented HarmonyForge as a [Late-Breaking Demo (LBD 602) at ISMIR 2026](https://ismir2026program.ismir.net/lbd_602.html#details) in Abu Dhabi.
 
 ## Data Science & AI Prototyping: [An Undergraduate Engineering Portfolio](https://github.com/dvjgenis/Undergrad_Class_Projects)
 

@@ -22,6 +22,14 @@ youtube:
   - "MzK0BzSkbj0"
 ---
 
+## HarmonyForge at [ISMIR 2026](https://ismir2026.ismir.net/) — Late-Breaking Demo
+
+![](/images/initiatives/speaking/df5fc0c2eaa602073fe125e5e78cf005.jpg)
+
+![](/images/initiatives/speaking/43a573f667159f34e071ba64d5525a84.jpg)
+
+In November 2026, Shivam Patel and I presented HarmonyForge as a [Late-Breaking Demo (LBD)](https://ismir2026program.ismir.net/lbd_602.html#details) at the [27th International Society for Music Information Retrieval Conference (ISMIR 2026)](https://ismir2026.ismir.net/) in Abu Dhabi. Our demo, titled “HarmonyForge: A Deterministic Co-Creative System for Symbolic Music Arrangement,” showcases an interactive system that separates musical drafting from explanation: a deterministic SATB Logic Core generates rule-constrained, instrument-mapped MusicXML harmony parts for an uploaded melody, while users revise voicings in a note-level editor and query an on-demand Theory Inspector for plain-language voice-leading guidance. Attendees configure custom ensembles, generate arrangements, trigger and repair theory violations, and export MusicXML, MIDI, WAV, or PDF—illustrating how hard constraints and glass-box explainability preserve creative ownership in human–AI co-creation. The work is co-authored with Muawiz Khan, Yiren Liu, Jeff Ginger, and Yun Huang under mentorship at the University of Illinois.
+
 ## Responsible AI Presentation
 
 ![](/images/initiatives/speaking/ffa5cbd533830387fb78a1fba257c05b.png)
