@@ -957,6 +957,10 @@
     object-position: center 72%;
   }
 
+  .page-article[data-slug="initiatives/travels"] .page-hero-media img {
+    object-position: center 6%;
+  }
+
   .page-article[data-slug="about/resources"] .page-hero-media img {
     object-position: center 46%;
   }
@@ -4005,6 +4009,10 @@
 
   .color-tile-image--eyes {
     object-position: 58% 16%;
+  }
+
+  .color-tile-image--travels {
+    object-position: center 4%;
   }
 
   .color-tile-wash {
