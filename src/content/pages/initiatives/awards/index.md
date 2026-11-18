@@ -1,7 +1,7 @@
 ---
-title: "Scholarships & Awards"
+title: "Awards & Certifications"
 slug: "initiatives/awards"
-description: "Recognitions, scholarships, and awards across campus and community."
+description: "Recognitions, scholarships, awards, and certifications across campus and community."
 quote: "Dulf is a great representative as to what a Bailey Undergraduate Scholar does. He has participated in many volunteer organizations as a high school student and a U of I student and continues to be a strong campus leader."
 quoteAuthor: "Jennifer Romine, University YMCA Office Manager & Bailey Scholarship Program Administrator"
 heroImage: "/images/initiatives/awards/177855ba3f8fb66c7202adfe39dc343f.jpg"
@@ -53,6 +53,16 @@ This scholarship, issued by the University of Illinois Study Abroad, office is d
 ## The Clara Abbott Foundation Scholarship
 
 This initiative provides support to approximately 2,000 students each year, offering scholarships based on financial need to the children of Abbott employees. Their dedication to education encompasses a wide range of educational institutions, from universities to trade schools. The commendable mission of this foundation is to alleviate the financial burden of college expenses for Abbott families.
+
+## Leadership Certification
+
+![](/images/initiatives/leadership/d72289085c372b6c045cc67441d09f6e.jpg)
+
+Through the [Illinois Leadership Center](https://leadership.illinois.edu/) Certificate Program at the University of Illinois Urbana-Champaign, I completed a structured path in self-management, interpersonal skills, and organizational leadership—from Donaldson Leadership Retreat and LeaderShape to I-Programs, coursework, and coaching.
+
+My engagement began as soon as I arrived on campus, when Illinois Scholars Program coordinator Cecilia Vaughn-Guy encouraged me to enroll given my prior work in community development and government. The program deepened how I understand myself as a leader and how I use the Center’s resources across campus.
+
+[Explore the full certification journey](/initiatives/leadership/) — personal development plan, trainings, I-Programs, team experiences, coursework, coach, and cumulative reflection.
 
 ## The Fred S. Bailey Scholarship
 

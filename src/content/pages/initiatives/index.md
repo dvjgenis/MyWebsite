@@ -30,14 +30,14 @@ Highlighting my contributions to volunteerism and community organizing.
 
 Demonstrating proficiency in public speaking and opportunities
 
-## Leadership Certification
-
-Outlining the milestones on my path to certified leadership
-
 ## Study Abroad
 
 Putting a Spotlight on My Learning Venture in Granada, Spain
 
-## Scholarships & Awards
+## Awards & Certifications
 
-Exhibiting my most recent recognitions, awards, and scholarships
+Recognitions, awards, scholarships, and certifications earned along the way
+
+## Travels
+
+Stories and snapshots from places I have been

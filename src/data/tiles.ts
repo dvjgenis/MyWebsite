@@ -28,7 +28,7 @@ export const homeTiles: ColorTileData[] = [
   {
     title: "Initiatives",
     href: "/initiatives/",
-    description: "Work, projects, speaking, leadership, study abroad, and awards.",
+    description: "Work, projects, speaking, study abroad, awards, and travels.",
     tone: "initiatives",
   },
   {
@@ -93,13 +93,6 @@ export const initiativesTiles: ColorTileData[] = [
     bg: "#d97830",
   },
   {
-    title: "Leadership Certification",
-    href: "/initiatives/leadership/",
-    description: "Milestones on the path to certified leadership.",
-    tone: "initiatives",
-    bg: "#8b3d1a",
-  },
-  {
     title: "Study Abroad",
     href: "/initiatives/abroad/",
     description: "A learning venture in Granada, Spain.",
@@ -107,12 +100,20 @@ export const initiativesTiles: ColorTileData[] = [
     bg: "#b85a22",
   },
   {
-    title: "Scholarships & Awards",
+    title: "Awards & Certifications",
     href: "/initiatives/awards/",
-    description: "Recent recognitions, awards, and scholarships.",
+    description: "Recognitions, awards, scholarships, and certifications.",
     tone: "initiatives",
     bg: "#9a4418",
     image: "/images/initiatives/awards/15cff78094ca36f796696c92fca9cc03.jpg",
+  },
+  {
+    title: "Travels",
+    href: "/initiatives/travels/",
+    description: "Stories and snapshots from places I have been.",
+    tone: "initiatives",
+    bg: "#8b3d1a",
+    image: "/images/initiatives/travels/8f3c2a1b9e4d6f708887-cover.jpg",
   },
 ];
 

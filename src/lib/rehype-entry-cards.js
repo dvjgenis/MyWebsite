@@ -751,6 +751,22 @@ function blockHasProse(node) {
   );
 }
 
+const WORK_SECTION_HEADINGS = new Set([
+  "overview",
+  "key responsibilities & achievements",
+  "skills developed",
+  "impact & reflection",
+]);
+
+/** Work experience cards use repeated h3 section labels; long-form essays use free-form h3 subheads. */
+function isWorkStyleBlocks(rest) {
+  const h3s = rest
+    .filter((n) => isElement(n, "h3"))
+    .map((n) => nodeText(n).trim().toLowerCase());
+  if (h3s.length < 2) return false;
+  return h3s.every((title) => WORK_SECTION_HEADINGS.has(title));
+}
+
 function markBlockItem(node) {
   if (isVideoNode(node)) {
     return el("div", { className: ["block-embed"] }, [node]);
@@ -912,7 +928,7 @@ function sectionCard(section, people, { useCarousel = false, pageSlug = "" } = {
     layout = "gallery";
   } else if (
     longEssay &&
-    !blocked &&
+    (!blocked || !isWorkStyleBlocks(rest)) &&
     (images.length + videos.length > 0 || rest.some((n) => isMediaNode(n) || isYoutube(n)))
   ) {
     const prose = [];

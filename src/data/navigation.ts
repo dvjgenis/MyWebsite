@@ -56,24 +56,30 @@ export const navigation: NavItem[] = [
         children: [{ label: "CITL Student Quick Takes series", href: "/initiatives/speaking/citl/" }],
       },
       {
-        label: "Leadership Certification",
-        href: "/initiatives/leadership/",
-        children: [
-          { label: "Personal Development Plan", href: "/initiatives/leadership/personal-development-plan/" },
-          { label: "Trainings & Workshops", href: "/initiatives/leadership/trainings/" },
-          { label: "I-Programs", href: "/initiatives/leadership/i-programs/" },
-          { label: "Team Experiences", href: "/initiatives/leadership/team-experiences/" },
-          { label: "Leadership Coursework", href: "/initiatives/leadership/coursework/" },
-          { label: "Leadership Certificate Coach", href: "/initiatives/leadership/certificate-coach/" },
-          { label: "Cumulative Reflection", href: "/initiatives/leadership/cumulative-reflection/" },
-        ],
-      },
-      {
         label: "Study Abroad",
         href: "/initiatives/abroad/",
         children: [{ label: "Abroad Resources", href: "/initiatives/abroad/resources/" }],
       },
-      { label: "Scholarships & Awards", href: "/initiatives/awards/" },
+      {
+        label: "Awards & Certifications",
+        href: "/initiatives/awards/",
+        children: [
+          {
+            label: "Leadership Certification",
+            href: "/initiatives/leadership/",
+            children: [
+              { label: "Personal Development Plan", href: "/initiatives/leadership/personal-development-plan/" },
+              { label: "Trainings & Workshops", href: "/initiatives/leadership/trainings/" },
+              { label: "I-Programs", href: "/initiatives/leadership/i-programs/" },
+              { label: "Team Experiences", href: "/initiatives/leadership/team-experiences/" },
+              { label: "Leadership Coursework", href: "/initiatives/leadership/coursework/" },
+              { label: "Leadership Certificate Coach", href: "/initiatives/leadership/certificate-coach/" },
+              { label: "Cumulative Reflection", href: "/initiatives/leadership/cumulative-reflection/" },
+            ],
+          },
+        ],
+      },
+      { label: "Travels", href: "/initiatives/travels/" },
     ],
   },
   { label: "Contact", href: "/contact/" },
@@ -119,19 +125,19 @@ export const initiativesHubCards = [
     desc: "Demonstrating proficiency in public speaking and opportunities",
   },
   {
-    slug: "initiatives/leadership",
-    title: "Leadership Certification",
-    desc: "Outlining the milestones on my path to certified leadership",
-  },
-  {
     slug: "initiatives/abroad",
     title: "Study Abroad",
     desc: "Putting a Spotlight on My Learning Venture in Granada, Spain",
   },
   {
     slug: "initiatives/awards",
-    title: "Scholarships & Awards",
-    desc: "Exhibiting my most recent recognitions, awards, and scholarships",
+    title: "Awards & Certifications",
+    desc: "Recognitions, awards, scholarships, and certifications earned along the way",
+  },
+  {
+    slug: "initiatives/travels",
+    title: "Travels",
+    desc: "Stories and snapshots from places I have been",
   },
 ];
 
@@ -192,7 +198,8 @@ export const allRoutes: { title: string; href: string; section?: string }[] = [
   { title: "Volunteerism & Projects", href: "/initiatives/projects/", section: "Initiatives" },
   { title: "Speaking Engagements", href: "/initiatives/speaking/", section: "Initiatives" },
   { title: "CITL Student Quick Takes series", href: "/initiatives/speaking/citl/", section: "Speaking" },
-  { title: "Leadership Certification", href: "/initiatives/leadership/", section: "Initiatives" },
+  { title: "Travels", href: "/initiatives/travels/", section: "Initiatives" },
+  { title: "Leadership Certification", href: "/initiatives/leadership/", section: "Awards & Certifications" },
   {
     title: "Personal Development Plan",
     href: "/initiatives/leadership/personal-development-plan/",
@@ -214,7 +221,7 @@ export const allRoutes: { title: string; href: string; section?: string }[] = [
   },
   { title: "Study Abroad", href: "/initiatives/abroad/", section: "Initiatives" },
   { title: "Abroad Resources", href: "/initiatives/abroad/resources/", section: "Study Abroad" },
-  { title: "Scholarships & Awards", href: "/initiatives/awards/", section: "Initiatives" },
+  { title: "Awards & Certifications", href: "/initiatives/awards/", section: "Initiatives" },
   { title: "Contact", href: "/contact/" },
 ];
 

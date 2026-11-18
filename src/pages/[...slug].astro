@@ -40,7 +40,12 @@ const parentMap: Record<string, { label: string; href: string; section: string }
     href: "/initiatives/speaking/",
     section: "CITL Student Quick Takes series",
   },
-  "initiatives/leadership": { label: "Initiatives", href: "/initiatives/", section: "Leadership Certification" },
+  "initiatives/leadership": {
+    label: "Awards & Certifications",
+    href: "/initiatives/awards/",
+    section: "Leadership Certification",
+  },
+  "initiatives/travels": { label: "Initiatives", href: "/initiatives/", section: "Travels" },
   "initiatives/leadership/personal-development-plan": {
     label: "Leadership Certification",
     href: "/initiatives/leadership/",
@@ -78,7 +83,7 @@ const parentMap: Record<string, { label: string; href: string; section: string }
   },
   "initiatives/abroad": { label: "Initiatives", href: "/initiatives/", section: "Study Abroad" },
   "initiatives/abroad/resources": { label: "Study Abroad", href: "/initiatives/abroad/", section: "Abroad Resources" },
-  "initiatives/awards": { label: "Initiatives", href: "/initiatives/", section: "Scholarships & Awards" },
+  "initiatives/awards": { label: "Initiatives", href: "/initiatives/", section: "Awards & Certifications" },
 };
 
 const result = await getPageBySlug(pageSlug);
