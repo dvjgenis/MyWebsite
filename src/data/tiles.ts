@@ -113,7 +113,7 @@ export const initiativesTiles: ColorTileData[] = [
     description: "Stories and snapshots from places I have been.",
     tone: "initiatives",
     bg: "#8b3d1a",
-    image: "/images/initiatives/travels/8f3c2a1b9e4d6f708887-cover.jpg",
+    image: "/images/initiatives/travels/img-2202-desert-sunset.jpg",
   },
 ];
 
